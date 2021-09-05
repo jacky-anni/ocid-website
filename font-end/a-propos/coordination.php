@@ -27,7 +27,7 @@
 			<!-- End-->
 			<div class="row">
             <?php foreach (Query::liste_not_egale () as $utilisateur): ?>
-				<div class="col-md-3 col-sm-6 c-margin-b-30">
+				<div class="col-md-4 col-sm-6 c-margin-b-30">
 					<div class="c-content-person-1 c-option-2">
 			  			<div class="c-caption c-content-overlay">
 			  				<div class="c-overlay-wrapper">
