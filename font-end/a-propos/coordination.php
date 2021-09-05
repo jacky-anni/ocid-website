@@ -19,11 +19,6 @@
 	<div class="container">
 		<!-- Begin: Testimonals 1 component -->
 		<div class="c-content-team-1-slider" data-slider="owl" data-items="3">
-			<!-- Begin: Title 1 component -->
-			<div class="c-content-title-1">
-				<h3 class="c-center c-font-uppercase c-font-bold">Our Development Team</h3>
-				<div class="c-line-center c-theme-bg"></div>
-			</div>
 			<!-- End-->
 			<div class="row">
             <?php foreach (Query::liste_not_egale () as $utilisateur): ?>
