@@ -1,7 +1,4 @@
 <?php
-
-//upload.class
-
 session_start();
 require'../class/Fonctions.php';
 require'../class/Query.php';

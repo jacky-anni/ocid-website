@@ -1,5 +1,4 @@
 <?php include('includes/head.php');?>
-
 <!DOCTYPE html>
 <html>
 <body class="hold-transition skin-blue fixed sidebar-mini">

@@ -1,7 +1,5 @@
-<?php
-  include('includes/head.php');
-  require 'class/Article.php';
-?>
+<?php include('includes/head.php'); ?>
+<?php require 'class/Article.php'; ?>
 <html>
 <body class="hold-transition skin-blue fixed sidebar-mini">
 <div class="wrapper">

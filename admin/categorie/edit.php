@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="<?= $categorie->id;?>" data-backdrop="static" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">

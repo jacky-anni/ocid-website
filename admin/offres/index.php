@@ -1,5 +1,3 @@
-
-<html>
 <?php include('includes/head.php'); ?>
 <body class="hold-transition skin-blue fixed sidebar-mini">
 <div class="wrapper">

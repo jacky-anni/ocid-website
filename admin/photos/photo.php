@@ -1,5 +1,3 @@
-
-
 <?php
   require '../class/bdd/bdd.php';
   require '../class/Fonctions.php';
