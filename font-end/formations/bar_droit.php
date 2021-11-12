@@ -57,19 +57,6 @@
 		</div>
 	</div>
 
-
-	<div class="col-md-12"  style="margin-bottom: -30px;">
-		<div class="c-content-feature-2 c-option-2 c-theme-bg-parent-hover">
-			<div class="c-icon-wrapper" style="border: solid white 1px;">
-				<div><a href="<?= $link_admin ?>/dist/document/Esquisse du plan de formation en  Socialisation politique et Debat Argumenté.pdf" target="_blank"><img src="<?= $link ?>/assets/base/img/icon/icons8_PDF_50px_2.png" style="width: 50px;"></a></div>
-			</div>
-			<a href="<?= $link_admin ?>/dist/document/Esquisse du plan de formation en  Socialisation politique et Debat Argumenté.pdf" target="_blank">
-				<h3 style="font-weight: bold;">Syllabus</h3>
-				<p style="font-size: 15px;"> <button class="btn btn-primary"> <i class="fa fa-download"></i> Télécharger</button> </p>
-			</a>
-		</div>
-	</div>
-
  <?php if(!isset($_SESSION['id_user']) AND $url[0]!='inscription'){ ?>
 	<div class="col-md-12">
 		<div class="c-content-feature-2 c-option-2 c-theme-bg-parent-hover">

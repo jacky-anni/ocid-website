@@ -1,4 +1,3 @@
-<?php include('class/Quiz.php'); ?>
 <div class="modal fade" id="quiz" data-backdrop="static" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">

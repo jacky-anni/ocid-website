@@ -1,5 +1,6 @@
 <?php include('font-end/layout/head.php'); ?>
 <?php include('admin/class/Participant.php'); ?>
+<?php include('admin/class/Participant_pol.php'); ?>
 <?php include('admin/class/Formation.php'); ?>
 <!DOCTYPE html>
 <html lang="en"  >
@@ -20,48 +21,34 @@
 <div class="container">
 	<?php include('admin/includes/flash.php'); ?>
 	<div class="c-layout-sidebar-content ">
-		<div class="row c-margin-t-25">
-			<div class="c-content-box c-size-md">
-	<div class="container">
-		<div class="c-content-bar-1 c-opt-1">
-			<h3 class="c-font-uppercase c-font-bold">Cours de Socialisation Politique et Débat Argumenté</h3>
-			<p class="alert alert-danger" style="font-weight: bold;">
-				L'inscription est terminée
-			</p>
-			<!-- <a href="<?= $link_menu ?>/cours/<?= $formation->id ?>" class="btn btn-md c-btn-square c-theme-btn c-btn-uppercase c-btn-bold">Suivre le cours</a> -->
-		</div>
-	</div> 
-</div><!-- END: CONTENT/BARS/BAR-1 -->
-
-
-
-			<?php
-				// if (isset($url[1]) AND isset($url[2]) AND isset($url[3])) {
-
-				// 	$formation=
-					
-				// 	Participant::activation($url[1],$url[2]);
-				// 	// formation suivie
-				// 	echo "<script>window.location ='$link_menu/inscription/$formation';</script>";
-				//     Formation::suivie($url[3],$url[2]);
-				// }
-
-
-			 ?>
-
-			 <?php if (isset($url[1]) AND !isset($url[2]) AND !isset($url[3])):?>
+		 <div class="row c-margin-t-25">
+			 <?php if (isset($url[1]) AND !isset($url[2]) AND !isset($url[3])): ?>
 				 <div class="col-md-12">
 				 	<div class="" data-height="height">
 				 		<?php $user=Query::affiche('participant',$url[1],'id'); ?>
 				 		<center>
-				 			<div class="c-content-line-icon c-theme c-icon-comment"></div>
+				 			<div class="c-content-line-icon c-theme c-icon-comment" style="width: 40px; margin-bottom: -15px;"><img src="<?= $link ?>/assets/base/img/icon/icons8_Send_Email_50px.png"></div>
 				 			<h3 class=" c-font-bold">Inscription réussie</h3>
-							<p>Un email de confirmation envoyé sur <b><?= $user->email ?></b></p>
+							<p>Mail d'activation envoyé sur <b><?= $user->email ?></b></p>
 				 		</center>
-						
 					</div>
+					<?php if(!isset($_GET['action'])): ?>
+					<center>
+					<p><small>
+					Une fois que vous aurez fini de valider votre compte, veuillez appuyer sur l'onglet télécharger. Puis,  imprimez le fichier, signez et faites signer par la personne responsable qui vous recommande. Enfin, connectez sur votre compte, numérisez ("scannez") le Formulaire signé et téléversez-le ("upload") sur la plateforme pour valider votre inscription. 
+					Sachez que, sans cette validation, vous ne pourrez pas accéder aux cours.
+					</small> </p>
+					<a href="<?= $link_menu ?>/upload&user=<?= $user->id ?>" target="_blank"><i class="fa fa-download"></i> Télécharger le formulaire</a>
+					
+					</center>
+					<?php endif ?>
+					
 				 </div>
 			<?php endif ?>
+
+			<?php if (isset($url[1]) AND isset($url[2]) AND isset($url[3]) AND isset($url[4])): ?>
+				<?php Participant_pol::activation($url[4],$url[3],$url[1],$url[2]); ?>
+			<?php endif; ?>
 		</div><!-- END: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
 
 	<!-- END: PAGE CONTENT -->

@@ -27,7 +27,6 @@
 		$video= null;
 		$audio= null;
 	}
-
 	
 ?>
 <title><?= $module->titre ?> - <?= $formation->titre ?></title>
@@ -96,8 +95,6 @@
 						<div class="tab-pane active" id="tab_1_1_content">
 							<table class="table table-striped">
 								<tbody></br>
-
-									
 									<?php $doc= Query::count_prepare('document',$module->id,'reference'); ?>
 									<?php $video_count= Query::count_prepare('video',$module->id,'reference'); ?>
 									<?php $audio_count= Query::count_prepare('video',$module->id,'reference'); ?>
@@ -133,7 +130,7 @@
 									<?php endif; ?>
 
 									<?php if($quiz_count>=1): ?>
-										<?php foreach(Query::liste_prepare ('quiz',$module->id,'id_module') as $quiz): ?>
+										<?php foreach(Quiz::select_quiz($module->id) as $quiz): ?>
 											<?php
 												// verifier si on passe le test
 												$count1=Quiz::verif_module($module->id,$_SESSION['id_user']);

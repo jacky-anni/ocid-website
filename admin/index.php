@@ -77,12 +77,16 @@ case $page==='information-de-base':
 break;
 
 
-
   //============================================================================
 
 // participant 
 case $page==='participants':
-     require 'formation/participant/index.php';
+     require 'formation/participant/participation_inscrits.php';
+break;
+
+// participant 
+case $page==='participants_':
+     require 'formation/participant/participants.php';
 break;
 
 
@@ -92,15 +96,10 @@ case $page==='statistique-formation':
 break;
 
   //============================================================================
-
-  //============================================================================
-
 // liste des intervenants
   case $page==='intervenants':
      require 'formation/intervenant/index.php';
   break;
-
-
 
   //============================================================================
 
@@ -126,10 +125,6 @@ case $page==='modifier-cette-question':
 break;
 
   //============================================================================
-
-
-  //============================================================================
-
 // une attestation imprimer
 case $page==='attestation':
      require 'formation/dossier/attestation.php';
@@ -302,15 +297,10 @@ break;
 case $page==="modifier-cet-offre":
      require 'offres/edit.php';
 break;
-
-
-
-
-
-//   // erreur 404
-//   default:
-//     require 'error/404.php';
-//   break;
+  // erreur 404
+  default:
+    require 'error/404.php';
+  break;
 }
 
 

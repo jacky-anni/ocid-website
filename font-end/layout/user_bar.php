@@ -23,7 +23,7 @@
 		<ul class="c-content-recent-posts-1">
 			<li>
 				<div class="c-post">
-					<a href="<?= $link_menu ?>/profile" class="c-title" style="font-size: 15px;"> <i class="fa fa-user"></i> Mon profile</a>
+					<a href="<?= $link_menu ?>/tableau-de-bord" class="c-title" style="font-size: 15px;"> <i class="fa fa-user"></i> Tableau de bord</a>
 				</div>
 			</li>
 
@@ -35,7 +35,7 @@
 
 			<li>
 				<div class="c-post">
-					<a href="<?= $link_menu ?>/dossiers/" class="c-title" style="font-size: 15px;"> <i class="fa fa-folder"></i> Mes dossiers</a>
+					<a href="" class="c-title" style="font-size: 15px;"> <i class="fa fa-folder"></i> Mes dossiers</a>
 				</div>
 			</li>
 

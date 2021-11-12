@@ -65,59 +65,75 @@
 
 		public function ajouter($formation_suivie)
 		{
-			require './font-end/layout/config.php';
-			// verifier tous les champs
-			if(!empty($this->nom) AND !empty($this->prenom) AND !empty($this->lieu_naissance) AND !empty($this->departement) AND !empty($this->commune) AND !empty($this->niveau) AND!empty($this->email) AND !empty($this->whatsapp) AND !empty($this->condition) AND !empty($this->password) AND !empty($this->password_confirmation)){
+			// verifier si la formation existe
+			$formation = Query::affiche('formation',$formation_suivie,'id');
+
+			// si il existe 
+			if($formation){
+				require './font-end/layout/config.php';
+				// verifier tous les champs
+				if(!empty($this->nom) AND !empty($this->prenom) AND !empty($this->lieu_naissance) AND !empty($this->departement) AND !empty($this->commune) AND !empty($this->niveau) AND!empty($this->email) AND !empty($this->whatsapp) AND !empty($this->condition) AND !empty($this->password) AND !empty($this->password_confirmation)){
 
 
-				//valideer les choix
-				if ($this->niveau=='Universitaire') {
-					$this->universite=$this->universite;
-					$this->domaine=$this->domaine;
+					//valideer les choix
+					if ($this->niveau=='Universitaire') {
+						$this->universite=$this->universite;
+						$this->domaine=$this->domaine;
+					}else{
+						$this->universite='';
+						$this->domaine='';
+					}
+
+
+					if($this->whatsapp=='Oui'){
+						$this->numero=$this->numero;
+					}else{
+						$this->numero='';
+					}
+
+					// Valider l'email
+					  if(filter_var($this->email, FILTER_VALIDATE_EMAIL)){
+					  	// valider password
+					    	if($this->password==$this->password_confirmation){
+					    		// // verifier si l'email existe
+					    		$count = Query::count_prepare('participant',$this->email,'email');
+					    		// $id=rand(100,999).$count.rand(100,999);
+					    		if (!$count) {
+
+					    			$count_total = Query::count_query('participant');
+					    			$id = $count_total+1;
+
+					    			$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,lieu_naissance,departement,commune,niveau,universite,domaine_etude,organisation,parti,occupation,email,telephone,numero_what,signature,photo,mdp,active,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
+					    		$req->execute(array($id, $this->nom,$this->prenom,$this->lieu_naissance,$this->departement,$this->commune,$this->niveau,$this->universite,$this->domaine,$this->organisation,$this->parti,$this->occupation,$this->email,$this->whatsapp,$this->numero,$this->condition,'user.png',sha1($this->password),0));
+					    			$token=sha1($this->email).sha1($this->password);
+
+					    			$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+					    			$req1->execute(array($id,$formation->id));
+					    			
+					    			// envoie mail
+					    			self::mail($id,$formation->id);
+					    			echo "<script>window.location ='$link_menu/activation/$id';</script>";
+					    			// echo "<script>window.location ='$link_menu/activation/$id';</script>";
+
+					    		}else{
+					    			// Fonctions::set_flash('Ce compte existe déjà, connectez-vous','success');
+					    			echo "<p class='alert alert-danger'>Ce compte existe déjà.</p>";
+									// echo "<scrip>twindow.location ='$link_menu/connexion';</script>";
+					    		}
+
+							}else{
+								echo "<p class='alert alert-danger'>Les mots de passe ne sont pas disponibles.</p>";
+							}
+					  }else{
+					  	echo "<p class='alert alert-danger'>L'adresse e-mail n'est pas valide</p>";
+					  }
+
 				}else{
-					$this->universite='';
-					$this->domaine='';
+					echo "<p class='alert alert-danger'>Seulement le champs (Etes – vous et occupation) qui doivent être vide</p>";
 				}
-
-
-				if($this->whatsapp=='Oui'){
-					$this->numero=$this->numero;
-				}else{
-					$this->numero='';
-				}
-
-				// Valider l'email
-				  if(filter_var($this->email, FILTER_VALIDATE_EMAIL)){
-				  	// valider password
-				    	if($this->password==$this->password_confirmation){
-				    		// // verifier si l'email existe
-				    		$count = Query::count_prepare('participant',$this->email,'email');
-				    		$id=rand(100,999).$count.rand(100,999);
-				    		if (!$count) {
-				    			$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,lieu_naissance,departement,commune,niveau,universite,domaine_etude,organisation,parti,occupation,email,telephone,numero_what,signature,photo,mdp,active,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
-				    		$req->execute(array($id,$this->nom,$this->prenom,$this->lieu_naissance,$this->departement,$this->commune,$this->niveau,$this->universite,$this->domaine,$this->organisation,$this->parti,$this->occupation,$this->email,$this->whatsapp,$this->numero,$this->condition,'user.png',sha1($this->password),0));
-				    			$token=sha1($this->email).sha1($this->password);
-				    			
-				    			// envoie mail
-				    			self::mail($id,$formation_suivie);
-				    			echo "<script>window.location ='$link_menu/activation/$id';</script>";
-				    			// echo "<script>window.location ='$link_menu/activation/$id';</script>";
-
-				    		}else{
-				    			// Fonctions::set_flash('Ce compte existe déjà, connectez-vous','success');
-				    			echo "<p class='alert alert-danger'>Ce compte existe déjà.</p>";
-								// echo "<script>window.location ='$link_menu/connexion';</script>";
-				    		}
-
-						}else{
-							echo "<p class='alert alert-danger'>Les mots de passe ne sont pas disponibles.</p>";
-						}
-				  }else{
-				  	echo "<p class='alert alert-danger'>L'adresse e-mail n'est pas valide</p>";
-				  }
 
 			}else{
-				echo "<p class='alert alert-danger'>Seulement le champs (Etes – vous et occupation) qui doivent être vide</p>";
+				echo "<script>window.location ='$link_menu/formations';</script>";
 			}
 		}
 
@@ -186,17 +202,12 @@
 				                                <tr>
 				                                    <td bgcolor='#ffffff' align='center' style='padding: 20px 30px 60px 30px;'>
 
-
-
-
 				                                        <table border='0' cellspacing='0' cellpadding='0'>
 				                                            <tr>
-				                                                <td align='center' style='border-radius: 3px;' bgcolor='#FFA73B'><a href='$org->site_web/$link_menu/activation/$token/$id/$formation_suivie' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; background-color: #26a8b4; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #26a8b4; display: inline-block;'>Confirmer votre compte</a></td>
+				                                                <td align='center' style='border-radius: 3px;' bgcolor='#FFA73B'><a href='$org->site_web/$link_menu/activation/$token/$id/$formation_suivie' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; background-color: #26a8b4; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #26a8b4; display: inline-block;'>Confirmer votre compte</a>
+				                                                </td>
 				                                            </tr>
 				                                        </table>
-
-
-
 				                                    </td>
 				                                </tr>
 				                            </table>
@@ -248,24 +259,18 @@
 					// activer le compte
 					$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET active=? WHERE id=?");
 					$requette->execute(array(1,$user->id));
-
-					$_SESSION['id_user']=$user->id;
-					// selectionner nom
-					$_SESSION['nom']=$user->nom;
-					// selectionner prenom
-					$_SESSION['prenom']=$user->prenom;
-					// // selectionner email
-					$_SESSION['email']=$user->email;
-					Fonctions::set_flash('Compte verifié','success');
-					echo "<script>window.location ='$link_menu/tableau-de-bord';</script>";
+					Fonctions::set_flash('Compte validé avec suucès, connectez-vous','success');
+					echo "<script>window.location ='$link_menu/connexion';</script>";
 					// header("location:$link_menu/tableau-de-bord");
 					
 				}else{
-					// sinon 
-					echo "Li pa bon nn";
+					// sinon
+					Fonctions::set_flash('Compte validé avec suucès, connectez-vous','success');
+					echo "<script>window.location ='$link_menu/connexion';</script>";
 				}
 			}else{
-				echo "";
+				Fonctions::set_flash("Ce compte n'existe pas ",'success');
+				echo "<script>window.location ='$link_menu/connexion';</script>";
 			}
 		}
 
@@ -638,6 +643,92 @@
 				echo "<script>window.location ='$url';</script>";
 			}
 			
+		}
+
+
+		// valider participant par admin
+		public static function valider_or_no($participant,$formation,$statut){
+			// rechercher le participant 
+			$participant = Query::affiche('participant',$participant,'id');
+			// rechercher la formation
+			$formation = Query::affiche('formation',$formation,'id');
+
+			if($participant){
+				if ($formation) {
+					$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET active=? WHERE id=?");
+					$requette->execute(array($statut,$participant->id));
+
+					// verifier si on a deja suie ce courd
+
+					$requette1=class_bdd::connexion_bdd()->prepare("SELECT * FROM formation_suivie WHERE id_participant=? AND id_formation=?");
+					$requette1->execute(array($participant->id,$formation->id));
+					$count = $requette1->rowCount();
+
+					if($count==0){
+						$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO formation_suivie (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+					 	$req1->execute(array($participant->id,$formation->id));
+					}
+
+					$url=$_SERVER['REQUEST_URI'];
+					$Msg = "<head>
+						<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+						<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'>
+						<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+						<meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+						</head>
+						<body>
+							<div style='margin: 15px;'
+								<br>
+								if($statut==1){
+									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
+									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cour de <b>$formation->titre</b> à été validée avec succès </p> <br>
+									<a href='www.ocidhaiti.org/connexion''
+										<button class='btn btn-primary btn-xs'> Commencer à apprendre </button>
+									</a>
+								}else{
+									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
+									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le regret pour vous anoncer que votre inscription au cour de <b>$formation->titre</b> à été réfusée </p> <br>
+								}
+								
+								 </br><br>
+								<i>Equipe de l'OCID</i>
+							</div>
+						</body>
+						</html>";
+					if($statut==1){
+						Fonctions::set_flash("$participant->prenom"." a été validé avec succès",'success');
+					}else{
+						Fonctions::set_flash("$participant->prenom"." a été réfusé avec succès",'success');
+					}
+					//==========================================================================================
+					// envoyer l'email 
+					// sujet de l'email
+					$Subject = "Validation de compte";
+					// outil de configuration
+					$headers  = 'MIME-Version: 1.0' . "\r\n";
+			        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+			        // le message
+					// envoyer email
+					$SendMessage = mail($participant->email,$Subject,$Msg,$headers);
+				    if ($SendMessage==true) {
+				    	$url=$_SERVER['REQUEST_URI'];
+				    	echo "<script>window.location ='$url';</script>";
+				    }else
+				    {
+				    	echo "";
+				    }
+
+				    $url=$_SERVER['REQUEST_URI'];
+					echo "<script>window.location ='$url';</script>";
+				}else{
+					Fonctions::set_flash("cette formation n'existe pas",'danger');
+					echo "<script>window.location ='?page=formations';</script>";
+				}
+			}else{
+				$url=$_SERVER['REQUEST_URI'];
+				Fonctions::set_flash("Participant n'existe pas",'danger');
+				echo "<script>window.location ='$url';</script>";
+			}
 		}
 
 	}

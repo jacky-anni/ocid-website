@@ -25,14 +25,20 @@ class Query
 
 
 	// lister
-		public static function liste ($table, $limit='')
+		public static function liste ($table, $limit='', $order='')
 		{
+			if(empty($order)){
+				$order ="ASC";
+			}else{
+				$order ="DESC";
+			}
+
 			if (empty($limit)) {
-				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY date_post DESC");
+				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY date_post $order");
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}else{
-				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY date_post DESC LIMIT $limit");
+				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY date_post $order LIMIT $limit");
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}
@@ -46,15 +52,21 @@ class Query
 		}
 
 		// liste prepare
-		public static function liste_prepare($table,$key,$identifiant,$limit='')
+		public static function liste_prepare($table,$key,$identifiant,$limit='',$order='')
 		{
+			if(empty($order)){
+				$order ="ASC";
+			}else{
+				$order ="DESC";
+			}
+
 			if (empty($limit)) {
 				$req=class_bdd::connexion_bdd()->prepare("SELECT  * FROM $table WHERE $identifiant=? ORDER BY date_post DESC");
 				$req->execute(array($key));
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}else{
-				$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM $table WHERE $identifiant=? ORDER BY date_post DESC LIMIT $limit");
+				$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM $table WHERE $identifiant=? ORDER BY date_post $order LIMIT $limit");
 				$req->execute(array($key));
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;

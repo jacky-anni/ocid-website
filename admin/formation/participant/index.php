@@ -58,12 +58,13 @@
                 <tr>
                   <th>Nom</th>
                   <th>Prénom</th>
-                  <th>Lieu</th>
+                  <th>Lieu de naissaince</th>
                   <th>Département</th>
                   <th>Commune</th>
                   <th>Niveau</th>
                   <th>Email</th>
                   <th>Numero</th>
+                  <th width="15%"></th>
                 </tr>
               </thead>
               <tbody>
@@ -78,6 +79,11 @@
                 <td><?php if (!empty($participant->niveau)) {echo $participant->niveau;} ?></td>
                 <td><?php if (!empty($participant->email)) {echo $participant->email;} ?></td>
                 <td><?php if (!empty($participant->numero_what)) {echo $participant->numero_what;} ?></td>
+                <td width="15%">
+                  <a href=""> <i class="fa fa-edit btn btn-primary btn-xs"></i></a>
+                  <a href=""> <i class="fa fa-trash btn btn-danger btn-xs"></i></a>
+                  <a href=""> <i class="fa fa-lock btn btn-success btn-xs"></i></a>
+                </td>
 
               
               </tr>

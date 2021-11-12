@@ -30,7 +30,7 @@
 <div class="c-content-box c-size-md">
 	<div class="container">
 		<div class="c-content-bar-1 c-opt-1">
-			<h3 class="c-font-uppercase c-font-bold">Cours de <?= $formation->titre ?></h3>
+			<h3 class="c-font-uppercase c-font-bold"><?= $formation->titre ?></h3>
 			<p class="alert alert-danger" style="font-weight: bold;">
 				L'inscription est terminée
 			</p>

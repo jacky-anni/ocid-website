@@ -29,13 +29,16 @@
     <section class="content container-fluid">
        <?php
         $formation =Query::affiche('formation',$_GET['formations'],'id');
+          if(!$formation){
+            header("Location:?page=formations");
+          }
           if (isset($_POST['modifier'])) {
             extract($_POST);
             if(empty($certificat))
             {
               $certificat='Non';
             }
-            $formation= new Formation($titre,$description,$date_debut,$date_fin,$presentation,$intervenant,$certificat);
+            $formation= new Formation($titre,$description,$date_debut,$date_fin,$presentation,$type,$certificat);
             $formation->modifier();
 
           }
@@ -84,10 +87,15 @@
                         </div>
 
                        <div class="col-md-12"></br>
-                          <label>Liste des intervenants</label>
-                        <div class="form-group">
-                          <input type="text" class="form-control" maxlength="230" value="<?= $formation->intervenant ?>" data-parsley-maxlength="230" name="intervenant" placeholder="Jacky Anizaire, Doudou Abdonel, Rico Cheristin" required="">
-                        </div>
+                         <div class="form-group">
+                            <label>Type de la formation</label>
+                            <select name="type" required="" class="form-control">
+                              <option value="" style="color: silver;">Choisir un type</option>
+                              <option value="1" <?php if($formation->type==1){echo "selected";} ?>>Public</option>
+
+                              <option value="2" <?php if($formation->type==2){echo "selected";} ?>>Public & validé par le staff</option>
+                            </select>
+                          </div>
 
                         <div class="col-md-12">
                           <div class="checkbox">

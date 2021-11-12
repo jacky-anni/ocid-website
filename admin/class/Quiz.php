@@ -192,7 +192,6 @@
 			$requette->execute(array($id_user,$id_module,$question,$choix,$reponse));
 			
 		}
-
 		
 		public static function verif_module($id_module,$id_user){
 
@@ -272,6 +271,41 @@
 			return $count = $req->rowCount();
 		}
 
+		public static function select_quiz($id_module){
+			$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM quiz WHERE etat=? AND id_module=?");
+			$req->execute(array(1,$id_module));
+			$data=$req->fetchAll(PDO::FETCH_OBJ);
+			return $data;
+		}
+
+		public static function statut($statut,$id_module){
+
+			$id=$_GET['id'];
+			$module=$_GET['module'];
+			$formations=Query::affiche('formation',$id,'id');
+			$modules=Query::affiche('module_formation',$module,'id');
+
+			if($formations AND $modules){
+				$req=class_bdd::connexion_bdd()->prepare("UPDATE quiz SET etat=? WHERE id_module=?");
+				$req->execute(array($statut,$id_module));
+				Fonctions::set_flash("Statut changé avec succès",'success');
+				header("Location:?page=module&id=$formations->id&module=$modules->id");
+			}else{
+				Fonctions::set_flash("Un problème s'est produit, Réesayer",'danger');
+				header("Location:?page=formations");
+			}
+
+			// ?page=module&id=18041&module=19081
+
+
+			
+
+			
+
+			
+		}
+
 	}
+
 
 ?>

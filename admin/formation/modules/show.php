@@ -32,6 +32,10 @@
                   Fonctions::set_flash("La formation ou le module n'existe pas ",'danger');
                   echo "<script>window.location ='?page=formation';</script>";
                  }
+
+                 if(isset($_GET['statut'])){
+                    Quiz::statut($_GET['statut'],$module->id);
+                 }
               ?>
               <div class="info-box bg-green">
                   <span class="info-box-icon" style="padding: 20px;"><img src="dist/img/icon/icons8_Training_64px.png"></span>
@@ -196,8 +200,7 @@
                                                    }
                                                  ?>
                                                 </span>
-
-
+                                                
                                                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#<?= $video->id ?>2538"><b> <i class="fa fa-eye"></i>  Voir</b></button>
 
                                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#<?= $video->id;?>"><b> <i class="fa fa-edit"></i>  Modifier</b></button>
@@ -282,9 +285,17 @@
                                                    ?>
                                                   </span>
 
-                                                    <a href="?page=quiz&id=<?= $formation->id ?>&module=<?= $module->id ?>&quiz=<?= $quiz->id ?>"  class="btn btn-primary btn-xs"><b> <i class="fa fa-edit"></i>  Ajouter des questions</b></a>
+                                                    <a href=""  class="btn btn-primary btn-xs"><b> <i class="fa fa-edit"></i>  Ajouter des questions</b></a>
 
-                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?= $quiz->id ?>98"><b> <i class="fa fa-edit"></i>  Modifier</b></button>
+                                                    <?php if ($quiz->etat==1): ?>
+                                                    <a href="<?php echo $_SERVER['REQUEST_URI']."&statut=0"; ?>" class="btn btn-warning btn-round btn-sm btn-xs"> <i class="fa fa-circle"></i>  Mettre privé</a>
+                                                    <?php endif ?>
+
+                                                     <?php if ($quiz->etat==0): ?>
+                                                    <a href="<?php echo $_SERVER['REQUEST_URI']."&statut=1"; ?>" class="btn btn-info btn-round btn-sm btn-xs"> <i class="fa fa-circle-o"></i> Mettre public</a>
+                                                    <?php endif ?>
+
+                                                     <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#<?= $quiz->id ?>98"><b> <i class="fa fa-edit"></i>  Modifier</b></button>
 
                                                      <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#<?= $quiz->id ?>200"><b> <i class="fa fa-edit"></i>  Supprimer</b></button>
                                               </div>

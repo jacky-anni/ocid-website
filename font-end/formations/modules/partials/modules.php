@@ -35,10 +35,6 @@
 						dy">
 							<div class="c-boldy">
 								<div class="col-md-1k2">
-<!-- 									<p style="font-size: 14px;">
-										<?= $module->description ?></br>
-										<small><i class="fa fa-user"></i> <?= $module->intervenant ?> </small>
-									</p> -->
 									<table class="table table-striped">
 										<tbody>
 											<?php $doc= Query::count_prepare('document',$module->id,'reference'); ?>
@@ -48,9 +44,9 @@
 											<?php $quiz_count= Query::count_prepare('quiz',$module->id,'id_module'); ?>
 
 											
-												<tr>
-													<td style="background-color: #25a8b4; color: white;"><?= $module->description ?></br><small style="color: yellow;"> <i class="fa fa-user"></i> <b><i><?= $module->intervenant ?></i></b> </small></td>
-												</tr>
+											<tr>
+												<td style="background-color: #25a8b4; color: white;"><?= $module->description ?></br><small style="color: yellow;"> <i class="fa fa-user"></i> <b><i><?= $module->intervenant ?></i></b> </small></td>
+											</tr>
 
 											<?php if($video_count>=1): ?>
 												<?php foreach(Query::liste_prepare ('video',$module->id,'reference') as $video): ?>
@@ -79,7 +75,7 @@
 
 											
 											<?php if($quiz_count>=1): ?>
-												<?php foreach(Query::liste_prepare ('quiz',$module->id,'id_module') as $quiz): ?>
+												<?php foreach(Quiz::select_quiz($module->id) as $quiz): ?>
 													<?php
 														$count1=Quiz::verif_module($module->id,$_SESSION['id_user']);
 														if($count1==0){
@@ -91,7 +87,6 @@
 														$quiz_questionnaire="$link_menu/questionnaire-introductif/$url[1]";
 													?>
 													<tr>
-
 														<?php  if($quiz->nom=='Questionnaire introductif'){ ?>
 															<td style="<?php if($quiz_count){echo "background-color: #e9facb;";} ?>">
 

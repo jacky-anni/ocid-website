@@ -6,16 +6,16 @@
 		private $date_debut;
 		private $date_fin;
 		private $presentation;
-		private $intervenant;
+		private $type;
 		private $certificat;
 
-		function __construct($titre,$description,$date_debut,$date_fin,$presentation,$intervenant,$certificat)
+		function __construct($titre,$description,$date_debut,$date_fin,$presentation,$type,$certificat)
 		{
 			$titre=htmlspecialchars($titre);
 			$description=htmlspecialchars($description);
 			$date_debut=htmlspecialchars($date_debut);
 			$date_fin=htmlspecialchars($date_fin);
-			$intervenant=htmlspecialchars($intervenant);
+			$type=htmlspecialchars($type);
 			$certificat=htmlspecialchars($certificat);
 
 			$this->titre=$titre;
@@ -23,17 +23,16 @@
 			$this->date_debut=$date_debut;
 			$this->date_fin=$date_fin;
 			$this->presentation=$presentation;
-			$this->intervenant=$intervenant;
+			$this->type=$type;
 			$this->certificat=$certificat;
 
 		}
-
 
 		// ajouter formation
 		public function ajouter()
 		{
 
-			if (!empty($this->titre) AND !empty($this->date_debut)  AND !empty($this->description) AND !empty($this->date_fin) AND !empty($this->presentation) AND !empty($this->intervenant)) {
+			if (!empty($this->titre) AND !empty($this->date_debut)  AND !empty($this->description) AND !empty($this->date_fin) AND !empty($this->presentation) AND !empty($this->type)) {
 				// verifier l'existence
 				$formation=Query::affiche('formation',$this->titre,'titre');
 				if (!$formation) {
@@ -42,8 +41,8 @@
 						 $id1=$count+1;
 						 $id=rand(1000,1999).$id1;
 
-						$req=class_bdd::connexion_bdd()->prepare('INSERT INTO formation(id,titre,description,date_debut,date_fin,presentation,intervenant,certificat,posteur,etat,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,NOW())');
-						$req->execute(array($id,$this->titre,$this->description,$this->date_debut,$this->date_fin,$this->presentation,$this->intervenant,$this->certificat,$_SESSION['id'],'Hors ligne'));
+						$req=class_bdd::connexion_bdd()->prepare('INSERT INTO formation(id,titre,description,date_debut,date_fin,presentation,type,certificat,posteur,etat,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,NOW())');
+						$req->execute(array($id,$this->titre,$this->description,$this->date_debut,$this->date_fin,$this->presentation,$this->type,$this->certificat,$_SESSION['id'],'Hors ligne'));
 
 						Fonctions::set_flash('Formation enregistrée','success');
 						echo "<script>window.location ='?page=ajouter-formation'</script>";
@@ -58,17 +57,12 @@
 			}else{
 				echo "<p class='alert alert-danger'>Tous les champs doivent etre remplis.</p>";
 			}
-
-
-			
 			 
 		}
 
 
 		public static function statut()
 		{
-			$date_post=date('d-M-Y  h:i:a');
-
 			$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET etat=? WHERE id=?");
 			$requette->execute(array($_GET['statut'],$_GET['formations']));
 			Fonctions::set_flash('Changement de statut effectué avec succès','success');
@@ -78,6 +72,27 @@
 			$formations=Query::affiche('formation',$formations,'id');
 
 			header("Location:?page=formation&formations=$formations->id");
+		}
+
+		public static function inscription_test()
+		{
+			$formations=$_GET['formations'];
+			$formations=Query::affiche('formation',$formations,'id');
+			if($formations){
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET inscription=? WHERE id=?");
+				$requette->execute(array($_GET['inscription'],$_GET['formations']));
+				// selctionner la formation
+				if($formation->inscription==1){
+					Fonctions::set_flash("L'inscription ouverte",'success');
+					header("Location:?page=formation&formations=$formations->id");
+				}else{
+					Fonctions::set_flash("L'inscription fermée",'success');
+					header("Location:?page=formation&formations=$formations->id");
+				}
+			}else{
+				Fonctions::set_flash("Cette formation n'existe pas ",'danger');
+				header("Location:?page=formations");
+			}
 		}
 
 
@@ -109,9 +124,9 @@
 				$requette->execute(array($this->presentation,$_GET['formations']));
 			}
 
-			if (isset($this->intervenant)) {
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET intervenant=? WHERE id=?");
-				$requette->execute(array($this->intervenant,$_GET['formations']));
+			if (isset($this->type)) {
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET type=? WHERE id=?");
+				$requette->execute(array($this->type,$_GET['formations']));
 			}
 
 			if (isset($this->certificat)) {

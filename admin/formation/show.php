@@ -18,12 +18,12 @@
   <div class="content-wrapper" >
     <!-- Content Header (Page header) -->
     <?php include('includes/header-title.php'); ?>
+    <?php include('includes/flash.php'); ?>
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <section class="content container-fluid"><br>
 
        <?php
-           include('includes/flash.php');
           // selectionner le formations en question
             $formations=Query::affiche('formation',$_GET['formations'],'id');
              if (!$formations->id) {
@@ -33,10 +33,16 @@
              }
              // // utilisateur qui poste
              $user=Query::affiche('utilisateur',$formations->posteur,'id');
-             // mettre online
+             // mettre online ou offeline 
               if (isset($_GET['formations']) AND isset($_GET['statut'])) {
                 require 'class/Formation.php';
                 Formation::statut();
+              }
+
+              // Ouvrir et fermer l'inscription
+              if (isset($_GET['formations']) AND isset($_GET['inscription'])) {
+                require 'class/Formation.php';
+                Formation::inscription_test();
               }
 
               if (isset($_GET['update'])) {
@@ -54,7 +60,6 @@
 
               <a href="?page=participants&formations=<?= $formations->id ?>">
                 <span class="info-box-number" style="font-size: 12px; font-weight: normal; color:yellow;"><?= $formation_= Query::count_prepare('formation_suivie',$formations->id,'id_formation') ?><?php if($formation_>1){echo " Participants";}else{echo " Participant";} ?></span>
-                
               </a>
               
           <!--     <span class="progress-description">
@@ -63,9 +68,6 @@
             </div>
             <!-- /.info-box-content -->
           </div>
-
-
-
 
       <div class="box box-primary">
 
@@ -89,6 +91,10 @@
                   <span class="pull-right text-purpule"> <?= Fonctions::duree($formations->date_debut,$formations->date_fin) ?></span></a>
                 </li>
 
+        <!--          <li><a ><b>Type</b>
+                  <span class="pull-right text-purpule"> <?= Fonctions::duree($formations->date_debut,$formations->date_fin) ?></span></a>
+                </li> -->
+
               </ul>
             </div>
             <!-- /.footer -->
@@ -106,7 +112,11 @@
             <div class="box-footer no-padding">
               <ul class="nav nav-pills nav-stacked">
                 <li><a href="?page=participants&formations=<?= $formations->id ?>"> <b>Participants Inscrits</b>
-                  <span class="pull-right text-red"> <?= $formation_ ?></span></a>
+                  <span class="pull-right text-red"> <?= $formation_= Query::count_prepare('inscription',$formations->id,'id_formation') ?></span></a>
+                </li>
+
+                <li><a href="?page=participants_&formations=<?= $formations->id ?>"> <b>Participants</b>
+                  <span class="pull-right text-red"> <?= Query::count_prepare('formation_suivie',$formations->id,'id_formation') ?></span></a>
                 </li>
 
                  <li><a href="?page=modules&id=<?= $formations->id ?>"><b>Modules</b>
@@ -117,7 +127,7 @@
                   <span class="pull-right text-purpule"> <?= count(Module::user_module_pass($formations->id)) ?></span></a>
                 </li>
 
-
+                
 
               </ul>
             </div>
@@ -128,8 +138,6 @@
           </div>
         <hr/>
 
-
-
       <div class="box-body box-profile">
         
        
@@ -138,18 +146,7 @@
                 <!-- Box Comment -->
                 <div class="box box-widget">
                 <div class="box-body">
-                 
-                  <p style="margin-top: -20px;"> <?= $formations->presentation ?></p><hr>
-                  <p><small><b>Intervenant(s)</b> : <?= $formations->intervenant ?></small></p>
-
-                  <!--  <div class="box-header with-border">
-                    <div class="user-block">
-                      <img class="img-circle" src="dist/img/user/<?= $user->photo ?>" alt="User Image">
-                      <span class="username"><a href="#"><?= $user->prenom ?>  <?= $user->nom?></a></span>
-                      <span class="description"><?= $formations->etat ?> - <?= Fonctions::format_date( $formations->date_post ); ?></span>
-                    </div>
-                  </div> -->
-
+                  <p style="margin-top: -20px;"> <?= $formations->presentation ?></p>
                   <?php include('boutton.php'); ?>
                   <?php include('destroy.php'); ?>
 
@@ -162,8 +159,6 @@
        <div>
 
     </div>
-
-      
 
     </section>
     <!-- /.content -->

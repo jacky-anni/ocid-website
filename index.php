@@ -12,13 +12,6 @@ switch ($url)
 		 require 'font-end/accueil/index.php';
 	break;
 
-	// case $url[0]=='home':
-	// 	header("Location:home");
-	// 	 // require 'font-end/accueil/index.php';
-	// break;
-
-	/*==================================================*/
-
 	// connecter ;'utilisateur'
 	case $url[0]=='connexion':
 		 require 'font-end/connexion/connexionWithoutModal.php';
@@ -38,8 +31,14 @@ switch ($url)
 	/*==================================================*/
 		// inscription participant
 		case $url[0]=='inscription':
+			 require 'font-end/formations/participants/inscription.php';
+		break;
+
+		// fin de l'inscription
+		case $url[0]=='inscription_':
 			 require 'font-end/formations/participants/end-inscription.php';
 		break;
+
 
 		// activation de compte
 		case $url[0]=='activation':
@@ -228,6 +227,23 @@ switch ($url)
 		require 'font-end/offres/show.php';
 	break;
 
+	// fin de l'inscription
+	case $url[0]=='upload':
+		require 'font-end/formations/participants/impression.php';
+	break;
+
+	// fin de l'inscription
+	case $url[0]=='upload_':
+		require 'font-end/formations/participants/upload.php';
+	break;
+
+	case $url[0]=='formation-1':
+			require 'font-end/formations/participants/inscription/form.php';
+	break;
+
+	case $url[0]=='formation-2':
+		require 'font-end/formations/participants/inscription/form_validation.php';
+break;
 
 
 	default:

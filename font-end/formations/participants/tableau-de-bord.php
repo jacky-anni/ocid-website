@@ -42,8 +42,6 @@
 									}else{
 										$formation_suiv= "Formation";
 									}
-
-
 								 ?> <?= $formation_suiv ?></h3>
 							<p>
 								Vous avez déjà suivi <?= $formation1 ?>  <?= $formation_suiv ?>

@@ -11,6 +11,7 @@
     require 'admin/class/Query.php';
     require 'font-end/layout/config.php';
     $org= Query::affiche('organisation',1,'id'); 
+    ob_start();
 ?>
 <head>
     <meta charset="utf-8" />
@@ -55,7 +56,28 @@
     <link href="<?= $link ?>/assets/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
     <link href="<?= $link ?>/assets/plugins/slider-for-bootstrap/css/slider.css" rel="stylesheet" type="text/css"/>
     <!-- END: BASE PLUGINS -->
-
-
     <link rel="icon" href="<?= $link_admin ?>/dist/img/logo/<?= $org->logo ?>" />
+
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXR1K84EP2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-CXR1K84EP2');
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-212028651-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-212028651-1');
+    </script>
+
+<!--     https://www.youtube.com/watch?v=ldqWfhZallw -->
+
 </head>

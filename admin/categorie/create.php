@@ -1,4 +1,4 @@
-<?php  require 'class/categorie.php'; ?>
+<?php  require 'class/Categorie.php'; ?>
 <div class="modal fade" id="modal-default" data-backdrop="static" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">

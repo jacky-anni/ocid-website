@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+<meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+</head>
+<body>
+	<div style="margin: 15px;">
+		<br>
+		if($statu==1){
+			<h6 syle="margin-top:40px;" >Salut $participant->prenom , </h6>
+			<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cour de <b>$formation->nom</b> à été validée avec succès </p> <br>
+			<a href="www.ocidhaiti.org/connexion">
+				<button class="btn btn-primary btn-xs"> Commencer à apprendre </button>
+			</a>
+		}else{
+			<h6 syle="margin-top:40px;" >Salut $participant->prenom , </h6>
+			<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le regret pour vous anoncer que votre inscription au cour de <b>$formation->nom</b> à été réfusée </p> <br>
+		}
+		
+		 </br><br>
+		<i>Equipe de l'OCID</i>
+	</div>
+</body>
+</html>
