@@ -123,12 +123,6 @@
                   <span class="pull-right text-blue"> <?= $modules_= Query::count_prepare('module_formation',$formations->id,'id_formation') ?></span></a>
                 </li>
 
-                 <li><a href="?page=les-participants&id=<?= $formations->id ?>"><b>Ceux qui ont passé au moins un examen</b>
-                  <span class="pull-right text-purpule"> <?= count(Module::user_module_pass($formations->id)) ?></span></a>
-                </li>
-
-                
-
               </ul>
             </div>
             <!-- /.footer -->
