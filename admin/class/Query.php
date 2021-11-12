@@ -66,7 +66,7 @@ class Query
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}else{
-				$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM $table WHERE $identifiant=? ORDER BY date_post $order LIMIT $limit");
+				$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM $table WHERE $identifiant=? ORDER BY date_post DESC LIMIT $limit");
 				$req->execute(array($key));
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
