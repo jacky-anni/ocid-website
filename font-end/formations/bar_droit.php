@@ -65,8 +65,8 @@
 			</div>
 			<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>" target="_blank">
 				<h3 style="font-weight: bold;">Inscription</h3>
-				<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>"></a>
-				<button class="btn btn-primary">S'inscrire</button>
+				<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>"><button class="btn btn-primary">S'inscrire</button></a>
+				
 			</a>
 		</div>
 	</div>
