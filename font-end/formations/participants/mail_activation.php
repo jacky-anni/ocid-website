@@ -1,7 +1,7 @@
 <?php include('font-end/layout/head.php'); ?>
 <?php include('admin/class/Participant.php'); ?>
-<?php include('admin/class/Participant_pol.php'); ?>
 <?php include('admin/class/Formation.php'); ?>
+<?php include('admin/class/Participant_Pol.php'); ?>
 <!DOCTYPE html>
 <html lang="en"  >
 <title>Formation | <?= $org->sigle ?></title>
@@ -47,7 +47,7 @@
 			<?php endif ?>
 
 			<?php if (isset($url[1]) AND isset($url[2]) AND isset($url[3]) AND isset($url[4])): ?>
-				<?php Participant_pol::activation($url[4],$url[3],$url[1],$url[2]); ?>
+				<?php Participant_Pol::activation($url[4],$url[3],$url[1],$url[2]); ?>
 			<?php endif; ?>
 		</div><!-- END: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
 

@@ -67,7 +67,7 @@
 										$requette2=class_bdd::connexion_bdd()->prepare("SELECT * FROM inscription WHERE id_participant=? AND id_formation=?");
 										$requette2->execute(array($user_formation->id,$formation->id));
 										$data=$requette2->rowCount();
-											if(!$data==1){
+											if($data==0){
 												// remplacer les modifications 
 												$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom=?, prenom=?, sexe=?, departement=?, commune=?, telephone=?, telephone2=?, active=?,mdp=? WHERE id=?");
 												$requette->execute(array($this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->telephone,$this->telephone2,0,sha1($this->password),$user_formation->id));
@@ -84,8 +84,6 @@
 												// envoie mail
 												self::mail($user_formation->id,$formation->id,$token,$rand);
 												echo "<script>window.location ='$link_menu/activation/$user_formation->id&action=ksjxxbxbbdgb';</script>";
-	
-
 											}else{
 												echo "<p class='alert alert-danger'>Vous avez déà suivie cette formation</p>";
 											}
