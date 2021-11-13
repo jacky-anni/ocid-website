@@ -68,5 +68,5 @@
 	<?php  } ?></hr>
 
 	<div class="col-md-12" atyle="margin-bottom:10px;">
-		<center><a href="<?= $link_admin ?>/dist/document/plan/plan_cours.pdf">Télécharger l'Esquisse de la formation</a></center><br>
+		<center><a href="<?= $link_admin ?>/dist/document/plan/plan_cours.pdf" target="_blank">Télécharger l'Esquisse de la formation</a></center><br>
 	</div>
