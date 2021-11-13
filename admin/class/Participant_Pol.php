@@ -441,11 +441,11 @@
 				$check = Query::affiche("participant",$id,"id");
 				if($check){
 					require 'font-end/layout/config.php';
-					$req=class_bdd::connexion_bdd()->prepare("UPDATE recommandation SET document = ? WHERE id_user =? ");
-					$req->execute(array($nom_document.".pdf",$check->id));
-
 					$req=class_bdd::connexion_bdd()->prepare("UPDATE participant SET update_ = ? WHERE id =? ");
 					$req->execute(array("1",$check->id));
+
+					$req=class_bdd::connexion_bdd()->prepare("UPDATE participant SET document = ? WHERE id =? ");
+					$req->execute(array($nom_document.".pdf",$check->id));
 
 					Fonctions::set_flash("Votre compte est validé",'success');
 					$url="$link_menu/tableau-de-bord";

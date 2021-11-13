@@ -9,7 +9,6 @@
 		ob_start();
 
 	if($user){
-		$reference = Query::affiche('recommandation',$user->id,'id_user');
 ?>
 
 
@@ -71,27 +70,27 @@
   <tbody>
     <tr>
       <th>1- Nom du parti politique ou Organisation :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $reference->institution ?></td>
+      <td><?= $user->nom_parti ?></td>
     </tr>
 
 	<tr>
       <th>2- Adresse du parti politique ou Organisation :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $reference->adresse?></td>
+      <td><?= $user->adresse ?></td>
     </tr>
 
 	<tr>
       <th>3)	Nom et Prénom du dirigeant ou de la dirigeante  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $reference->nom_dirigeaint	?></td>
+      <td><?= $adresse->nom_dirigeant	?></td>
     </tr>
 
 	<tr>
       <th>4) Téléphone  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $reference->telephone	?></td>
+      <td><?= $adresse->telephone_dirigeant	?></td>
     </tr>
 
 	<tr>
       <th>5) Email  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $reference->email	?></td>
+      <td><?= $adresse->email_dirigeant	?></td>
     </tr>
   </tbody>
 </table>
