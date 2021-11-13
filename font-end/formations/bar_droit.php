@@ -43,7 +43,7 @@
 				<div><img src="<?= $link ?>/assets/base/img/icon/icons8_Pass_Fail_64px.png" style="width: 50px;"></div>
 			</div>
 			<h3 style="font-weight: bold;">Attestation</h3>
-			<p style="font-size: 15px;">Une attestation de participation sera délivrée aux participants ayant suivi la formation qui auront satifait au moins 50% des exigences de l'OCID</p>
+			<p style="font-size: 15px;">Une attestation de participation sera délivrée aux participants ayant suivi la formation et qui auront satisfait au moins 50% des exigences de l'OCID</p>
 		</div>
 	</div>
 
@@ -53,7 +53,7 @@
 				<div><img src="<?= $link ?>/assets/base/img/icon/icons8_Calendar_50px.png" style="width: 50px;"></div>
 			</div>
 			<h3 style="font-weight: bold;">Durée</h3>
-			<p style="font-size: 15px;">Cette formation s'etemdra sur une période de  <?= Fonctions::duree($formation->date_debut,$formation->date_fin) ?>, soit  du <?= Fonctions::format_date($formation->date_debut); ?> au <?= Fonctions::format_date($formation->date_fin); ?> </p>
+			<p style="font-size: 15px;">Cette formation s'etendra sur une période de  <?= Fonctions::duree($formation->date_debut,$formation->date_fin) ?>, soit  du <?= Fonctions::format_date($formation->date_debut); ?> au <?= Fonctions::format_date($formation->date_fin); ?> </p>
 		</div>
 	</div>
 
