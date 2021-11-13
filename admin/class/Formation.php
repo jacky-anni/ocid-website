@@ -143,7 +143,6 @@
 			$req1->execute(array($id_formation,$id_participant));
 			$data=$req1->rowCount();
 			return $data;
-			
 		}
 
 		public static function suivie($id_formation,$id_participant)

@@ -98,7 +98,7 @@
 
 		public static function user_module_pass($id_formation)
 		{
-			$req=class_bdd::connexion_bdd()->prepare("SELECT  DISTINCT nom,prenom,lieu_naissance,departement,commune,niveau,universite,domaine_etude	,organisation,parti,occupation,email,numero_what,id_formation,id_participant FROM participant INNER JOIN participant_resultat_module ON participant.id=participant_resultat_module.id_participant WHERE id_formation=? ORDER BY nom ASC");
+			$req=class_bdd::connexion_bdd()->prepare("SELECT  DISTINCT nom,prenom,email,lieu_naissance,departement,commune,niveau,universite,domaine_etude,organisation,parti,occupation,email,numero_what,id_formation,id_participant FROM participant INNER JOIN participant_resultat_module ON participant.id=participant_resultat_module.id_participant WHERE id_formation=? ORDER BY nom ASC");
 			$req->execute(array($id_formation));
 			$data=$req->fetchAll(PDO::FETCH_OBJ);
 			return $data;

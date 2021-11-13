@@ -1,4 +1,5 @@
 
+<?php include('admin/class/Formation.php'); ?>
 <?php foreach (Query::liste_prepare('formation','En ligne','etat') as $formations): ?>
 <div class="c-content-blog-post-card-1 c-option-2 c-bordered" style="padding: 5px;">
 	<div class="row c-margin-b-40">
@@ -31,20 +32,28 @@
 					</a>
 
 					<?php
-						if(!isset($_SESSION['id_user'])){
+					if(isset($_SESSION['id_user'])){
+						$check = Formation::formation_suivie_verif($formations->id,$_SESSION['id_user']);
+					}
 					?>
-					<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
-						<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
-					</a>
-					<?php } ?>
 
-					<?php
-						if(isset($_SESSION['id_user'])){
-					?>
-					<a href="<?= $link_menu ?>/cours/<?= $formations->id ?>">
-						<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> Suivre le cours</button>
-					</a>
-					<?php } ?>
+					<?php if(!isset($_SESSION['id_user'])): ?>
+						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
+							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
+						</a>
+					<?php endif ?>
+
+					<!-- <?php if(isset($_SESSION['id_user']) AND $check==1):?>
+						<a href="<?= $link_menu ?>/cours/<?= $formations->id ?>">
+							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> Suivre le cours</button>
+						</a>
+					<?php endif ?> -->
+
+					<?php if(isset($_SESSION['id_user']) AND $check==0):?>
+						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
+							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
+						</a>
+					<?php endif ?>
 
 					
 					</p>

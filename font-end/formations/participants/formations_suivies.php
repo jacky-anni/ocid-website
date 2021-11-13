@@ -1,6 +1,5 @@
 
 <?php foreach (Query::liste_prepare('formation_suivie',$_SESSION['id_user'],'id_participant') as $formations): ?>
-	
 	<?php 
 	  $formation=Query::affiche('formation',$formations->id_formation,'id');
 	  $module_total= Query::count_prepare('module_formation',$formation->id,'id_formation');
@@ -62,8 +61,6 @@
 								<?php $link_=''; ?>
 								<li><a href="<?= $link_ ?>" style="color: black; font-weight: bold;" target="_blank"> <i class="fa fa-certificate"></i> Certificat</a></li>
 							<?php endif ?>
-							
-						
 						</ul>							
 					</div>
 					
@@ -96,7 +93,7 @@
 							<a style="font-size: 15px; font-weight: bold; text-align: center;"><?= $formation->titre ?> </a>
 						</div>
 						<div class="c-author">
-							<span>  Débuter le  <?= Fonctions::format_date($formation->date_debut) ?></span>
+							<span> Date début :   <?= Fonctions::format_date($formation->date_debut) ?></span>
 						</div>
 	
 						<div class="c-panel">							
@@ -112,7 +109,6 @@
 							0 %
 							</div>
 					</div>
-	
 	
 					<div class="c-panel" style="margin-bottom: -25px;">
 						<ul class="c-tags c-theme-ul-bg">

@@ -1,6 +1,8 @@
 <div class="tab-contenjt">
     <div class="tab-panel active" id="all">
         <div class="c-contnent-accordion-1">
+		<?php if(Query::count_prepare('module')) ?>
+
 			<div class="panel-group" id="accordion" role="tablist">
 				<?php foreach (Module::liste($url[1]) as $key => $module ): ?>
 					<?php

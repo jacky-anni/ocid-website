@@ -75,7 +75,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
 					<center>
 						<h6>Partagez avec vos amis</h6>
-							<div class="sharethis-inline-share-buttons" data-url="http://www.ocidhaiti.org/ocid/formation/<?= $formation->id  ?>" data-title="<?= $formation->titre ?>"></div></br>
+							<div class="sharethis-inline-share-buttons" data-url="https://www.ocidhaiti.org/formation/<?= $formation->id  ?>" data-title="<?= $formation->titre ?>"></div></br>
 					</center>
 
 				</div>

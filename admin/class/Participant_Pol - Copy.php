@@ -60,46 +60,31 @@
 					    		$count = Query::count_prepare('liste_certifie_socpol',$this->email,'email');
 					    		if ($count==1) {
 					    			//  verifier si on a reussie la formation 
-									$user_formation= Query::affiche('participant_soc_pol',$this->email,'email');
-									if($user_formation){
-										$id = $user_formation->id;
-									}else{
-										$id = $id = rand(100,999).Query::count_query('participant');;
-									}
-
-									$exist= Query::affiche('participant',$this->email,'email');
-
-									if(!$exist){
+					    			$user_formation= Query::affiche('participant',$this->email,'email');
 										// verifier si on adeja inscrit
 										$requette2=class_bdd::connexion_bdd()->prepare("SELECT * FROM inscription WHERE id_participant=? AND id_formation=?");
-										$requette2->execute(array($id,$formation->id));
+										$requette2->execute(array($user_formation->id,$formation->id));
 										$data=$requette2->rowCount();
 										if($data==0){
-
-											$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,statut,nom_parti,adresse,nom_dirigeant,telephone_dirigeant,email_dirigeant,document,signature,photo,mdp,active,update_,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
-											$req->execute(array($id,$this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->email,$this->telephone,$this->telephone2,"Certifié-e du programme de formation en Socialisation politique","","","","","","","Oui",$user_formation->photo,sha1($this->password),0,1));
-
+											// remplacer les modifications 
+											$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom=?, prenom=?, sexe=?, departement=?, commune=?, telephone=?, telephone2=?, active=?,mdp=? WHERE id=?");
+											$requette->execute(array($this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->telephone,$this->telephone2,0,sha1($this->password),$user_formation->id));
+											
 											$rand = rand(100,999).rand(100,999);
 											$token=sha1($user_formation->id).sha1($this->email).$rand;
+											
 											$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
 											$req1->execute(array($user_formation->id,$formation->id));
 
 											$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO token (id_user,rand_,token,action,date_post) VALUES (?,?,?,?,NOW())");
-											$req1->execute(array($id,$rand,$token,"Active"));
-
-											// Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
-											// echo "<script>window.location ='$link_menu/connexion';</script>";
-											// //envoie mail
+											$req1->execute(array($user_formation->id,$rand,$token,"Active"));
+											// envoie mail
 											self::mail($user_formation->id,$formation->id,$token,$rand);
 											echo "<script>window.location ='$link_menu/activation/$user_formation->id&action=ksjxxbxbbdgb';</script>";
 										}else{
-											echo "<p class='alert alert-danger'>Vous avez déà inscrit à  cette formation</p>";
+											echo "<p class='alert alert-danger'>Vous avez déà suivie cette formation</p>";
 										}
 
-									}else{
-										echo "<p class='alert alert-danger'>Ce compte est déjà</p>";
-									}
-										
 					    		}else{
 
 									echo "<p class='alert alert-danger'>Vous n'avez pas été réussi la formation en Socialisation Politique.</p>";
@@ -140,58 +125,121 @@
 					  if(filter_var($this->email, FILTER_VALIDATE_EMAIL)){
 					  	// valider password
 					    	if($this->password==$this->password_confirmation){
-
-								// // verifier si l'email existe
-					    		$count = Query::count_prepare('liste_certifie_socpol',$this->email,'email');
-					    		if ($count==0) {
 					    			//  verifier si on a reussie la formation 
-									$user_formation= Query::affiche('participant_soc_pol',$this->email,'email');
-									if($user_formation){
-										$id = $user_formation->id;
+									$user_formation= Query::affiche('participant',$this->email,'email');
+
+									if(!$user_formation){
+										$id = rand(100,999).Query::count_query('participant');
+										$rand = rand(100,999).rand(100,999);
+										$token=sha1($id).sha1($this->email).$rand;
+										//information generales
+										$requette=class_bdd::connexion_bdd()->prepare("INSERT INTO participant (id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,signature,photo,active,update_,mdp,date_post) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
+										$requette->execute(array($id,$this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->email,$this->telephone,$this->telephone2,"Oui","user.png",0,0,sha1($this->password)));
+
+										// inscription
+										$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+										$req1->execute(array($id,$formation->id));
+										// recommoantio
+										$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO recommandation (id_user,institution,adresse,nom_dirigeaint,telephone,email,document,date_post) VALUES (?,?,?,?,?,?,?,NOW())");
+										$req1->execute(array($id,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant,""));
+
+											// creation de token 
+										$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO token (id_user,rand_,token,action,date_post) VALUES (?,?,?,?,NOW())");
+										$req1->execute(array($id,$rand,$token,"Active"));
+										// envoie mail
+										self::mail($id,$formation->id,$token,$rand);
+										header("Location:$link_menu/activation/$id");
+										echo "<script>window.location ='$link_menu/activation/$id';</script>";
 									}else{
-										$id = $id = rand(100,999).Query::count_query('participant');;
-									}
-
-									$exist= Query::affiche('participant',$this->email,'email');
-
-									if(!$exist){
-										//verifier si on adeja inscrit
+										// verifier si on a deja inscrit
 										$requette2=class_bdd::connexion_bdd()->prepare("SELECT * FROM inscription WHERE id_participant=? AND id_formation=?");
-										$requette2->execute(array($id,$formation->id));
+										$requette2->execute(array($formation->id,$user_formation->id));
 										$data=$requette2->rowCount();
-										if($data==0){
-											$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,statut,nom_parti,adresse,nom_dirigeant,telephone_dirigeant,email_dirigeant,document,signature,photo,mdp,active,update_,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
-											$req->execute(array($id,$this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->email,$this->telephone,$this->telephone2,"Cadre d’un parti politique ou d’une organisation",$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant,"","Oui","user.png",sha1($this->password),0,0));
+										// sinon
+										if (!$data){
+											// remplacer les modifications 
+											$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom=?, prenom=?, sexe=?, departement=?, commune=?, telephone=?, telephone2=?, active=?,mdp=? WHERE id=?");
+											$requette->execute(array($this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->telephone,$this->telephone2,1,sha1($this->password),$user_formation->id));
+											
 
-											$rand = rand(100,999).rand(100,999);
-											$token=sha1($id).sha1($this->email).$rand;
-											$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
-											$req1->execute(array($id,$formation->id));
 
-											$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO token (id_user,rand_,token,action,date_post) VALUES (?,?,?,?,NOW())");
-											$req1->execute(array($id,$rand,$token,"Active"));
+											
+											
+											
+											// $req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO recommandation (id_user,institution,adresse,nom_dirigeaint,telephone,email,document,date_post) VALUES (?,?,?,?,?,?,?,NOW())");
+											// $req1->execute(array($user_formation->id,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant,""));
 
-											// Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
-											//envoie mail
-											self::mail($id,$formation->id,$token,$rand);
-											echo "<script>window.location ='$link_menu/activation/$id&action=ksjxxbxbbdgb';</script>";
+
+											// $req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+											// $req1->execute(array($user_formation->id,$formation->id));
+
+											// $req2 = class_bdd::connexion_bdd()->prepare("INSERT INTO formation_suivie (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+											// $req2->execute(array($user_formation->id,$formation->id));
+
+											// Fonctions::set_flash('Formation_suivie, connectez vous','success');
+											// echo "<script>window.location ='$link_menu/connexion';</script>";
 										}else{
-											echo "<p class='alert alert-danger'>Vous avez déà inscrit à  cette formation</p>";
-										}
 
-									}else{
-										echo "<p class='alert alert-danger'>Ce compte est déjà</p>";
+										}
 									}
+
+									///si le compte n'existe pas
+					    			//if(!$user_formation) {
+										// creation de l'id
+										// $id = rand(100,999).Query::count_query('participant');
+										// $rand = rand(100,999).rand(100,999);
+										// $token=sha1($id).sha1($this->email).$rand;
+										// //information generales
+										// $requette=class_bdd::connexion_bdd()->prepare("INSERT INTO participant (id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,signature,photo,active,update_,mdp,date_post) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
+										// $requette->execute(array($id,$this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->email,$this->telephone,$this->telephone2,"Oui","user.png",0,0,sha1($this->password)));
+
+									// 	// inscription
+									// 	$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+									// 	$req1->execute(array($id,$formation->id));
+
+									// 	// creation de token 
+									// 	$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO token (id_user,rand_,token,action,date_post) VALUES (?,?,?,?,NOW())");
+									// 	$req1->execute(array($id,$rand,$token,"Active"));
+
+									// 	$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO recommandation (id_user,institution,adresse,nom_dirigeaint,telephone,email,document,date_post) VALUES (?,?,?,?,?,?,?,NOW())");
+									// 	$req1->execute(array($id,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant,""));
+
+									// 	// envoie mail
+									// 	self::mail($id,$formation->id,$token,$rand);
+									// 	header("Location:$link_menu/activation/$id");
+									// 	echo "<script>window.location ='$link_menu/activation/$id';</script>";	
+									// }else{
+										// // verifier si on a deja inscrit
+										// $requette2=class_bdd::connexion_bdd()->prepare("SELECT * FROM formation_suivie WHERE id_participant=? AND id_formation=?");
+										// $requette2->execute(array($formation->id,$user_formation->id));
+										// $data=$requette2->rowCount();
+										// // sinon
+										// if (!$data){
+										// 	// remplacer les modifications 
+										// 	$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom=?, prenom=?, sexe=?, departement=?, commune=?, telephone=?, telephone2=?, active=?,mdp=? WHERE id=?");
+										// 	$requette->execute(array($this->nom,$this->prenom,$this->sexe,$this->departement,$this->commune,$this->telephone,$this->telephone2,1,sha1($this->password),$user_formation->id));
+											
+										// 	$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO recommandation (id_user,institution,adresse,nom_dirigeaint,telephone,email,document,date_post) VALUES (?,?,?,?,?,?,?,NOW())");
+										// 	$req1->execute(array($user_formation->id,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant,""));
+
+
+										// 	$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+										// 	$req1->execute(array($user_formation->id,$formation->id));
+
+										// 	$req2 = class_bdd::connexion_bdd()->prepare("INSERT INTO formation_suivie (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
+										// 	$req2->execute(array($user_formation->id,$formation->id));
+
+										// 	// Fonctions::set_flash('Formation_suivie, connectez vous','success');
+										// 	// echo "<script>window.location ='$link_menu/connexion';</script>";
+										// }
+
 										
-					    		}else{
-									Fonctions::set_flash('Vous avez réussi le cours de Socialisation Politique, veuillez remplir cette section','warning');
-					    			echo "<script>window.location ='$link_menu/inscription/$formation->id&form=formation1';</script>";
-					    		}
-									
+
+									//}
 
 							}else{
 								echo "<p class='alert alert-danger'>Les mots de passe ne sont pas disponibles.</p>";
-							}
+								}
 						}else{
 							echo "<p class='alert alert-danger'>L'adresse e-mail n'est pas valide</p>";
 						}

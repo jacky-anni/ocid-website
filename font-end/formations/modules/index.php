@@ -1,5 +1,6 @@
 <?php include('font-end/layout/head.php'); ?>
 <?php include('admin/class/Module.php'); ?>
+<?php include('admin/class/Formation.php'); ?>
 <?php include('admin/class/Quiz.php'); ?>
 <?php Fonctions::redirect();?>
 <!DOCTYPE html>
@@ -8,6 +9,12 @@
 	$formation=Query::affiche('formation',$url[1],'id');
 	if (!$formation) {
 		Fonctions::set_flash("Cette formation n'existe pas",'warning');
+		echo "<script>window.location ='$link_menu/formations';</script>";
+	}
+
+	$check = Formation::formation_suivie_verif($formation->id,$_SESSION['id_user']);
+	if($check==0){
+		Fonctions::set_flash("Vous n'avez pas suivi cette formation",'warning');
 		echo "<script>window.location ='$link_menu/formations';</script>";
 	}
 ?>
