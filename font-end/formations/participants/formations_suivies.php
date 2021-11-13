@@ -117,11 +117,31 @@
 							<center><a href="<?= $link_menu ?>/upload&user=<?= Fonctions::user()->id ?>" target="_blank"><i class="fa fa-download"></i> Télécharger le formulaire</a></center>
 						<?php }else{ ?>	
 							<li><a href="" style="color: black; font-weight: bold; " > <center> <i class="fa fa-check"></i> Cours validé</center></a> </li>
+						
 						<?php } ?>
 						</ul>
 					</div>
-					
 				</div>
+
+				<?php
+
+					if(Fonctions::user()->departement == "Nord" OR Fonctions::user()->departement == "Nord-Est"){
+						$link = "https://chat.whatsapp.com/KZvgUvHfmsZ9ZUgpTiC8Tq";
+					}elseif(Fonctions::user()->departement =="Artibonite" OR Fonctions::user()->departement =="Nord-Ouest" OR Fonctions::user()->departement =="Centre" ){
+						$link = "https://chat.whatsapp.com/HgSVfENThcO3XPzGfzEu3b";
+					}elseif(Fonctions::user()->departement == "Ouest" OR Fonctions::user()->departement == "Sud-Est" OR Fonctions::user()->departement == "Nippes" ){
+						$link = "https://chat.whatsapp.com/G1lHgVZihNdKoFxPMB4PWe";
+					}else{
+						$link = "https://chat.whatsapp.com/BCSBhxPmhjXGedHYEciJ42";
+					}
+
+				?>
+
+				<?php if(Fonctions::user()->update_==1):  ?>
+					<p class="alert alert-info" style=" padding: 3px; color: red; text-align: center;">
+						<a href="<?= $link ?>" target="_blank"><i class="fa fa-whatsapp"></i> Integrer notre groupe WhatsApp </a>
+					</p>
+				<?php endif ?>
 	
 			</div>
 			</div>
