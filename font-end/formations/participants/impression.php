@@ -80,17 +80,17 @@
 
 	<tr>
       <th>3)	Nom et Prénom du dirigeant ou de la dirigeante  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $adresse->nom_dirigeant	?></td>
+      <td><?= $user->nom_dirigeant	?></td>
     </tr>
 
 	<tr>
       <th>4) Téléphone  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $adresse->telephone_dirigeant	?></td>
+      <td><?= $user->telephone_dirigeant	?></td>
     </tr>
 
 	<tr>
       <th>5) Email  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-      <td><?= $adresse->email_dirigeant	?></td>
+      <td><?= $user->email_dirigeant	?></td>
     </tr>
   </tbody>
 </table>
