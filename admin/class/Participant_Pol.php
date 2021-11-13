@@ -174,7 +174,7 @@
 											// Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
 											//envoie mail
 											self::mail($id,$formation->id,$token,$rand);
-											echo "<script>window.location ='$link_menu/activation/$id&action=ksjxxbxbbdgb';</script>";
+											echo "<script>window.location ='$link_menu/activation/$id';</script>";
 										}else{
 											echo "<p class='alert alert-danger'>Vous avez déà inscrit à  cette formation</p>";
 										}
