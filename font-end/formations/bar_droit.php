@@ -34,7 +34,7 @@
 				<div ><img src="<?= $link ?>/assets/base/img/icon/icons8_Guarantee_50px.png"></div>
 			</div>
 			<h4 style="font-weight: bold;">Certificat</h4>
-			<p style="font-size: 15px;"> S vous terminez le cours entier, vous obtenez un certificat de l'OCID</p>
+			<p style="font-size: 15px;"> Si vous completez l'integralité de la formaton, vous obtiendrez un certificat. </p>
 		</div>
 	</div>
 	<div class="col-md-12" style="margin-bottom: -30px;">
@@ -43,7 +43,7 @@
 				<div><img src="<?= $link ?>/assets/base/img/icon/icons8_Pass_Fail_64px.png" style="width: 50px;"></div>
 			</div>
 			<h3 style="font-weight: bold;">Attestation</h3>
-			<p style="font-size: 15px;">Une attestation de participation vous sera delivrée après l'inscription</p>
+			<p style="font-size: 15px;">Une attestation de participation sera délivrée aux participants ayant suivi la formation qui auront satifait au moins 50% des exigences de l'OCID</p>
 		</div>
 	</div>
 
@@ -53,21 +53,20 @@
 				<div><img src="<?= $link ?>/assets/base/img/icon/icons8_Calendar_50px.png" style="width: 50px;"></div>
 			</div>
 			<h3 style="font-weight: bold;">Durée</h3>
-			<p style="font-size: 15px;">Ce cours se fera dans <?= Fonctions::duree($formation->date_debut,$formation->date_fin) ?>, du <?= Fonctions::format_date($formation->date_debut); ?> au <?= Fonctions::format_date($formation->date_fin); ?> </p>
+			<p style="font-size: 15px;">Cette formation s'etemdra sur une période de  <?= Fonctions::duree($formation->date_debut,$formation->date_fin) ?>, soit  du <?= Fonctions::format_date($formation->date_debut); ?> au <?= Fonctions::format_date($formation->date_fin); ?> </p>
 		</div>
 	</div>
 
  <?php if(!isset($_SESSION['id_user']) AND $url[0]!='inscription'){ ?>
 	<div class="col-md-12">
 		<div class="c-content-feature-2 c-option-2 c-theme-bg-parent-hover">
-			<div class="c-icon-wrapper" style="border: solid white 1px;">
-				<div><a href="<?= $link_admin ?>/dist/document/Esquisse du plan de formation en  Socialisation politique et Debat Argumenté.pdf" target="_blank"><img src="<?= $link ?>/assets/base/img/icon/icons8_Internet_50px.png" style="width: 50px;"></a></div>
-			</div>
 			<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>" target="_blank">
-				<h3 style="font-weight: bold;">Inscription</h3>
-				<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>"><button class="btn btn-primary">S'inscrire</button></a>
-				
+				<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>"><button class="btn btn-success btn-block">S'inscrire</button></a>
 			</a>
 		</div>
 	</div>
 	<?php  } ?>
+
+	<div class="col-md-12" atyle="margin-bottom:10px;">
+		<center><a href="<?= $link_admin ?>/dist/document/plan/plan_cours.pdf">Télécharger l'Esquisse de la formation</a></center><br>
+	</div>
