@@ -656,16 +656,6 @@
 				            </td>
 				        </tr>
 				        <tr>
-				            <td bgcolor='#26a8b4' align='center' style='padding: 0px 10px 0px 10px;'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='center' valign='top' style='padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;'>
-				                        	<img src='$org->site_web/$link_admin/dist/img/logo/$org->logo' width='100' height='100' style='display: block; border: 0px;' />
-				                            <h4 style='font-size: 19px; font-weight: bold; margin: 2;'>Reinitialisation mot de passe!</h4>
-				                        </td>
-				                    </tr>
-				                </table>
-				            </td>
 				        </tr>
 				        <tr>
 				            <td bgcolor='#f4f4f4' align='center' style='padding: 0px 10px 0px 10px;'>

@@ -58,8 +58,10 @@
     <!-- END: BASE PLUGINS -->
     <link rel="icon" href="<?= $link_admin ?>/dist/img/logo/<?= $org->logo ?>" />
 
+    
+
       <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXR1K84EP2"></script>
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXR1K84EP2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -81,3 +83,4 @@
 <!--     https://www.youtube.com/watch?v=ldqWfhZallw -->
 
 </head>
+
