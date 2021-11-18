@@ -14,13 +14,14 @@
     ob_start();
 ?>
 <head>
+     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+    <meta content="Observatoire Citoyen pour L'intitutionnalisation de Democratie en Haiti" name="description" />
+    <meta content="OCID" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700&amp;subset=all' rel='stylesheet' type='text/css'>
     <link href="<?= $link ?>/assets/plugins/socicon/socicon.css" rel="stylesheet" type="text/css" />
@@ -61,24 +62,24 @@
     
 
       <!-- Global site tag (gtag.js) - Google Analytics -->
-     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXR1K84EP2"></script>
+     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXR1K84EP2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-CXR1K84EP2');
-    </script>
+    </script> -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-212028651-1"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-212028651-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'UA-212028651-1');
-    </script>
+    </script> -->
 
 <!--     https://www.youtube.com/watch?v=ldqWfhZallw -->
 

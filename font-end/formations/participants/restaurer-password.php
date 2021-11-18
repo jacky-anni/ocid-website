@@ -1,5 +1,6 @@
 <?php include('font-end/layout/head.php'); ?>
 <?php include('admin/class/Participant.php'); ?>
+<?php include('admin/class/Participant_Pol.php'); ?>
 <?php include('admin/class/Formation.php'); ?>
 <!DOCTYPE html>
 <html lang="en"  >
@@ -66,7 +67,7 @@
 		<?php
 			if(isset($_POST['valider'])){
 				extract($_POST);
-				Participant::reset_password($url[1],$url[2],$password,$password_confirmation);
+				Participant_Pol::reset_password($url[1],$url[2],$password,$password_confirmation);
 			}
 
 		?>
