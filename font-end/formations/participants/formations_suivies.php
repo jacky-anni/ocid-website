@@ -2,10 +2,10 @@
 <?php foreach (Query::liste_prepare('formation_suivie',$_SESSION['id_user'],'id_participant') as $formations): ?>
 	<?php 
 	  $formation=Query::affiche('formation',$formations->id_formation,'id');
-	  $module_total= Query::count_prepare('module_formation',$formation->id,'id_formation');
+	  $module_total= Query::count_prepare('module_formation',$formation->id,'id_formation')-1;
   
 	  // verifier la quantite de quiz passe
-	  $module_total = Module::count($formation->id)-1;
+	  $module_total = Module::count($formation->id);
 	  $module_passe= Quiz::pass_module($_SESSION['id_user'],$formation->id);
   
 	  // verifi si le modue passe est egal a 0
