@@ -6,7 +6,7 @@
   
 	  // verifier la quantite de quiz passe
 	  $module_total = Module::count($formation->id);
-	  $module_passe= Quiz::pass_module($_SESSION['id_user'],$formation->id)-1;
+	  $module_passe= Quiz::pass_module($_SESSION['id_user'],$formation->id);
   
 	  // verifi si le modue passe est egal a 0
 	  if ($module_passe>0) {
