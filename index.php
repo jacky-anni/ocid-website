@@ -25,7 +25,7 @@ switch ($url)
 
 	// reset password
 	case $url[0]=='reset-password':
-		 require 'font-end/participants/restaurer-password.php';
+		 require 'font-end/formations/participants/restaurer-password.php';
 	break;
 
 	/*==================================================*/

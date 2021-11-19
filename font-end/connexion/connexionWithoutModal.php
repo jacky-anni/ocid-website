@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en"  >
 <?php include('admin/class/Participant.php'); ?>
+<?php include('admin/class/Participant_Pol.php'); ?>
 <title>Connexion</title>
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
 <!-- BEGIN: HEADER -->
@@ -72,7 +73,7 @@
 	<?php 
 		if (isset($_POST['valider'])) {
 			extract($_POST);
-			Participant::reset_password_mail($email);
+			Participant_Pol::reset_password_mail($email);
 			
 			// $url=$_SERVER['REQUEST_URI'];
 			// Fonctions::set_flash("Un email envoyé sur $email ",'success');
