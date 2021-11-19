@@ -6,7 +6,7 @@
 			<div class="modal-body">
 				<center>
 					<h5 class="smaller lighter blue no-margin" style="text-align:center; line-height:20px;"> Voulez vous vraiment valider le compte de <b><?= $participant->prenom ?>  <?= $participant->nom ?></b> ?</h5>
-					<input type="hidden" name="id" value="<?= $participant->id ?>">
+					<input type="hidden" name="id_" value="<?= $participant->id ?>">
 				</center>
 			</div>
 			<div class="modal-footer">
@@ -15,7 +15,7 @@
 					Annuler
 				</button>
 
-				<button type="submit" name="valider" class="btn btn-sm btn-success btn-round pull-left">
+				<button type="submit" name="valider_" class="btn btn-sm btn-success btn-round pull-left">
 					<i class="ace-icon fa fa fa-check-circle-o"></i>
 				  Valider
 				</button>
@@ -28,8 +28,8 @@
 
 	<?php
 		//pour supprimer une photo
-		if (isset($_POST['valider'])) {
+		if (isset($_POST['valider_'])) {
 			// valider ce prticipant
-			Participant::valider_or_no($participant->id,$formations->id,1);
+			Participant::valider_or_no($_POST['id_'],$formations->id,1);
 		}
 	?>

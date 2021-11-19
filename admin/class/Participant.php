@@ -674,16 +674,16 @@
 						<body>
 							<div style='margin: 15px;'
 								<br>
-								if($statut==1){
+								<?php if($statut==1){ ?>
 									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
 									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cours de <b>$formation->titre</b> à été validée avec succès </p> <br>
-									<a href='www.ocidhaiti.org/connexion''
+									<a href='http://www.ocidhaiti.org/tableau-de-bord'
 										<button class='btn btn-primary btn-xs'> Commencer à apprendre </button>
 									</a>
-								}else{
+								<?php 	}else{ ?>
 									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
 									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le regret pour vous anoncer que votre inscription au cour de <b>$formation->titre</b> à été réfusée </p> <br>
-								}
+								<?php  } ?>
 								
 								 </br><br>
 								<i>Equipe de l'OCID</i>
@@ -701,9 +701,10 @@
 					$Subject = "Validation de compte";
 					// outil de configuration
 					$headers  = 'MIME-Version: 1.0' . "\r\n";
-			        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+					$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+					
 			        // le message
-					// envoyer email
+					//envoyer email
 					$SendMessage = mail($participant->email,$Subject,$Msg,$headers);
 				    if ($SendMessage==true) {
 				    	$url=$_SERVER['REQUEST_URI'];

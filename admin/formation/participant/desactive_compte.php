@@ -30,6 +30,6 @@
 		//pour supprimer une photo
 		if (isset($_POST['valider1'])) {
 			// valider ce prticipant
-			Participant::valider_or_no($participant->id,$formations->id,0);
+			Participant::valider_or_no($_POST['id'],$formations->id,0);
 		}
 	?>
