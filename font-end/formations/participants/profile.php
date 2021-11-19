@@ -1,12 +1,12 @@
 <?php include('font-end/layout/head.php'); ?>
 <?php include('admin/class/Participant.php'); ?>
+<?php include('admin/class/Participant_Pol.php'); ?>
 <?php include('admin/class/Utilisateur.php'); ?>
 <?php Fonctions::redirect();?>
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="<?= $link_admin ?>/bower_components/crop/croppie.js"></script>
-<link rel="stylesheet" href="<?= $link_admin ?>/bower_components/crop/bootstrap.min.css" />
 <link rel="stylesheet" href="<?= $link_admin ?>/bower_components/crop/croppie.css" />
 <title>Formation | <?= $org->sigle ?></title>
 
@@ -34,26 +34,24 @@
 				<h4 class="c-font-uppercase c-font-bold"><?= Fonctions::user()->prenom ?>  <?= Fonctions::user()->nom ?></h4><hr/>
 
 				<!-- 	The following addresses will be used on the checkout page by default. -->
-                  <p class="list-groupj-item" >
-                  	<span style="font-size: 15px;">Ajouter une photo</span>
-                  	 <input type="file" name="upload_image" accept="image/*" id="upload_image" class=" btn-block col-md-12 list-group-item" style="width: 100%" />  
-                  <div id="uploaded_image"></div>
-                  </p>      
+					<p class="list-groupj-item" >
+						<span style="font-size: 15px;">Ajouter une photo</span>
+							<input type="file" name="upload_image" accept="image/*" id="upload_image" class=" btn-block col-md-12 list-group-item" style="width: 100%" />  
+					<div id="uploaded_image"></div>
+					</p>      
 
-                  <div class="col-md-12">
-                  	<div class="c-content-ver-nav" style="text-align: left;">
-						<ul class="c-menu c-arrow-dot1 c-theme">
-							<li><a href="#"><i class="fa fa-graduation-cap"></i> Mes formations</a></li>
-							<li><a href="#"><i class="fa fa-bell"></i> Notifications</a></li>
-							<li><a href="#"><i class="fa fa-folder"></i> Mes dossiers</a></li>
-							<li><a href="#"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
-						</ul>
+					<div class="col-md-12">
+						<div class="c-content-ver-nav" style="text-align: left;">
+									<ul class="c-menu c-arrow-dot1 c-theme">
+										<li><a href="#"><i class="fa fa-graduation-cap"></i> Mes formations</a></li>
+										<li><a href="#"><i class="fa fa-bell"></i> Notifications (0)</a></li>
+										<li><a href="<?= $link_menu ?>/deconnexion"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
+									</ul>
+						</div>
 					</div>
-                  </div>
 					
 			</div>
 			<div class="col-md-8">
-
 				<div class="c-content-tab-1 c-theme c-margin-t-30">
 					<div class="clearfix">
 						<ul class="nav nav-tabs  c-font-bold">
@@ -63,6 +61,7 @@
 					</div>
 					<div class="tab-content c-bordered c-padding-lg">
 						<div class="tab-pane active" id="tab_1_1_content">
+						<h5 style=""><b>A- RENSEIGNEMENTS PERSONNELS</b> </h5><hr/>
 							<form action="" method="post" role="form" data-parsley-validate action="">
 								<div class="row">
 									<div class="col-md-12">
@@ -83,12 +82,16 @@
 									<div class="col-md-12">
 										<div class="row">
 											<div class="form-group col-md-6">
-												<label class="">Lieu de naissance </label>
-												<input type="text" name="lieu_naissance" value="<?= $user->lieu_naissance ?>" class="form-control" placeholder="Ex : Port-Margot" required="">
+												<label class="">Sexe </label>
+												<select name="sexe" class="form-control"  required="">
+													 <option value="">Choisir votre sexe</option>
+										            <option value="Homme" <?php if($user->sexe=='Homme'){echo "selected";} ?> >Homme</option>
+										            <option value="Femme" <?php if($user->sexe=='Femme'){echo "selected";} ?>>Femme</option>
+												</select>
 											</div>
 											<div class="col-md-6">
 												<label class="">Département</label>
-												<select name="departement" class="form-control" required="">
+												<select name="departement" class="form-control"  required="">
 													 <option value="">Choisir un département</option>
 										            <option value="Nord" <?php if($user->departement=='Nord'){echo "selected";} ?> >Nord</option>
 
@@ -114,63 +117,85 @@
 									</div>
 								</div>
 
-								<div class="row">
-									<div class="form-group col-md-6">
-										<label class="">Commune</label>
-										<input type="text" name="commune" value="<?= $user->commune ?>" class="form-control" placeholder="Ex : Port-Margot" required="">
-									</div>
-									<div class="col-md-6">
-										<label class="">Niveau d'étude</label>
-										<select name="niveau"  class="form-control" required="">
-											<option value="">Choisir le niveau</option>
-
-								            <option value="Primaire" <?php if($user->niveau=='Primaire'){echo "selected";} ?>>Primaire</option>
-
-								            <option value="Secondaire" <?php if($user->niveau=='Secondaire'){echo "selected";} ?>>Secondaire</option>
-
-								            <option value="Universitaire" <?php if($user->niveau=='Universitaire'){echo "selected";} ?>>Universitaire</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="form-group col-md-6">
-										<label class="">Université</label>
-										<input type="text" name="universite"  class="form-control" placeholder="Ex: Université Antenor Firmin (UNAF)"  value="<?= $user->universite ?>" />
-									</div>
-
-									<div class="form-group col-md-6">
-										<label class="control-label">Domaine d'étude </label>
-										<input type="text" name="domaine"  class="form-control" placeholder="Ex: Sciences Informatiques" value="<?= $user->domaine_etude ?>" />
-									</div>
-
-									<div class="form-group col-md-6">
-										<label class="control-label">Membre d’une association  </label>
-										<input type="text" name="organisation"  class="form-control" placeholder="Ex: Sciences Informatiques"  value="<?= $user->organisation?>" >
-									</div>
-
-									<div class="form-group col-md-6">
-										<label class="control-label">Membre d’un parti politique  </label>
-										<input type="text" name="parti"  class="form-control" placeholder="Ex: Sciences Informatiques"  value="<?= $user->parti ?>">
-									</div>
-
-									<div class="form-group col-md-6">
-										<label>Occupation  </label>
-										<input type="text" name="occupation" class="form-control" placeholder="Ex: Sciences Informatiques"  value="<?= $user->occupation ?>">
-									</div>
-
-										<div class="form-group col-md-6">
-											<label class="">Numéro WhatsApp </label>
-											<input type="text" name="numero"  class="form-control" placeholder="Ex: +5094872-9922" value="<?= $user->numero_what ?>" >
+									<div class="row">
+										<div class="col-md-12">
+											<div class="row">
+												<div class="form-group col-md-6">
+													<label class="">Commune </label>
+													<select name="commune" class="form-control"  required="">
+														<option value="">Choisir votre commune</option>
+																<?php foreach(Query::liste('commune') as $commune): ?>
+																<option value="<?= $commune->commune ?>" <?php if($user->commune==$commune->commune){echo "selected";} ?> ><?= $commune->commune ?></option>
+																<?php endforeach ?>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<label class="">Téléphone</label>
+													<input type="text" name="telephone" value="<?= $user->telephone ?>" class="form-control" placeholder="+5094872 0022" required="">
+												</div>
+											</div>
 										</div>
-								
-								</div>
+									</div>
+
+										<div class="row">
+										<div class="col-md-12">
+											<div class="row">
+			
+												<div class="col-md-12">
+													<label class="">Téléphone alternatif</label>
+													<input type="text" name="telephone2" value="<?= $user->telephone2 ?>" class="form-control" placeholder="+5093349-90" required="">
+												</div>
+											</div>
+										</div>
+									</div>
+									</br><hr>
+
+									<?php if($user->statut=="Cadre d’un parti politique ou d’une organisation"): ?>
+										<div class="row">
+											<h5 style=""><b>B- RÉFÉRENCE DU PARTI POLITIQUE OU DE L’ORGANISATION DE LA SOCIETE CIVILE</b> </h5><hr/>
+											<div class="col-md-12">
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label class="control-label">Indiquez le nom du parti politique ou de l’organisation de la société civile qui vous recommande </label>
+														<input type="text" name="societe" value="<?= $user->nom_parti ?>" class="form-control" data-parsley-maxlength="250" placeholder="Réseau Civisme et de la personne (RECIDP)" required="">
+													</div>
+													<div class="col-md-6">
+														<label class="control-label">Indiquez l’adresse du parti politique ou de l’organisation de la société civile qui vous recommande </label>
+														<input type="text" name="adresse" value="<?= $user->adresse ?>" data-parsley-maxlength="250" class="form-control" placeholder="#15, Ruelle la paix, Fondation Vincent, Cap-Haitien" required="">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="form-group col-md-12">
+														<label class="control-label">Nom et Prénom du dirigeant ou de la dirigeante du parti politique ou de l’organisation de la société civile qui vous recommande  </label>
+														<input type="text" name="nom_dirigeant" value="<?= $user->nom_dirigeant ?>" class="form-control" data-parsley-maxlength="250" placeholder="Eddy Roméus" required="">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label class="control-label">Téléphone du dirigeant ou de la dirigeante </label>
+														<input type="text" name="telephone_dirigeant" value="<?= $user->telephone_dirigeant ?>" class="form-control" data-parsley-maxlength="250" placeholder="+5094973 9494" required="">
+													</div>
+													<div class="col-md-6">
+														<label class="control-label">Courriel du dirigeant ou de la dirigeante  </label>
+														<input type="email" name="email_dirigeant" value="<?= $user->email_dirigeant ?>" data-parsley-maxlength="250" class="form-control" placeholder="anizairejacky@gmail.com" required="">
+													</div>
+												</div>
+
+
+
+											</div>
+										</div><hr/>
+									<?php endif ?>
+
+
+
+
 
 								<div class="row">
 									<div class="col-md-12">
-										
 										<button type="submit" name="modifier" class="btn btn-lg c-theme-btn c-btn-uppercase c-btn-bold btn-sm"> <i class="fa fa-edit"></i> <b>Modifier</b></button>
-									
 									</div>
 								</div>
 							</form>
@@ -188,16 +213,6 @@
 									<label class="control-label">Entrer  un mot passe</label>
 									<input type="password" placeholder="Mot de passe" data-parsley-trigger="keypress"  class="form-control" data-parsley-maxlength="250" name="password" id="password2" data-parsley-minlength="6"  required="">
 								</div>
-								<div class="col-md-12">
-									<label class="control-label">Répéter le mot de passe</label>
-									<input type="password" data-parsley-equalto="#password2" name="password_confirmation"class="form-control" placeholder="Repeter le mot de passe" data-parsley-trigger="keypress" data-parsley-minlength="6" data-parsley-maxlength="250"  required=""></br>
-								</div>
-
-								<div class="row">
-									<div class="form-group col-md-12">
-										<button type="submit" name="changer"  class="btn btn-primary"> <i class="fa fa-edit"></i> Changer</button>
-									</div>
-								</div>
 
 									
 								</div>
@@ -212,7 +227,12 @@
 				if(isset($_POST['modifier']))
 				{
 					extract($_POST);
-					Participant::modifier_profil($nom,$prenom,$lieu_naissance,$departement,$commune,$niveau,$universite,$domaine,$organisation,$parti,$occupation,$email,$numero);
+
+
+					$participant=Participant_Pol::modifier_profil($nom,$prenom,$sexe,$departement,$commune,$telephone,$telephone2,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant);
+
+
+					// Participant::modifier_profil($nom,$prenom,$lieu_naissance,$departement,$commune,$niveau,$universite,$domaine,$organisation,$parti,$occupation,$email,$numero);
 				}
 
 				if(isset($_POST['changer']))

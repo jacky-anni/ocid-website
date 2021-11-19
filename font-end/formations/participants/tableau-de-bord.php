@@ -51,18 +51,6 @@
 					<div class="c-border-bottom c-bg-opacity-2"></div>
 				</li>
 				<div class="c-border-middle c-bg-opacity-2"></div>
-				<li>
-					<div class="c-card wow animate fadeInRight">
-						<i class="fa fa-comment c-font-27 c-theme-font c-float-left c-border c-border-opacity"></i>
-						<div class="c-content c-content-left">
-							<h3 class="c-font-uppercase c-font-bold"><?= $quiz_pass ?> Quiz</h3>					
-							<p>
-								Nombre de quiz réussi
-							</p>
-						</div>
-					</div>	
-					<div class="c-border-bottom c-bg-opacity-2"></div>
-				</li>
 			</ul>
 	
 		</div>

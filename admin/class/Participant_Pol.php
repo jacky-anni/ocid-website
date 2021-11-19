@@ -460,26 +460,9 @@
 		}
 
 		// modifier profil
-		public static function modifier_profil($nom,$prenom,$sexe,$departement,$commune,$telephone,$telephone2,$domaine,$organisation,$parti,$occupation,$email,$numero)
+		public static function modifier_profil($nom,$prenom,$sexe,$departement,$commune,$telephone,$telephone2,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant)
 		{
 			require './font-end/layout/config.php';
-			// modifier le profil
-
-			// valideer les choix
-			if ($telephone=='Universitaire') {
-				$telephone2=$telephone2;
-				$domaine=$domaine;
-			}else{
-				$telephone2='';
-				$domaine='';
-			}
-
-			if($whatsapp=='Oui'){
-				$numero=$numero;
-			}else{
-				$numero='';
-			}
-
 
 			if (isset($nom)) {
 				// modifer nom
@@ -517,51 +500,44 @@
 				$requette->execute(array($telephone,$_SESSION['id_user']));
 			}
 
-			if (isset($telephone2)=='Universitaire') {
-				// modifer email
+			if (isset($telephone2)) {
+				// modifer telephone
 				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone2=? WHERE id=?");
 				$requette->execute(array($telephone2,$_SESSION['id_user']));
+			}
 
+
+			if (isset($societe)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET domaine_etude=? WHERE id=?");
-				$requette->execute(array($domaine,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom_parti=? WHERE id=?");
+				$requette->execute(array($societe,$_SESSION['id_user']));
 			}
 
-
-			if (isset($organisation)) {
+			if (isset($adresse)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET organisation=? WHERE id=?");
-				$requette->execute(array($organisation,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET 	adresse=? WHERE id=?");
+				$requette->execute(array($adresse,$_SESSION['id_user']));
 			}
 
-			if (isset($parti)) {
+			if (isset($nom_dirigeant)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET parti=? WHERE id=?");
-				$requette->execute(array($parti,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom_dirigeant=? WHERE id=?");
+				$requette->execute(array($nom_dirigeant,$_SESSION['id_user']));
 			}
 
-			if (isset($occupation)) {
+			if (isset($telephone_dirigeant)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET occupation=? WHERE id=?");
-				$requette->execute(array($occupation,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone_dirigeant=? WHERE id=?");
+				$requette->execute(array($telephone_dirigeant,$_SESSION['id_user']));
 			}
 
-			if (isset($email)) {
+			if (isset($email_dirigeant)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET email=? WHERE id=?");
-				$requette->execute(array($email,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET email_dirigeant=? WHERE id=?");
+				$requette->execute(array($email_dirigeant,$_SESSION['id_user']));
 			}
 
 
-			if (isset($numero)) {
-				// modifer numero
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET numero_what=? WHERE id=?");
-				$requette->execute(array($numero,$_SESSION['id_user']));
-
-				// valider telephone
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET 	telephone=? WHERE id=?");
-				$requette->execute(array('Oui',$_SESSION['id_user']));
-			}
 
 			Fonctions::set_flash('Profil modifié','success');
 			echo "<script>window.location ='$link_menu/profile';</script>";

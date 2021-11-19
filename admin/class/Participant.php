@@ -464,8 +464,9 @@
 					// mettre a jour le mot de passe
 					$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET mdp=? WHERE id=?");
 					$requette->execute(array(sha1($password),$_SESSION['id_user']));
+					$url=$_SERVER['REQUEST_URI'];
 					Fonctions::set_flash("Votre mot de passe a été modifié",'success');
-					echo "<script>window.location ='$link_menu/deconnexion';</script>";
+					echo "<script>window.location ='$url';</script>";
 				}else{
 					// si les mots de passe ne sont pas les memes
 					$url=$_SESSION['redirec_url'];
@@ -675,7 +676,7 @@
 								<br>
 								if($statut==1){
 									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
-									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cour de <b>$formation->titre</b> à été validée avec succès </p> <br>
+									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cours de <b>$formation->titre</b> à été validée avec succès </p> <br>
 									<a href='www.ocidhaiti.org/connexion''
 										<button class='btn btn-primary btn-xs'> Commencer à apprendre </button>
 									</a>
