@@ -268,7 +268,7 @@
 
 				                                        <table border='0' cellspacing='0' cellpadding='0'>
 				                                            <tr>
-				                                                <td align='center' style='border-radius: 3px;' bgcolor='#FFA73B'><a href='$org->site_web/activation/$token/$rand/$formation->id/$user->id' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; background-color: #26a8b4; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #26a8b4; display: inline-block;'>Confirmer votre compte</a>
+				                                                <td align='center' style='border-radius: 3px;' bgcolor='#FFA73B'><a href='www.ocidhaiti.org/activation/$token/$rand/$formation->id/$user->id' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; background-color: #26a8b4; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #26a8b4; display: inline-block;'>Confirmer votre compte</a>
 				                                                </td>
 				                                            </tr>
 				                                        </table>
