@@ -78,7 +78,8 @@
               <?php foreach (Query::liste_prepare ('formation_suivie',$_GET['formations'],'id_formation') as $formation): ?>
                 <?php  $participant =Query::affiche('participant',$formation->id_participant,'id'); ?>
               <tr>
-                <td><img src="admin/dist/img/user/participant/<?php if (!empty($participant->photo)) {echo $participant->photo;} ?>" onerror="this.src='https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=170667a&w=0&h=NPyJe8rXdOnLZDSSCdLvLWOtIeC9HjbWFIx8wg5nIks='" width="27px" class="user-image" alt="User Image"></td>
+                <td><img src="dist/img/user/participant/<?php if (!empty($participant->photo)) {echo $participant->photo;} ?>" onerror="this.src='https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=170667a&w=0&h=NPyJe8rXdOnLZDSSCdLvLWOtIeC9HjbWFIx8wg5nIks='" width="27px" class="user-image" alt="User Image"></td>
+                <?= $participant->photo ?>
                 <td> <?php if (!empty($participant->nom)) {echo $participant->nom;} ?></td>
                 <td><?php if (!empty($participant->prenom)) {echo $participant->prenom;} ?></td>
                 <td><?php if (!empty($participant->sexe)) {echo $participant->sexe;} ?></td>
