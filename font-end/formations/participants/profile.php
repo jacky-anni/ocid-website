@@ -205,6 +205,11 @@
 							<form action="" method="POST" role="form" data-parsley-validate action="">
 								<div class="row">
 								<div class="form-group col-md-12">
+										<label class="">Mot de passe actuel </label>
+										<input type="password" placeholder="actuel mot de passe" data-parsley-trigger="keypress"  class="form-control" name="password_actuel" id="password1"  required="">
+									</div>
+									
+								<div class="form-group col-md-12">
 									<label class="control-label">Entrer  un mot passe</label>
 									<input type="password" placeholder="Mot de passe" data-parsley-trigger="keypress"  class="form-control" data-parsley-maxlength="250" name="password" id="password2" data-parsley-minlength="6"  required="">
 								</div>
