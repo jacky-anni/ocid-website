@@ -46,9 +46,9 @@
                           <!--   <li><a href="<?= $org->lien_instagram ?>" target="_blank"><i class="icon-social-instagram"></i></a></li> -->
                         </ul>
                         <ul class="c-address">
-                            <li><i class="icon-pointer c-theme-font"></i> 14, rue Borno, Pétion-Ville, Haïti. Email</li>
-                            <li><i class="icon-call-end c-theme-font"></i> +(509) 3606-2600</li>
-                            <li><i class="icon-envelope c-theme-font"></i> jicocid@gmail.com</li>
+                            <li><i class="icon-pointer c-theme-font"></i> <?= $org->adresse ?></li>
+                            <li><i class="icon-call-end c-theme-font"></i><?= $org->telephone ?> </li>
+                            <li><i class="icon-envelope c-theme-font"></i> <?= $org->email ?></li>
                         </ul>
                     </div>
                 </div>

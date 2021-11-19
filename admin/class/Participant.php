@@ -598,7 +598,6 @@
 		{
 			// include config
 			require './font-end/layout/config.php';
-
 			$user=Query::affiche('participant',$email,'email');
 			if (!$user) {
 				// echo "<p class='alert alert-danger'>Cette email n'existe pas.</p>";
@@ -674,7 +673,7 @@
 						<body>
 							<div style='margin: 15px;'
 								<br>
-								<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
+								<h4 syle='margin-top:40px;' >Salut $participant->prenom , </h4>
 									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cours de <b>$formation->titre</b> à été validée avec succès </p> <br>
 									<a href='http://www.ocidhaiti.org/tableau-de-bord'
 										<button class='btn btn-primary btn-xs'> Commencer à apprendre </button>
@@ -685,7 +684,7 @@
 							</div>
 						</body>
 						</html>";
-						Fonctions::set_flash("$participant->prenom"." a été validé avec succès",'success');
+						Fonctions::set_flash("$participant->prenom "." a été validé avec succès",'success');
 					//==========================================================================================
 					// envoyer l'email 
 					// sujet de l'email
