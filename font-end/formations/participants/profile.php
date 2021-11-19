@@ -204,14 +204,19 @@
 						<div class="tab-pane" id="tab_1_2_content">
 							<form action="" method="POST" role="form" data-parsley-validate action="">
 								<div class="row">
-									<div class="form-group col-md-12">
-										<label class="">Mot de passe actuel </label>
-										<input type="password" placeholder="actuel mot de passe" data-parsley-trigger="keypress"  class="form-control" name="password_actuel" id="password1"  required="">
-									</div>
-
 								<div class="form-group col-md-12">
 									<label class="control-label">Entrer  un mot passe</label>
 									<input type="password" placeholder="Mot de passe" data-parsley-trigger="keypress"  class="form-control" data-parsley-maxlength="250" name="password" id="password2" data-parsley-minlength="6"  required="">
+								</div>
+								<div class="col-md-12">
+									<label class="control-label">Répéter le mot de passe</label>
+									<input type="password" data-parsley-equalto="#password2" name="password_confirmation"class="form-control" placeholder="Repeter le mot de passe" data-parsley-trigger="keypress" data-parsley-minlength="6" data-parsley-maxlength="250"  required=""></br>
+								</div>
+
+								<div class="row">
+									<div class="form-group col-md-12">
+										<button type="submit" name="changer"  class="btn btn-primary"> <i class="fa fa-edit"></i> Changer</button>
+									</div>
 								</div>
 
 									
