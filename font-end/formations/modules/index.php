@@ -7,10 +7,10 @@
 <html>
 <?php 
 	$formation=Query::affiche('formation',$url[1],'id');
-	if (!$formation) {
-		Fonctions::set_flash("Cette formation n'existe pas",'warning');
-		echo "<script>window.location ='$link_menu/formations';</script>";
-	}
+	// if (!$formation) {
+	// 	Fonctions::set_flash("Cette formation n'existe pas",'warning');
+	// 	echo "<script>window.location ='$link_menu/formations';</script>";
+	// }
 
 	$check = Formation::formation_suivie_verif($formation->id,$_SESSION['id_user']);
 	if($check==0){

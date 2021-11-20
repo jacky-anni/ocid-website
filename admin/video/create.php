@@ -14,7 +14,7 @@
               <input type="text" class="form-control" name="nom" id="exampleInputEmail1" maxlength="250" data-parsley-maxlength="250" placeholder="Le titre ici..." required="">
             </div>
 
-            <?php if(!isset($_GET['article'])): ?>
+            <!-- <?php if(!isset($_GET['article'])): ?>
               <div class="form-group">
                 <label for="exampleInputEmail1">Activités</label>
                 <select class="form-control" name="activite">
@@ -24,7 +24,7 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-            <?php endif; ?>
+            <?php endif; ?> -->
 
             <div class="form-group">
               <label for="exampleInputEmail1">Le lien d'integration youtube</label>
@@ -50,16 +50,20 @@
         $activite=$_GET['article'];
       }
 
+      if (isset($_GET['module'])) {
+        $activite=$_GET['module'];
+      }
+
       $video = new Video($nom,$activite,$_SESSION['id'],$lien);
       $video->ajouter();
       Fonctions::set_flash('Video enregistrée avec succès','success');
 
-      if (isset($_GET['article'])) {
-        $id=$_GET['article'];
-        header("Location:?page=Article&article=$id");
-      }else{
-        header("Location:?page=Videos");
-      }
+      // if (isset($_GET['article'])) {
+      //   $id=$_GET['article'];
+      //   header("Location:?page=Article&article=$id");
+      // }else{
+      //   header("Location:?page=Videos");
+      // }
 
       
   }

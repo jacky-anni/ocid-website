@@ -127,6 +127,17 @@ class Query
 				// echo $data->nom;
 			}
 		}
+
+
+		public static function vue($id,$identifiant)
+	{
+		$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM vue_element WHERE id_element=? AND element=?");
+		$req->execute(array($id,$identifiant));
+		$data=$req->rowCount();
+		return $data;
+	}
+
+		
 		
 
 

@@ -32,14 +32,16 @@
 		if (isset($_POST['supprimer'])) {
 			Query::supprimer('video',$_POST['id']);
 			Fonctions::set_flash("Video supprimée avec succès","success");
+			$url=$_SERVER['REQUEST_URI'];
+      		echo "<script>window.location ='$url';</script>";
 
-			$article=$_GET['article'];
+			// $article=$_GET['article'];
 
-			if (isset($article)) {
-				header("Location:?page=video-activités&article=$article");
-			}else{
-				header("Location:?page=Videos");
-			}
+			// if (isset($article)) {
+			// 	header("Location:?page=video-activités&article=$article");
+			// }else{
+			// 	header("Location:?page=Videos");
+			// }
 			
 		}
 	?>

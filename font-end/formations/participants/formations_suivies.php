@@ -84,20 +84,20 @@
 		<div class="item">
 				<div class="c-content-blog-post-card-1 c-option-2">		
 					<div class="c-media c-content-overlay">
-						<a >
+						<a href="<?= $link_menu ?>/cours/<?= $formation->id ?>">
 							<img class="c-overlay-object img-responsive" src="<?= $link ?>/assets/base/img/layout/formation-template.jpg" alt="">
 						</a>
 					</div>
 					<div class="c-body">
 						<div class="c-title c-font-bold">
-							<a style="font-size: 15px; font-weight: bold; text-align: center;"><?= $formation->titre ?> </a>
+							<a href="<?= $link_menu ?>/cours/<?= $formation->id ?>" style="font-size: 15px; font-weight: bold; text-align: center;"><?= $formation->titre ?> </a>
 						</div>
-						<div class="c-author">
-							<span> Date début :   <?= Fonctions::format_date($formation->date_debut) ?></span>
+						<div class="c-author" >
+							<center><small><span> Pour valider cette formation, on doit obtenir 60/100 pour chaque module  avant le  <?= Fonctions::format_date($formation->date_fin) ?></span></small></center>
 						</div>
 	
 						<div class="c-panel">							
-						<div class="c-comments"><a href="#"><i class="icon-speech"></i>  0 / 9 Modules </a></div>
+						<div class="c-comments" style="font-size:13px;"><a href="#"><i class="icon-speech"></i> <?= $module_passe ?>/<?= $module_total ?> <?php if($module_total>1){echo "Modules disponibles";}else{echo "Module disponible";} ?></a></div>
 					</div>
 						<!-- <p>
 							Lorem ipsum dolor sit amet, dolor adipisicing elit. 
@@ -105,22 +105,23 @@
 					</p> -->
 	
 					<div class="progress">
-							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #00a65a;">
-							0 %
-							</div>
-					</div>
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?= $note ?>%; background-color: #00a65a;">
+							<?= $note ?>%
+						</div>
+					</div> 
 	
-					<div class="c-panel" style="margin-bottom: -25px;">
-						<ul class="c-tags c-theme-ul-bg">
-						<?php if(Fonctions::user()->update_==0){ ?>
-							<li><a href="<?= $link_menu ?>/upload_/<?= Fonctions::user()->id ?>" style="color: black; font-weight: bold; " > <center> Soumettre la recommendation pour avoir accès au cours</center></a> </li><hr>
-							<center><a href="<?= $link_menu ?>/upload&user=<?= Fonctions::user()->id ?>" target="_blank"><i class="fa fa-download"></i> Télécharger le formulaire</a></center>
-						<?php }else{ ?>	
-							<li><a href="" style="color: black; font-weight: bold; " > <center> <i class="fa fa-check"></i> Cours validé</center></a> </li>
-						
-						<?php } ?>
-						</ul>
-					</div>
+					<!-- <div class="c-panel" style="margin-bottom: -25px;">
+						<li><a href="<?= $link_menu ?>/releve-note/<?= $formation->id ?>" target="_blank" style="color: black; font-weight: bold;">Notes</a></li>
+
+						<?php if($module_passe!=$module_total): ?>
+							<li><a href="<?= $link_menu ?>/attestation/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" style="color: black; font-weight: bold; " target="_blank"> <i class="fa fa-file"></i> Attestation</a></li>
+						<?php endif ?>
+
+						<?php if($module_passe==$module_total): ?>
+							<?php $link_=''; ?>
+							<li><a href="<?= $link_ ?>" style="color: black; font-weight: bold;" target="_blank"> <i class="fa fa-certificate"></i> Certificat</a></li>
+						<?php endif ?>
+					</div> -->
 				</div>
 
 				<?php

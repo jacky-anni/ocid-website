@@ -23,20 +23,22 @@
 		{
 			if (!empty($this->titre)) {
 
-			$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM quiz WHERE nom=?");
-			$req->execute(array($this->titre));
+			$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM quiz WHERE nom=? AND id_module=?");
+			$req->execute(array($this->titre,$this->module));
+
 			$quizFound=$req->rowCount();
 			if (!$quizFound) {
 				$count= Query::count_query('quiz');
 				 $id=rand(1000,1999).$count;
-				 $requette=class_bdd::connexion_bdd()->prepare("INSERT INTO quiz(id,nom,id_module,posteur,date_post)VALUES (?,?,?,?,NOW())");
-				$requette->execute(array($id,$this->titre,$this->module,$_SESSION['id']));
+				 $requette=class_bdd::connexion_bdd()->prepare("INSERT INTO quiz(id,nom,id_module,etat,posteur,date_post)VALUES (?,?,?,?,?,NOW())");
+				$requette->execute(array($id,$this->titre,$this->module,0,$_SESSION['id']));
+
 				Fonctions::set_flash('Quiz enregistré','success');
 				$redirect=$_SERVER['REQUEST_URI'];
 				echo "<script>window.location ='$redirect';</script>";
 
 			}else{
-				echo "<p class='alert alert-danger'>Ce quiz existe déjà.</p>";
+				Fonctions::set_flash('Ce qiz existe déjà','danger');
 				$redirect=$_SERVER['REQUEST_URI'];
 				echo "<script>window.location ='$redirect';</script>";
 			}
@@ -54,8 +56,8 @@
 		public static function ajouter_question($id_quiz,$id_module,$titre,$rep1,$rep2,$rep3,$rep4,$bonne_reponse)
 		{
 			if (!empty($titre)) {
-				$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM questions_quiz WHERE titre=?");
-				$req->execute(array($titre));
+				$req=class_bdd::connexion_bdd()->prepare("SELECT * FROM questions_quiz WHERE titre=? AND id_module=?");
+				$req->execute(array($titre,$_GET['module']));
 				$questionFound=$req->rowCount();
 				// verifier si la question existe
 				if (!$questionFound) {

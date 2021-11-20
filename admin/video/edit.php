@@ -14,7 +14,7 @@
               <input type="text" value="<?= $video->nom;?>" class="form-control" name="nom" maxlength="250" data-parsley-maxlength="250" id="exampleInputEmail1" placeholder="Le titre ici..." required="">
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="exampleInputEmail1">Activités</label>
               <select class="form-control" name="activite">
                  <option  value="Aucune" <?php if($video->reference=='Aucune'){echo "selected";} ?>>Aucune activité</option>
@@ -22,7 +22,7 @@
                   <option value="<?= $article->id ?>" <?php if($video->reference==$article->id){echo "selected";} ?>><?= substr($article->titre, 0,90); ?>... </option>
                 <?php endforeach; ?>
               </select>
-            </div>
+            </div> -->
 
             <div class="form-group">
               <label for="exampleInputEmail1">Le lien d'integration youtube</label>
@@ -46,16 +46,16 @@
 <?php
   if (isset($_POST['modifier'])) {
       extract($_POST);
-      $video = new Video($nom,$activite,$_SESSION['id'],$lien);
+      $video = new Video($nom,$_GET['module'],$_SESSION['id'],$lien);
       $video->modifier($id_video);
 
-      $article=$_GET['article'];
+      // $article=$_GET['article'];
 
-      if (isset($article)) {
-        header("Location:?page=video-activités&article=$article");
-      }else{
-        header("Location:?page=Videos");
-      }
+      // if (isset($article)) {
+      //   header("Location:?page=video-activités&article=$article");
+      // }else{
+      //   header("Location:?page=Videos");
+      // }
       // Fonctions::set_flash('Video successfully registered !','success');
   }
 

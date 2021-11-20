@@ -19,11 +19,12 @@
 
 						$quiz_test= Query::affiche('quiz',$module->id,'id_module');
 
-						if (isset($quiz_test->nom) AND $quiz_test->nom=='Questionnaire introductif') {
-							$note=70;
-						}else{
-							$note= Quiz::resultat_quiz($_SESSION['id_user'],$_id);
-						}
+						// if (isset($quiz_test->nom) AND $quiz_test->nom=='Questionnaire introductif') {
+						// 	$note=70;
+						// }else{
+						// 	$note= Quiz::resultat_quiz($_SESSION['id_user'],$_id);
+						// }
+						$note= Quiz::resultat_quiz($_SESSION['id_user'],$_id);
 					?>
 				<div class="panel">
 					<div class="panel-heading" role="tab" id="heading1">
@@ -49,25 +50,25 @@
 												<td style="background-color: #25a8b4; color: white;"><?= $module->description ?></br><small style="color: yellow;"> <i class="fa fa-user"></i> <b><i><?= $module->intervenant ?></i></b> </small></td>
 											</tr>
 
-											<?php if($video_count>=1): ?>
-												<?php foreach(Query::liste_prepare ('video',$module->id,'reference') as $video): ?>
-													<tr>
-														<td style="<?php if(Fonctions::count_element($_SESSION['id_user'],$video->id,'video')){echo "background-color: #e9facb;";} ?>"><a <?php if($key!=1 AND $note<60){echo "onclick='myFunction()'";}else{echo "href='$link_menu/cours-suivi/$url[1]/$module->id/$video->id'";} ?>> <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$video->id,'video')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_Circled_Play_24px_1.png"></span>  <?= $video->nom ?> </span></td>
-													</tr>
-												<?php endforeach; ?>
-											<?php endif; ?>
-
 											<?php if($doc>=1): ?>
-												<?php foreach(Query::liste_prepare ('document',$module->id,'reference') as $document): ?>
+												<?php foreach(Query::liste_prepare_asc ('document',$module->id,'reference') as $document): ?>
 													<tr>
-														<td  style="<?php if(Fonctions::count_element($_SESSION['id_user'],$document->id,'document')){echo "background-color: #e9facb;";} ?>"><a <?php if($key!=1 AND $note<60){echo "onclick='myFunction()'";}else{echo "href='$link_menu/document/$document->document /$document->id'";} ?>  target="_blank"> <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$document->id,'document')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_PDF_24px_1.png"></span>  <?= $document->nom ?> <span style="float: right;">
+														<td  style="<?php if(Fonctions::count_element($_SESSION['id_user'],$document->id,'document')){echo "background-color: #e9facb;";} ?>"><a href='<?= $link_menu?>/document/<?= $document->document ?>/<?= $document->id ?>'  target="_blank"> <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$document->id,'document')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_PDF_24px_1.png"></span>  <?= $document->nom ?> <span style="float: right;">
 														</td>
 													</tr>
 												<?php endforeach; ?>
 											<?php endif; ?>
 
+											<?php if($video_count>=1): ?>
+												<?php foreach(Query::liste_prepare_asc ('video',$module->id,'reference') as $video): ?>
+													<tr>
+														<td style="<?php if(Fonctions::count_element($_SESSION['id_user'],$video->id,'video')){echo "background-color: #e9facb;";} ?>"><a href="<?= $link_menu ?>/cours-suivi/<?= $url[1] ?>/<?= $module->id ?>/<?= $video->id ?>" > <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$video->id,'video')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_Circled_Play_24px_1.png"></span>  <?= $video->nom ?> </span></td>
+													</tr>
+												<?php endforeach; ?>
+											<?php endif; ?>
+
 											<?php if($audio_count>=1): ?>
-												<?php foreach(Query::liste_prepare ('audio',$module->id,'reference') as $audio): ?>
+												<?php foreach(Query::liste_prepare_asc ('audio',$module->id,'reference') as $audio): ?>
 													<tr>
 														<td style="<?php if(Fonctions::count_element($_SESSION['id_user'],$audio->id,'audio')){echo "background-color: #e9facb;";} ?>"><a  <?php if($key!=1 AND $note<60){echo "onclick='myFunction()'";}else{echo "href='$link_menu/cours-suivi/$url[1]/$module->id/$audio->id'";} ?>> <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$audio->id,'audio')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_Music_24px.png"></span>  <?= $audio->nom ?></span></td>
 													</tr>
@@ -99,7 +100,7 @@
 																</td>
 
 														<?php }else{ ?>
-															<td style="<?php if(Fonctions::count_element($_SESSION['id_user'],$quiz->id,'quiz')){echo "background-color: #e9facb;";} ?>"><a <?php if($key!=1 AND $note<60){echo "onclick='myFunction()'";}else{echo "href='$quiz_link'";} ?>> <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$quiz->id,'quiz')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_Query_24px.png"></span>  <?= $quiz->nom ?></span></td>
+															<td style="<?php if(Fonctions::count_element($_SESSION['id_user'],$quiz->id,'quiz')){echo "background-color: #e9facb;";} ?>"><a href="<?= $quiz_link ?>" > <span style="float: left; margin-right: 7px;"><input type="checkbox" <?php if(Fonctions::count_element($_SESSION['id_user'],$quiz->id,'quiz')){echo "checked";} ?>><img class="icon" src="<?= $link ?>/assets/base/img/layout/icon/icons8_Query_24px.png"></span>  <?= $quiz->nom ?></span></td>
 														<?php } ?>
 													</tr>
 												<?php endforeach; ?>

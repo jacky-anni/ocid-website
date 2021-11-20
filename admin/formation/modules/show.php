@@ -149,10 +149,10 @@
                                               <img src="dist/img/icon/icons8_PDF_50px.png" alt="Product Image">
                                             </div>
                                             <div class="product-info">
-                                              <a href="dist/document/<?= $document->document ?>" class="product-title"><?= $document->nom ?></a>
+                                              <a href="dist/document/<?= $document->document ?>" class="product-title"><?= $document->nom ?> <?= $document->id ?></a>
                                               <span class="product-description" style="padding: 5px;">
                                                 <?php
-                                                  $count_doc=Query::count_prepare('vue_element',$document->id,'id_element');
+                                                  $count_doc=  Query::vue($document->id,'document');
                                                    if($count_doc>1)
                                                    {
                                                     echo "$count_doc visionnements";
@@ -191,7 +191,7 @@
                                               <a href="#" class="product-title"><?= $video->nom ?></a>
                                               <span class="product-description" style="padding: 5px;">
                                                 <?php
-                                                  $count_video=Query::count_prepare('vue_element',$video->id,'id_element');
+                                                  $count_video= Query::vue($video->id,'video');
                                                    if($count_video>1)
                                                    {
                                                     echo "$count_video visionnements";
@@ -232,7 +232,7 @@
                                             <p style="color: white; font-size: 16px; line-height: 23px;"><?= $audio->nom ?></br>
                                             <span class="product-description" style="padding: 5px; font-size: 13px;">
                                                 <?php
-                                                  $audio_doc=Query::count_prepare('vue_element',$audio->id,'id_element');
+                                                  $audio_doc=   Query::vue($audio->id,'audio');
                                                    if($audio_doc>1)
                                                    {
                                                     echo "$audio_doc visionnements";
@@ -275,7 +275,7 @@
                                                 <a href="" class="product-title"><?= $quiz->nom ?></a>
                                                 <span class="product-description" style="padding: 5px;">
                                                   <?php
-                                                    $count_quiz=Query::count_prepare('vue_element',$quiz->id,'id_element');
+                                                    $count_quiz=   Query::vue($quiz->id,'quiz');
                                                      if($count_quiz>1)
                                                      {
                                                       echo "$count_quiz visionnements";
@@ -285,7 +285,7 @@
                                                    ?>
                                                   </span>
 
-                                                    <a href=""  class="btn btn-primary btn-xs"><b> <i class="fa fa-edit"></i>  Ajouter des questions</b></a>
+                                                    <a href="?page=quiz&id=<?= $formation->id ?>&module=<?= $module->id ?>&quiz=<?= $quiz->id ?>"  class="btn btn-primary btn-xs"><b> <i class="fa fa-edit"></i>  Ajouter des questions</b></a>
 
                                                     <?php if ($quiz->etat==1): ?>
                                                     <a href="<?php echo $_SERVER['REQUEST_URI']."&statut=0"; ?>" class="btn btn-warning btn-round btn-sm btn-xs"> <i class="fa fa-circle"></i>  Mettre privé</a>

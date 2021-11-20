@@ -88,9 +88,9 @@
 
 							</tbody>
 						</table>
-						<a target="_blank" href="<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>">
+						<!-- <a target="_blank" href="<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>">
 							<button class="pull-right btn btn-success" style="margin: 20px;"> <i class="fa fa-print"></i> imprimer</button>
-						</a>
+						</a> -->
 
 					<!-- 	<a target="_blank" href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>">
 							<button class="pull-right btn btn-success" style="margin: 20px;"> <i class="fa fa-print"></i> Certificat</button>
