@@ -2,7 +2,7 @@
 <?php foreach (Query::liste_prepare_asc('formation_suivie',$_SESSION['id_user'],'id_participant') as $formations): ?>
 	<?php 
 	  $formation=Query::affiche('formation',$formations->id_formation,'id');
-	  $module_total= Query::count_prepare('module_formation',$formation->id,'id_formation');
+	//   $module_total= Query::count_prepare('module_formation',$formation->id,'id_formation');
   
 	  // verifier la quantite de quiz passe
 	  $module_total = Module::count($formation->id);
@@ -48,7 +48,7 @@
 							</div>
 					</div> 
 	
-	
+<!-- 	
 					<div class="c-panel" style="margin-bottom: -25px;">
 						<ul class="c-tags c-theme-ul-bg">
 							<li><a href="<?= $link_menu ?>/releve-note/<?= $formation->id ?>" target="_blank" style="color: black; font-weight: bold;">Notes</a></li>
@@ -62,11 +62,11 @@
 								<li><a href="<?= $link_ ?>" style="color: black; font-weight: bold;" target="_blank"> <i class="fa fa-certificate"></i> Certificat</a></li>
 							<?php endif ?>
 						</ul>							
-					</div>
+					</div> -->
 					
 				</div>
 	
-				<small>
+				<!-- <small>
 					<?php if($module_passe!=$module_total): ?>
 						<p class="alert alert-info" style=" padding: 3px; color: black; text-align: center;"><b> <i class="fa fa-close"></i> Terminer le cours pour obtenir votre certificat</b></p>
 					<?php endif ?>
@@ -74,7 +74,7 @@
 					<?php if($module_passe==$module_total): ?>
 						<p class="alert alert-info" style=" padding: 3px; color: red; text-align: center;"><b> <i class="fa fa-check"></i> Cours terminé</b></p>
 					<?php endif ?>
-				</small>
+				</small> -->
 			</div>
 			</div>
 	</div>
