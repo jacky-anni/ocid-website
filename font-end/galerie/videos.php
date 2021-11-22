@@ -20,7 +20,7 @@
     <div class="c-content-box c-overflow-hide c-bs-grid-reset-space">  
      <div class="container">
             <div class="row" >
-             <?php foreach (Query::liste('video') as $key => $videos): ?>
+             <?php foreach (Query::liste('video',49) as $key => $videos): ?>
                 <div class="col-md-3">
                     <div>
                         
