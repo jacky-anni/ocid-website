@@ -43,11 +43,11 @@
 						</a>
 					<?php endif ?>
 
-					<!-- <?php if(isset($_SESSION['id_user']) AND $check==1):?>
+					<?php if(isset($_SESSION['id_user']) AND $check==1):?>
 						<a href="<?= $link_menu ?>/cours/<?= $formations->id ?>">
 							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> Suivre le cours</button>
 						</a>
-					<?php endif ?> -->
+					<?php endif ?>
 
 					<?php if(isset($_SESSION['id_user']) AND $check==0):?>
 						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">

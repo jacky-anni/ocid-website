@@ -269,17 +269,7 @@
 												<a href="<?= $link_menu ?>/formation/<?= $formations->id ?>">
 													<button class="btn btn-sm c-theme-btn c-btn-bold"> <i class="fa fa-plus"></i> Voir le cours</button>
 												</a>
-
-												<?php
-													if(isset($_SESSION['id_user'])){
-												?>
-												<a href="<?= $link_menu ?>/cours/<?= $formations->id ?>">
-													<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> Suivre le cours</button>
-												</a>
-												<?php } ?>
-
-												
-												</p>
+											</p>
 										</div>
 									</div>
 								</div>

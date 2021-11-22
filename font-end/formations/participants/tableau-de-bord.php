@@ -31,20 +31,9 @@
 					<div class="c-card c-font-right wow animate fadeInLeft">
 						<i class="fa fa-file c-font-27 c-theme-font c-float-right c-border c-border-opacity"></i>
 						<div class="c-content c-content-right">
-							<h3 class="c-font-uppercase c-font-bold">
-								<?= 
-									$formation1 = Query::count_prepare('formation_suivie',$_SESSION['id_user'],'id_participant');
-									$quiz_pass = Query::count_prepare('participant_resultat_module',$_SESSION['id_user'],'id_participant');
-
-
-									if($formation1>1){
-										$formation_suiv= "Formations";
-									}else{
-										$formation_suiv= "Formation";
-									}
-								 ?> <?= $formation_suiv ?></h3>
+							<h3 class="c-font-uppercase c-font-bold">Formations</h3>
 							<p>
-								Vous avez déjà suivi <?= $formation1 ?>  <?= $formation_suiv ?>
+								Liste de mes formations
 							</p>
 						</div>
 					</div>	

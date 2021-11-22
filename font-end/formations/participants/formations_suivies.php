@@ -9,9 +9,14 @@
 	  $module_passe= Quiz::pass_module($_SESSION['id_user'],$formation->id);
   
 	  // verifi si le modue passe est egal a 0
-	  if ($module_passe>0) {
+	  if ($module_passe>0 AND $formation->type==1) {
 		  // pourcentage de module passe;
 		  $note= number_format($module_passe/$module_total*100);
+	  }elseif($module_passe>0 AND $formation->type==2){
+		$note= number_format($module_passe/9*100);
+	  }
+	  else{
+		  $note =0;
 	  }
    ?>
   <div class="row c-bg-grey-1" style="padding: 15px;">
@@ -65,6 +70,10 @@
 					</div> -->
 					
 				</div>
+
+				<p class="alert alert-info" style=" padding: 3px; color: red; text-align: center;">
+					<a href="<?= $link_menu ?>/releve-note/<?= $formation->id ?>"><i class="fa fa-file-o"></i> Voir vos résultats </a>
+				</p>
 	
 				<!-- <small>
 					<?php if($module_passe!=$module_total): ?>
@@ -97,12 +106,13 @@
 						</div>
 	
 						<div class="c-panel">							
-						<div class="c-comments" style="font-size:13px;"><a href="#"><i class="icon-speech"></i> <?= $module_passe ?>/<?= $module_total ?> <?php if($module_total>1){echo "Modules disponibles";}else{echo "Module disponible";} ?></a></div>
+						<div class="c-comments" style="font-size:13px;"><a href="#"><i class="icon-speech"></i> <?= $module_passe ?>/9 <?php if($module_total>1){echo "Modules";}else{echo "Modules";} ?></a></div>
 					</div>
 						<!-- <p>
 							Lorem ipsum dolor sit amet, dolor adipisicing elit. 
 							Nulla nemo ad sapiente officia amet.
 					</p> -->
+
 	
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?= $note ?>%; background-color: #00a65a;">
@@ -137,12 +147,9 @@
 					}
 
 				?>
-
-				<?php if(Fonctions::user()->update_==1):  ?>
-					<p class="alert alert-info" style=" padding: 3px; color: red; text-align: center;">
-						<a href="<?= $link_ ?>" target="_blank"><i class="fa fa-whatsapp"></i> Integrer notre groupe WhatsApp </a>
-					</p>
-				<?php endif ?>
+				<p class="alert alert-info" style=" padding: 3px; color: red; text-align: center;">
+					<a href="<?= $link_ ?>"><i class="fa fa-whatsapp"></i> Integrez le froupe whatsapp </a>
+				</p>
 	
 			</div>
 			</div>

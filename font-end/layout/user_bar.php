@@ -29,7 +29,7 @@
 
 			<li>
 				<div class="c-post">
-				<a href="<?= $link_menu ?>/tableau-de-bord" class="c-title" style="font-size: 15px;"> <i class="fa fa-dashbord"></i> Tableau de bord</a>
+				<a href="<?= $link_menu ?>/tableau-de-bord" class="c-title" style="font-size: 15px;"> <i class="fa fa-dashboard"></i> Tableau de bord</a>
 				</div>
 			</li>
 
