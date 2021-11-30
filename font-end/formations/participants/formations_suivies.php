@@ -141,7 +141,7 @@
 					}elseif(Fonctions::user()->departement =="Artibonite" OR Fonctions::user()->departement =="Nord-Ouest" OR Fonctions::user()->departement =="Centre" ){
 						$link_ = "https://chat.whatsapp.com/HgSVfENThcO3XPzGfzEu3b";
 					}elseif(Fonctions::user()->departement == "Ouest" OR Fonctions::user()->departement == "Sud-Est" OR Fonctions::user()->departement == "Nippes" ){
-						$link_ = "https://chat.whatsapp.com/G1lHgVZihNdKoFxPMB4PWe";
+						$link_ = "https://chat.whatsapp.com/JeRQrKHHpMs02au9fFsHb0";
 					}else{
 						$link_ = "https://chat.whatsapp.com/BCSBhxPmhjXGedHYEciJ42";
 					}
