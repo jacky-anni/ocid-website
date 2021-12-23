@@ -27,10 +27,6 @@
 		
 		// echo '<img src="'.$photo.'" class="img-thumbnail col-md-12" />';
 		Utilisateur::upload($name.'.png',$_SESSION['user']);
-		
-
-		
-
 	}
 
 ?>

@@ -297,9 +297,14 @@ $(document).ready(function(){
         data:{"image": response},
         success:function(data)
         {
+          setTimeout(function() {
+            window.location.href="?page=profile&id=<?= $_GET['id'] ?>";
+          }, 100)
           $('#uploadimageModal').modal('hide');
-          window.location.href="?page=profile&id=<?= $_GET['id'] ?>";
+          // window.location.href="?page=profile&id=<?= $_GET['id'] ?>";
           // $('#uploaded_image').html(data);
+
+         
         }
       });
     })

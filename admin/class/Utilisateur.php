@@ -88,7 +88,6 @@ class utilisateur
 	// modifier photo
 		public static function upload($photo,$id)
 		{
-
 			//selectionner l'utilisateur en cours 
 			$user=Query::affiche('utilisateur',$id,'id');
 			// supprmer l'ancienne photo
@@ -97,6 +96,12 @@ class utilisateur
 			$requette=class_bdd::connexion_bdd()->prepare("UPDATE utilisateur SET photo=? WHERE id=?");
 			$requette->execute(array($photo,$id));
 			Fonctions::set_flash('Photo modifié avec succès','success');
+			// echo "<script>window.location ='Location:?page=profile&id=$id'</script>";
+		}
+
+		public static function test()
+		{
+			echo "Biwwwwwww";
 		}
 
 
@@ -273,8 +278,6 @@ class utilisateur
 
 	public static function modifier_profile($nom,$prenom,$email,$droit,$mdp)
 	{
-
-
 		//verification si on clique sur le nom
 		if (isset($nom)) {
 			// modificaton du nom

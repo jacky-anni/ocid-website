@@ -123,6 +123,8 @@
                   <span class="pull-right text-blue"> <?= $modules_= Query::count_prepare('module_formation',$formations->id,'id_formation') ?></span></a>
                 </li>
 
+            
+
               </ul>
             </div>
             <!-- /.footer -->
