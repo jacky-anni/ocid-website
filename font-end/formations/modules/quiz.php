@@ -31,7 +31,7 @@
 	if($quiz1->nom!='Questionnaire introductif')
 	{
 		// verifier si la note est superieur a 60
-		if ($note>60) {
+		if ($note>=60) {
 			// Fonctions::set_flash("Cette formation n'existe pas",'warning');
 			echo "<script>window.location ='$link_menu/resultat-quiz/$url[1]/$module->id/$quiz1->id';</script>";
 		}
