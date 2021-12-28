@@ -110,10 +110,30 @@
 <!-- REQUIRED JS SCRIPTS -->
 <!-- page script -->
 <script>
-  $(document).ready(function() {
-    $('#example').DataTable();
-} );
+  $(document).ready( function() {
+		$('#example').dataTable( {
+
+			"oLanguage": {
+				"oPaginate": {
+					"sNext": "Suivant",
+					"sPrevious": "Précedent",
+				},
+			},
+			"language": {
+					"lengthMenu": "Afficher _MENU_ ligne par page",
+					"zeroRecords": "Aucune donnée trouvée",
+					"info": "Page _PAGE_ sur _PAGES_",
+					"infoEmpty": "Pas de donnée disponible",
+					"infoFiltered": "(filtered from _MAX_ total records)"
+					},
+
+			"order": [],
+			"bFilter": true,
+			"aLengthMenu": [[10, 20, 30,50,100, -1], [10, 20, 30,50,100,"Tous"]],
+		} );
+	} );
 </script>
+
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
