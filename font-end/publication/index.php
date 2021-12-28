@@ -64,22 +64,30 @@
 <?php include('font-end/layout/footer.php'); ?>
 <?php include('font-end/layout/script.php'); ?>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
+	<script>
 	$(document).ready( function() {
-	  $('#example').dataTable( {
+			$('#example').dataTable( {
 
-	    "oLanguage": {
-	      "oPaginate": {
-	        "sNext": "Suivant",
-	        "sPrevious": "Précedent"
-	      },
-	    },
-	    "bFilter": false,
-	    "aLengthMenu": [[10, 20, 30,50,100, -1], [10, 20, 30,50,100,"Tous"]],
+				"oLanguage": {
+					"oPaginate": {
+						"sNext": "Suivant",
+						"sPrevious": "Précedent",
+					},
+				},
+				"language": {
+						"lengthMenu": "Afficher _MENU_ ligne par page",
+						"zeroRecords": "Aucune donnée trouvée",
+						"info": "Page _PAGE_ sur _PAGES_",
+						"infoEmpty": "Pas de donnée disponible",
+						"infoFiltered": "(filtered from _MAX_ total records)"
+						},
 
-	  } );
-	} );
-</script>
+				"order": [],
+				"bFilter": true,
+				"aLengthMenu": [[10, 20, 30,50,100, -1], [10, 20, 30,50,100,"Tous"]],
+			} );
+		} );
+	</script>
  </body>
     
 
