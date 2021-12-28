@@ -170,11 +170,11 @@ $(document).ready(function(){
       type: 'canvas',
       size: 'viewport'
     }).then(function(response){
-      $.ajaxSetup({ cache: false });
+      $.ajaxSetup({ cache: true });
       $.ajax({
         url:"article/upload/article.php",
         type: "POST",
-        async: false,
+        async: true,
         data:{"image": response},
         success:function(data)
         {
