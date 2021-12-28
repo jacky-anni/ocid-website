@@ -178,8 +178,11 @@ $(document).ready(function(){
         data:{"image": response},
         success:function(data)
         {
-          $('#uploadimageModal').modal('hide');
-          window.location.href="?page=Article&article=<?= $_GET['article'] ?>";
+          setTimeout(function(){
+            // $('#uploadimageModal').modal('hide');
+            window.location.href="?page=Article&article=<?= $_GET['article'] ?>";
+          }, 500); // wait 5 seconds before showing the message
+          
           // $('#uploaded_image').html(data);
         }
       });
