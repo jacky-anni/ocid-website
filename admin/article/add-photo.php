@@ -120,7 +120,7 @@
             <div class="modal-body">
               <center>
               <img  src="dist/img/11.gif"/>
-              <p></br>Atendez un instant...</p>
+              <p></br>Attendez un instant...</p>
               </center>
             </div>
             </form>
@@ -189,11 +189,10 @@ $(document).ready(function(){
       type: 'canvas',
       size: 'viewport'
     }).then(function(response){
-      $.ajaxSetup({ cache: false });
       $.ajax({
         url:"article/upload/article.php",
         type: "POST",
-        async: true,
+        async: false,
         data:{"image": response},
         beforeSend: function() {
           $('#uploadimageModal').modal('hide');
@@ -202,11 +201,9 @@ $(document).ready(function(){
         },
         success:function(data)
         {
-          setTimeout(function(){
-            $('#uploadimageModal').modal('hide');
+          $('#uploadimageModal').modal('hide');
             // $('#uploaded_image').html(data);
             window.location.href="?page=Article&article=<?= $_GET['article'] ?>";
-          }, 500); // wait 5 seconds before showing the message
           
           // $('#uploaded_image').html(data);
         }
