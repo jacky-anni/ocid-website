@@ -111,6 +111,25 @@
 
         </div>
       </div>
+
+      <div id="loading-image" data-backdrop="static" class="modal fade" tabindex="-1" >
+        <center>
+        <div class="modal-dialog" style="max-width: 100%; margin-top:200px; background-color:#595959;">
+          <div class="modal-content">
+            <form method="POST" action="">
+            <div class="modal-body">
+              <center>
+              <img  src="dist/img/11.gif"/>
+              <p></br>Atendez un instant...</p>
+              </center>
+            </div>
+            </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </center>
+      </div>
+
+      
       
 
     </section>
@@ -176,14 +195,16 @@ $(document).ready(function(){
         type: "POST",
         async: true,
         data:{"image": response},
+        beforeSend: function() {
+          $('#uploadimageModal').modal('hide');
+          $('#loading-image').modal('show');
+          // $("#loading-image").show();
+        },
         success:function(data)
         {
-          setTimeout(function(){
-            $('#uploadimageModal').modal('hide');
+          $('#uploadimageModal').modal('hide');
             // $('#uploaded_image').html(data);
             window.location.href="?page=Article&article=<?= $_GET['article'] ?>";
-          }, 500); // wait 5 seconds before showing the message
-          
           // $('#uploaded_image').html(data);
         }
       });
