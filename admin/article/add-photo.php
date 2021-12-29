@@ -170,7 +170,7 @@ $(document).ready(function(){
       type: 'canvas',
       size: 'viewport'
     }).then(function(response){
-      $.ajaxSetup({ cache: true });
+      $.ajaxSetup({ cache: false });
       $.ajax({
         url:"article/upload/article.php",
         type: "POST",
@@ -179,7 +179,8 @@ $(document).ready(function(){
         success:function(data)
         {
           setTimeout(function(){
-            // $('#uploadimageModal').modal('hide');
+            $('#uploadimageModal').modal('hide');
+            // $('#uploaded_image').html(data);
             window.location.href="?page=Article&article=<?= $_GET['article'] ?>";
           }, 500); // wait 5 seconds before showing the message
           
