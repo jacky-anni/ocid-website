@@ -1,10 +1,10 @@
 <?php
 	 // link 
-	$link='/site-ocid/font-end';
+	$link='/ocid/font-end';
 	// route admin
-	$link_admin='/site-ocid/admin';
+	$link_admin='/ocid/admin';
 	// route menu
-	$link_menu='/site-ocid';
+	$link_menu='/ocid';
 
 	$link_conf= 'http://localhost';
 ?>
