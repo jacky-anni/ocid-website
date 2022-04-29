@@ -1,4 +1,4 @@
-<?php include('includes/head.php');?>
+<?php include('includes/head.php'); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <!DOCTYPE html>
@@ -28,13 +28,13 @@
           <div class="box">
           <div class="box-header">
              <?php
-                 $formation=Query::affiche('formation',$_GET['id'],'id');
-                 if (!$formation->id) {
+            $formation = Query::affiche('formation', $_GET['id'], 'id');
+            if (!$formation->id) {
                   // si l'formation n'existe pas
-                  Fonctions::set_flash("La formation ou le module n'existe pas ",'danger');
-                  echo "<script>window.location ='?page=modules';</script>";
-                 }
-              ?>
+              Fonctions::set_flash("La formation ou le module n'existe pas ", 'danger');
+              echo "<script>window.location ='?page=modules';</script>";
+            }
+            ?>
              
              <div class="info-box bg-green">
                   <span class="info-box-icon" style="padding: 20px;"><img src="dist/img/icon/icons8_Training_64px.png"></span>
@@ -66,6 +66,13 @@
                       <th>
                           Nom
                       </th>
+                       <th>
+                          Sexe
+                      </th>
+
+                       <th>
+                          Departement
+                      </th>
                       <th>
                         Action
                       </th>
@@ -73,29 +80,34 @@
               </thead>
                  <tbody>
 
-
-
-                  <?php foreach (Module::user_module_pass($formation->id) as $key => $form): ?>
+                  <?php foreach (Module::user_module_pass($formation->id) as $key => $form) : ?>
                     <?php 
-                     $module_total = Module::count($formation->id);
+                    $module_total = Module::count($formation->id);
                      // kantite quiz ou pase
-                     $count_user= Quiz::pass_module($form->id_participant,$formation->id);
+                    $count_user = Quiz::pass_module($form->id_participant, $formation->id);
 
                      // $count_user=7;
                       // si le participant existe
-                      if ($module_total==$count_user) {
-                        
-                     ?>
+                    if ($module_total == $count_user) {
+
+                      ?>
                   <tr>
                       <td>
-                          <?=  $form->nom ?>
+                          <?= $form->nom ?>
                       </td>
                       <td>
-                        <?=  $form->prenom ?>
+                        <?= $form->prenom ?>
+                      </td>
+
+                       <td>
+                          <?= $form->sexe ?>
+                      </td>
+
+                      <td>
+                          <?= $form->departement ?>
                       </td>
 
                       </td>
-
 
                       <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="?page=certificat&id=<?= $formation->id ?>&participant=<?= $form->id_participant ?>" target="_blank">
@@ -105,7 +117,8 @@
                           </a>
                       </td>
                   </tr>
-                <?php  } ?>
+                <?php 
+              } ?>
                 <?php endforeach; ?>
 
               </tbody>

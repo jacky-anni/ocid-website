@@ -9,25 +9,41 @@ require '../admin/class/Fonctions.php';
 // module des requettes 
 require '../admin/class/Query.php';
 
+
 class MyPdf extends FPDF
 {
 
     function header()
     {
-
-
         $formation=Query::affiche('formation',$_GET['id'],'id');
         $participant=Query::affiche('participant',$_GET['participant'],'id');
+        
+        if($formation->id==18041){
+            $this->image('../admin/dist/dossier/certificat.jpg',5,4,270);
+        }else{
+            $this->image('../admin/dist/dossier/certificat.png',5,4,270);
 
-       
-        $this->image('../admin/dist/dossier/certificat.jpg',5,4,270);
+            
+        foreach (Query::liste('groupe') as $groupe){
+            if(trim($groupe->email)==trim($participant->email)){
+            $this->image('../admin/dist/dossier/mention.png',30,95,7);
+            }
+        }
+
+
+        }
         $this->SetTextColor(249,96,52);
         $this->SetFont('times', 'B', 20); 
-         // $this->Cell(0,151,''.utf8_decode('kf'." ".kfk),0,0,'C');
+        
 
-        $this->Cell(0,151,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
-        $this->Ln(10);  
+        $this->Cell(0,145,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
+        $this->Ln(10);
+
+        
+
     }
+
+    
 
 }
 

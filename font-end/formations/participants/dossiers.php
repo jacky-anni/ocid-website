@@ -21,7 +21,7 @@
 
 	<div class="container">
 	<div class="row">
-		<?php foreach (Query::liste_prepare('formation_suivie',$_SESSION['id_user'],'id_participant') as $dossier): ?>
+		<?php foreach (Query::liste_prepare_asc('formation_suivie',$_SESSION['id_user'],'id_participant') as $dossier): ?>
 			<?php 
 				$formation=Query::affiche('formation',$dossier->id_formation,'id');
 				$module_total= Query::count_prepare('module_formation',$formation->id,'id_formation');
@@ -50,14 +50,14 @@
 			    				<div class="c-post">
 			    					<b> <i class="fa fa-certificate"></i> Certificat de réussite </b>
 			    					<div class="c-date">
-			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><i class="fa fa-download"></i> Télécharger</span></a> 
+			    						<a href="<?= $link_conf ?>/<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><i class="fa fa-download"></i> Télécharger</span></a> 
 			    						
 			    						<span><a href="#"  data-toggle="modal" data-target="#certificat"><i class="fa fa-download"></i> Copier le lien</a></span>
 			    					</div>
 			    				</div>
 			    			</li>
 			    		<?php endif ?> 
-< 
+
 			    			<li>
 			    				<div class="c-post">
 			    					<b> <i class="fa fa-file"></i>  Atestation de participation </b>

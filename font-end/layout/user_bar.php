@@ -35,7 +35,7 @@
 
 			<li>
 				<div class="c-post">
-					<a href="" class="c-title" style="font-size: 15px;"> <i class="fa fa-folder"></i> Mes dossiers</a>
+					<a href="<?= $link_menu ?>/dossiers" class="c-title" style="font-size: 15px;"> <i class="fa fa-folder"></i> Mes dossiers</a>
 				</div>
 			</li>
 

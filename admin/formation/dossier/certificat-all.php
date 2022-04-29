@@ -51,15 +51,23 @@ foreach ($dept as $key => $participant){
  // $count_user=7;
   // si le participant existe
   if ($module_total==$count_user) {
-
-
-
     $pdf->AddPage('L','Letter',0);
-    $pdf->image('../admin/dist/dossier/certificat.jpg',5,4,270);
+
+    if($formation->id==18041){
+      $pdf->image('../admin/dist/dossier/certificat.jpg',5,4,270);
+    }else{
+        $pdf->image('../admin/dist/dossier/certificat.png',5,4,270);
+    }
     $pdf->SetTextColor(249,96,52);
     $pdf->SetFont('times', 'B', 20); 
 
     $pdf->Cell(0,151,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
+
+
+    $this->SetFont('times', 'B', 14);
+        $pdf->SetXY(90, 160);
+        $pdf->Rotate(90);
+        $this->Cell(0,151,''.utf8_decode('kf'),0,0,'C');
 
   }
 }

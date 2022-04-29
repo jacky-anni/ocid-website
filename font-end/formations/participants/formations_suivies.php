@@ -13,7 +13,7 @@
 		  // pourcentage de module passe;
 		  $note= number_format($module_passe/$module_total*100);
 	  }elseif($module_passe>0 AND $formation->type==2){
-		$note= number_format($module_passe/9*100);
+		$note= number_format($module_passe/6*100);
 	  }
 	  else{
 		  $note =0;
@@ -106,7 +106,7 @@
 						</div>
 	
 						<div class="c-panel">							
-						<div class="c-comments" style="font-size:13px;"><a href="#"><i class="icon-speech"></i> <?= $module_passe ?>/9 <?php if($module_total>1){echo "Modules";}else{echo "Modules";} ?></a></div>
+						<div class="c-comments" style="font-size:13px;"><a href="#"><i class="icon-speech"></i> <?= $module_passe ?>/6 <?php if($module_total>1){echo "Modules";}else{echo "Modules";} ?></a></div>
 					</div>
 						<!-- <p>
 							Lorem ipsum dolor sit amet, dolor adipisicing elit. 
@@ -148,7 +148,7 @@
 
 				?>
 				<p class="alert alert-info" style=" padding: 3px; color: red; text-align: center;">
-					<a href="<?= $link_ ?>"><i class="fa fa-whatsapp"></i> Integrez le froupe whatsapp </a>
+				<a href="<?= $link_menu ?>/releve-note/<?= $formation->id ?>"><i class="fa fa-file-o"></i> Voir vos résultats </a>
 				</p>
 	
 			</div>

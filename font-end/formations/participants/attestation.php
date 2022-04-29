@@ -33,7 +33,14 @@ class MyPdf extends FPDF
             $this->Cell(0,151,''.utf8_decode("Cet étudiant n'existe pas "),0,0,'C');
             $this->Ln(10); 
         }else{
-            $this->image('font-end/assets/base/img/dossier/attestation.jpg',10,11,198);
+
+            if($formation->id==18041){
+                $this->image('font-end/assets/base/img/dossier/attestation.jpg',10,11,198);
+            }else{
+                $this->image('font-end/assets/base/img/dossier/attestation.png',10,11,198);
+            }
+
+
              $this->SetTextColor(249,96,52);
              $this->SetFont('times', 'B', 20); 
              $this->Cell(0,143,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');

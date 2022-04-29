@@ -1,4 +1,4 @@
-<?php include('includes/head.php');?>
+<?php include('includes/head.php'); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <!DOCTYPE html>
@@ -32,11 +32,11 @@
           <!-- /.box-header -->
 
           <?php
-             $formations=Query::affiche('formation',$_GET['formations'],'id');
-             if (!$formations->id) {
+          $formations = Query::affiche('formation', $_GET['formations'], 'id');
+          if (!$formations->id) {
               // si l'formations n'existe pas
-               header("Location:?page=formations");
-             }
+            header("Location:?page=formations");
+          }
           ?>
             
           <div class="box-body">
@@ -72,28 +72,50 @@
                   <th>Téléphone</th>
                   <th>Email</th>
                   <th>Statut</th>
+                  <th>Nom parti</th>
                 </tr>
               </thead>
               <tbody>
-              <?php foreach (Query::liste_prepare ('formation_suivie',$_GET['formations'],'id_formation') as $formation): ?>
-                <?php  $participant =Query::affiche('participant',$formation->id_participant,'id'); ?>
+              <?php foreach (Query::liste_prepare('formation_suivie', $_GET['formations'], 'id_formation') as $formation) : ?>
+                <?php $participant = Query::affiche('participant', $formation->id_participant, 'id'); ?>
               <tr>
-                <td><img src="dist/img/user/participant/<?php if (!empty($participant->photo)) {echo $participant->photo;} ?>" onerror="this.src='https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=170667a&w=0&h=NPyJe8rXdOnLZDSSCdLvLWOtIeC9HjbWFIx8wg5nIks='" width="27px" class="user-image" alt="User Image"></td>
-                <td> <?php if (!empty($participant->nom)) {echo $participant->nom;} ?></td>
-                <td><?php if (!empty($participant->prenom)) {echo $participant->prenom;} ?></td>
-                <td><?php if (!empty($participant->sexe)) {echo $participant->sexe;} ?></td>
-                <td><?php if (!empty($participant->commune)) {echo $participant->commune;} ?></td>
-                <td><?php if (!empty($participant->departement)) {echo $participant->departement;} ?></td>
-                <td><?php if (!empty($participant->telephone)) {echo $participant->telephone;} ?></td>
-                <td><?php if (!empty($participant->email)) {echo $participant->email;} ?></td>
+                <td><img src="dist/img/user/participant/<?php if (!empty($participant->photo)) {
+                                                          echo $participant->photo;
+                                                        } ?>" onerror="this.src='https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=170667a&w=0&h=NPyJe8rXdOnLZDSSCdLvLWOtIeC9HjbWFIx8wg5nIks='" width="27px" class="user-image" alt="User Image"></td>
+                <td> <?php if (!empty($participant->nom)) {
+                      echo $participant->nom;
+                    } ?></td>
+                <td><?php if (!empty($participant->prenom)) {
+                      echo $participant->prenom;
+                    } ?></td>
+                <td><?php if (!empty($participant->sexe)) {
+                      echo $participant->sexe;
+                    } ?></td>
+                <td><?php if (!empty($participant->commune)) {
+                      echo $participant->commune;
+                    } ?></td>
+                <td><?php if (!empty($participant->departement)) {
+                      echo $participant->departement;
+                    } ?></td>
+                <td><?php if (!empty($participant->telephone)) {
+                      echo $participant->telephone;
+                    } ?></td>
+                <td><?php if (!empty($participant->email)) {
+                      echo $participant->email;
+                    } ?></td>
+                    
 
-               <?php if(!empty($participant->statut) AND  $participant->statut=="Cadre d’un parti politique ou d’une organisation"): ?>
+               <?php if (!empty($participant->statut) and $participant->statut == "Cadre d’un parti politique ou d’une organisation") : ?>
                 <td><span class="btn btn-primary btn-xs" style="cursor:none;"> <i class="fa fa-user"></i> Cadre</span></td>
                 <?php endif ?>
 
-                <?php if(!empty($participant->statut) AND  $participant->statut=="Certifié-e du programme de formation en Socialisation politique"): ?>
+                <?php if (!empty($participant->statut) and $participant->statut == "Certifié-e du programme de formation en Socialisation politique") : ?>
                   <td><span class="btn btn-success btn-xs" style="cursor:none;"> <i class="fa fa-certificate"></i> Certifié-e</span></td>
                 <?php endif ?>
+
+                <td><?php if (!empty($participant->nom_parti)) {
+                      echo $participant->nom_parti;
+                    } ?></td>
               </tr>
             <?php endforeach; ?>
 

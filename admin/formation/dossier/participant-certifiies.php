@@ -10,6 +10,7 @@ require('../admin/class/bdd/bdd.php');
 require '../admin/class/Fonctions.php';
 // module des requettes 
 require '../admin/class/Query.php';
+
 $pdf = new FPDF();
 
 
@@ -20,7 +21,7 @@ $formation=$_GET['id'];
 // verifie si cette formation existe
 $formation= Query::affiche('formation',$formation,'id');
 if(!$formation) {
-    Fonctions::set_flash("Cettea formation n'existe pas ",'danger');
+    Fonctions::set_flash("Cette formation n'existe pas ",'danger');
     echo "<script>window.location ='?page=formation';</script>";
 };
 
@@ -34,15 +35,30 @@ foreach (Module::user_module_pass($formation->id) as $key => $participant){
    // kantite quiz ou pase
    $count_user= Quiz::pass_module($participant->id_participant,$formation->id);
 
+  
+
    // $count_user=7;
     // si le participant existe
     if ($module_total==$count_user) {
       $pdf->AddPage('L','Letter',0);
+      if($formation->id==18041){
       $pdf->image('../admin/dist/dossier/certificat.jpg',5,4,270);
+      }else{
+        $pdf->image('../admin/dist/dossier/certificat.png',5,4,270);
+      }
+
+      foreach (Query::liste('groupe') as $groupe){
+          if(trim($groupe->email)==trim($participant->email)){
+            $pdf->image('../admin/dist/dossier/mention.png',30,95,7);
+          }
+      }
+
+
+
       $pdf->SetTextColor(249,96,52);
       $pdf->SetFont('times', 'B', 20); 
 
-      $pdf->Cell(0,151,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
+      $pdf->Cell(0,145,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
    }
 }
 
@@ -69,7 +85,7 @@ foreach (Module::user_module_pass($formation->id) as $key => $participant){
 //     $pdf->AddPage();
 //     $pdf->Cell(40,10,$value);
 // }
-$nom='Attestation'.".pdf";
+$nom='Certificat'.".pdf";
 $pdf->Output('I',$nom);
 
 ?>

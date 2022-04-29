@@ -38,7 +38,11 @@ foreach (Module::user_module_pass($formation->id) as $key => $participant){
     // si le participant existe
     if ($module_total!=$count_user) {
      $pdf->AddPage('P','Letter',0);
-     $pdf->image('../admin/dist/dossier/attestation.jpg',10,11,192);
+     if($formation->id==18041){
+      $pdf->image('../admin/dist/dossier/attestation.jpg',10,11,198);
+      }else{
+        $pdf->image('../admin/dist/dossier/attestation.png',10,11,198);
+      }
      $pdf->Cell(0,140,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
    }
 }

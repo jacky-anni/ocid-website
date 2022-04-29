@@ -44,7 +44,12 @@ class MyPdf extends FPDF
         $module_passe= Quiz::pass_module($url[2],$formation->id);
 
        if($module_total==$module_passe){
-            $this->image('font-end/assets/base/img/dossier/certificat.jpg',5,4,270);
+           
+            if($formation->id==18041){
+                $pdf->image('font-end/assets/base/img/dossier/certificat.jpg',5,4,270);
+              }else{
+                  $pdf->image('font-end/assets/base/img/dossier/certificat.png',5,4,270);
+              }
             $this->SetTextColor(249,96,52);
             $this->SetFont('times', 'B', 20); 
              // $this->Cell(0,151,''.utf8_decode('kf'." ".kfk),0,0,'C');

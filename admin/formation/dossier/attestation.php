@@ -22,11 +22,14 @@ class MyPdf extends FPDF
         $formation=Query::affiche('formation',$_GET['id'],'id');
         $participant=Query::affiche('participant',$_GET['participant'],'id');
 
-       
+        if($formation->id==18041){
         $this->image('../admin/dist/dossier/attestation.jpg',10,11,198);
-        $this->SetTextColor(14,58,255);
+        }else{
+            $this->image('../admin/dist/dossier/attestation.png',10,11,198);
+        }
+        $this->SetTextColor(160,29,20);
         $this->SetFont('times', 'B', 20); 
-        $this->Cell(0,145,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
+        $this->Cell(0,143,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
         
     }
 
