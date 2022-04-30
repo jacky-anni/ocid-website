@@ -2,7 +2,7 @@
 <?php include('admin/class/Participant.php'); ?>
 <?php include('admin/class/Participant_Pol.php'); ?>
 <?php include('admin/class/Utilisateur.php'); ?>
-<?php Fonctions::redirect();?>
+<?php Fonctions::redirect(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,16 +11,16 @@
 <title>Formation | <?= $org->sigle ?></title>
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
-	<?php $user=Query::affiche('participant',$_SESSION['id_user'],'id'); ?>
+	<?php $user = Query::affiche('participant', $_SESSION['id_user'], 'id'); ?>
 <!-- BEGIN: HEADER -->
 <header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile" data-minimize-offset="80">
-    <?php include('font-end/layout/header.php');?>
-    <?php include('font-end/layout/logo_and_search.php');?>
-    <?php include('font-end/layout/menu.php');?>
-    <?php include('font-end/layout/user_bar.php');?>
+    <?php include('font-end/layout/header.php'); ?>
+    <?php include('font-end/layout/logo_and_search.php'); ?>
+    <?php include('font-end/layout/menu.php'); ?>
+    <?php include('font-end/layout/user_bar.php'); ?>
 </header>
 <div class="c-layout-page">
-	<?php include('font-end/layout/banner.php');?>
+	<?php include('font-end/layout/banner.php'); ?>
 	<?php banner('Page de profile'); ?>
 
 <div class="container">
@@ -63,20 +63,7 @@
 						<div class="tab-pane active" id="tab_1_1_content">
 						<h5 style=""><b>A- RENSEIGNEMENTS PERSONNELS</b> </h5><hr/>
 							<form action="" method="post" role="form" data-parsley-validate action="">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="row">
-											<div class="form-group col-md-6">
-												<label class="">Nom</label>
-												<input type="text" name="nom" value="<?= $user->nom ?>" class="form-control" placeholder="Ex : Anizaire" required="">
-											</div>
-											<div class="col-md-6">
-												<label class="">Prénom</label>
-												<input type="text" name="prenom" value="<?= $user->prenom ?>" class="form-control" placeholder="Ex : Jacky" required="">
-											</div>
-										</div>
-									</div>
-								</div>
+			
 
 								<div class="row">
 									<div class="col-md-12">
@@ -85,32 +72,56 @@
 												<label class="">Sexe </label>
 												<select name="sexe" class="form-control"  required="">
 													 <option value="">Choisir votre sexe</option>
-										            <option value="Homme" <?php if($user->sexe=='Homme'){echo "selected";} ?> >Homme</option>
-										            <option value="Femme" <?php if($user->sexe=='Femme'){echo "selected";} ?>>Femme</option>
+										            <option value="Homme" <?php if ($user->sexe == 'Homme') {
+																																												echo "selected";
+																																											} ?> >Homme</option>
+										            <option value="Femme" <?php if ($user->sexe == 'Femme') {
+																																												echo "selected";
+																																											} ?>>Femme</option>
 												</select>
 											</div>
 											<div class="col-md-6">
 												<label class="">Département</label>
 												<select name="departement" class="form-control"  required="">
 													 <option value="">Choisir un département</option>
-										            <option value="Nord" <?php if($user->departement=='Nord'){echo "selected";} ?> >Nord</option>
+										            <option value="Nord" <?php if ($user->departement == 'Nord') {
+																																											echo "selected";
+																																										} ?> >Nord</option>
 
-										            <option value="Nord-Est" <?php if($user->departement=='Nord-Est'){echo "selected";} ?>>Nord-Est</option>
+										            <option value="Nord-Est" <?php if ($user->departement == 'Nord-Est') {
+																																															echo "selected";
+																																														} ?>>Nord-Est</option>
 
-										            <option value="Nord-Ouest" <?php if($user->departement=='Nord-Ouest'){echo "selected";} ?>>Nord-Ouest</option>
+										            <option value="Nord-Ouest" <?php if ($user->departement == 'Nord-Ouest') {
+																																																	echo "selected";
+																																																} ?>>Nord-Ouest</option>
 
-										            <option value="Sud" <?php if($user->departement=='Sud'){echo "selected";} ?>>Sud</option>
+										            <option value="Sud" <?php if ($user->departement == 'Sud') {
+																																										echo "selected";
+																																									} ?>>Sud</option>
 
-										            <option value="Sud-Est" <?php if($user->departement=='Sud-Est'){echo "selected";} ?>>Sud-Est</option>
+										            <option value="Sud-Est" <?php if ($user->departement == 'Sud-Est') {
+																																														echo "selected";
+																																													} ?>>Sud-Est</option>
 
-										            <option value="Ouest" <?php if($user->departement=='Ouest'){echo "selected";} ?>>Ouest</option>
+										            <option value="Ouest" <?php if ($user->departement == 'Ouest') {
+																																												echo "selected";
+																																											} ?>>Ouest</option>
 
-										            <option value="Centre" <?php if($user->departement=='Centre'){echo "selected";} ?>>Centre</option>
+										            <option value="Centre" <?php if ($user->departement == 'Centre') {
+																																													echo "selected";
+																																												} ?>>Centre</option>
 
-										            <option value="Artibonite" <?php if($user->departement=='Artibonite'){echo "selected";} ?>>Artibonite</option>
+										            <option value="Artibonite" <?php if ($user->departement == 'Artibonite') {
+																																																	echo "selected";
+																																																} ?>>Artibonite</option>
 
-										            <option value="Nippes" <?php if($user->departement=='Nippes'){echo "selected";} ?>>Nippes</option>
-										            <option value="Grand-Anse" <?php if($user->departement=='Grand-Anse'){echo "selected";} ?>>Grand-Anse</option>
+										            <option value="Nippes" <?php if ($user->departement == 'Nippes') {
+																																													echo "selected";
+																																												} ?>>Nippes</option>
+										            <option value="Grand-Anse" <?php if ($user->departement == 'Grand-Anse') {
+																																																	echo "selected";
+																																																} ?>>Grand-Anse</option>
 												</select>
 											</div>
 										</div>
@@ -124,8 +135,10 @@
 													<label class="">Commune </label>
 													<select name="commune" class="form-control"  required="">
 														<option value="">Choisir votre commune</option>
-																<?php foreach(Query::liste('commune') as $commune): ?>
-																<option value="<?= $commune->commune ?>" <?php if($user->commune==$commune->commune){echo "selected";} ?> ><?= $commune->commune ?></option>
+																<?php foreach (Query::liste('commune') as $commune) : ?>
+																<option value="<?= $commune->commune ?>" <?php if ($user->commune == $commune->commune) {
+																																																									echo "selected";
+																																																								} ?> ><?= $commune->commune ?></option>
 																<?php endforeach ?>
 													</select>
 												</div>
@@ -150,7 +163,7 @@
 									</div>
 									</br><hr>
 
-									<?php if($user->statut=="Cadre d’un parti politique ou d’une organisation"): ?>
+									<?php if ($user->statut == "Cadre d’un parti politique ou d’une organisation") : ?>
 										<div class="row">
 											<h5 style=""><b>B- RÉFÉRENCE DU PARTI POLITIQUE OU DE L’ORGANISATION DE LA SOCIETE CIVILE</b> </h5><hr/>
 											<div class="col-md-12">
@@ -230,27 +243,25 @@
 						</div>
 					</div>
 				</div>
-				<?php $_SESSION['user_id_upload']=rand(1000000,1000000000000); ?>
+				<?php $_SESSION['user_id_upload'] = rand(1000000, 1000000000000); ?>
 
 		</div>
 			<?php 
-				if(isset($_POST['modifier']))
-				{
-					extract($_POST);
+		if (isset($_POST['modifier'])) {
+			extract($_POST);
 
 
-					$participant=Participant_Pol::modifier_profil($nom,$prenom,$sexe,$departement,$commune,$telephone,$telephone2,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant);
+			$participant = Participant_Pol::modifier_profil($nom, $prenom, $sexe, $departement, $commune, $telephone, $telephone2, $societe, $adresse, $nom_dirigeant, $telephone_dirigeant, $email_dirigeant);
 
 
 					// Participant::modifier_profil($nom,$prenom,$lieu_naissance,$departement,$commune,$niveau,$universite,$domaine,$organisation,$parti,$occupation,$email,$numero);
-				}
+		}
 
-				if(isset($_POST['changer']))
-				{
-					extract($_POST);
-					Participant::modifier_password($password_actuel,$password,$password_confirmation);
-				}
-			?>
+		if (isset($_POST['changer'])) {
+			extract($_POST);
+			Participant::modifier_password($password_actuel, $password, $password_confirmation);
+		}
+		?>
 
 		</div><!-- END: CONTENT/SHOPS/SHOP-MY-ADDRESSES-1 -->
 	<!-- END: PAGE CONTENT -->

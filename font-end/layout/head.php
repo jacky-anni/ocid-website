@@ -1,19 +1,38 @@
 <?php session_start(); ?>
 <?php
     // afficher les erreurs
-    ini_set('display_errors', 'on');
-    error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
     // selectionner la base de donne
-    require('admin/class/bdd/bdd.php');
+require('admin/class/bdd/bdd.php');
     // ajouter les fonctions identiques
-    require 'admin/class/Fonctions.php';
+require 'admin/class/Fonctions.php';
     // module des requettes 
-    require 'admin/class/Query.php';
-    require 'font-end/layout/config.php';
-    $org= Query::affiche('organisation',1,'id'); 
-    ob_start();
+require 'admin/class/Query.php';
+require 'font-end/layout/config.php';
+$org = Query::affiche('organisation', 1, 'id');
+ob_start();
 ?>
 <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="keywords" content="OCID, société civile, Observatoire, Cuitoyen, Democratie, Haiti, Organisation, Droits Humians, Dwa Moun" />
+		<?php
+  function head($titre, $description, $photo)
+  {
+    $url_ =$_SERVER['REQUEST_URI'];
+    echo "
+			<title>$titre - OCID </title>	
+			<meta name='keywords' $titre />
+			<meta name='description' content=$description>
+			<meta name='author' content='OCID'>
+			<meta property='og:url'           content=$url_ />
+			<meta property='og:type'          content='website' />
+			<meta property='og:image'         content=$photo />
+			</head>
+			";
+  }
+  ?>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -58,8 +77,7 @@
     <link href="<?= $link ?>/assets/plugins/slider-for-bootstrap/css/slider.css" rel="stylesheet" type="text/css"/>
     <!-- END: BASE PLUGINS -->
     <link rel="icon" href="<?= $link_admin ?>/dist/img/logo/<?= $org->logo ?>" />
-
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
       <!-- Global site tag (gtag.js) - Google Analytics -->
      <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXR1K84EP2"></script>

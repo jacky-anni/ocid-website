@@ -1,7 +1,7 @@
 <?php include('font-end/layout/head.php'); ?>
 <!DOCTYPE html>
 <html lang="en"  >
-<title>Formations | <?= $org->sigle ?></title>
+ <?php head("Formations","Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">

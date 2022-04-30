@@ -17,67 +17,67 @@ class MyPdf extends FPDF
 
     function header()
     {
-        $url='';
+        $url = '';
         if (isset($_GET['url'])) {
-            $url=explode('/', $_GET['url']);
+            $url = explode('/', $_GET['url']);
         }
 
 
         // rechercher la formation
-        $formation=Query::affiche('formation',$url[1],'id');
+        $formation = Query::affiche('formation', $url[1], 'id');
         // selsctionner le participant
-        $participant=Query::affiche('participant',$url[2],'id');
+        $participant = Query::affiche('participant', $url[2], 'id');
 
         if (!$participant) {
             $this->SetFont('times', 'B', 20); 
              // $this->Cell(0,151,''.utf8_decode('kf'." ".kfk),0,0,'C');
 
-            $this->Cell(0,151,''.utf8_decode("Cet étudiant n'existe pas "),0,0,'C');
-            $this->Ln(10); 
+            $this->Cell(0, 151, '' . utf8_decode("Cet étudiant n'existe pas "), 0, 0, 'C');
+            $this->Ln(10);
         }
 
         // veridier si on passe tous les modules
-        $module_total= Query::count_prepare('module_formation',$formation->id,'id_formation');
+        $module_total = Query::count_prepare('module_formation', $formation->id, 'id_formation');
 
         // verifier la quantite de quiz passe
         $module_total = Module::count($formation->id);
-        $module_passe= Quiz::pass_module($url[2],$formation->id);
+        $module_passe = Quiz::pass_module($url[2], $formation->id);
 
-       if($module_total==$module_passe){
-           
-            if($formation->id==18041){
-                $pdf->image('font-end/assets/base/img/dossier/certificat.jpg',5,4,270);
-              }else{
-                  $pdf->image('font-end/assets/base/img/dossier/certificat.png',5,4,270);
-              }
-            $this->SetTextColor(249,96,52);
+        if ($module_total == $module_passe) {
+
+            if ($formation->id == 18041) {
+                $this->image('font-end/assets/base/img/dossier/certificat.jpg', 5, 4, 270);
+            } else {
+                $this->image('font-end/assets/base/img/dossier/certificat.png', 5, 4, 270);
+            }
+
+            $this->SetTextColor(249, 96, 52);
             $this->SetFont('times', 'B', 20); 
              // $this->Cell(0,151,''.utf8_decode('kf'." ".kfk),0,0,'C');
 
-            $this->Cell(0,145,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
-            $this->Ln(10); 
-        } 
-        else{
+            $this->Cell(0, 145, '' . utf8_decode(" " . $participant->prenom . " " . $participant->nom), 0, 0, 'C');
+            $this->Ln(10);
+        } else {
             // $this->SetTextColor(249,96,52);
-            $this->SetFont('times', 'B', 12); 
-            $this->Cell(0,151,''.utf8_decode(" Pas de certificat"),0,0,'C');
+            $this->SetFont('times', 'B', 12);
+            $this->Cell(0, 151, '' . utf8_decode(" Pas de certificat"), 0, 0, 'C');
         }
     }
 
 }
 
-$url='';
+$url = '';
 if (isset($_GET['url'])) {
-    $url=explode('/', $_GET['url']);
+    $url = explode('/', $_GET['url']);
 }
 
  // $participant=Query::affiche('participant',$url[2],'id');
  // $nom=$participant->prenom." ".$participant->nom.".pdf";
 
-$pdf=new MyPdf();
+$pdf = new MyPdf();
 $pdf->AliasNbPages();
-$pdf->AddPage('L','Letter',0);
-$pdf->SetFont('Arial','B',16);
+$pdf->AddPage('L', 'Letter', 0);
+$pdf->SetFont('Arial', 'B', 16);
 // $pdf->White();
 // $pdf->viewTable();
 $pdf->Output('I');

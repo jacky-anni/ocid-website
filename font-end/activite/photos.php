@@ -5,7 +5,7 @@
 		echo "<script>window.location ='$link_menu/not-found';</script>";
 	}
  ?>
-<title>Photos des activités</title>
+ <?php head("Photos - ".$article->titre,"Observatoire Citoyen pour l’Institutionnalisation de la Démocratie","$link_admin/dist/img/logo/$org->logo"); ?>
 <!DOCTYPE html>
 <html lang="en"  >
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">

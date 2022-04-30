@@ -1,5 +1,7 @@
 <?php include('font-end/layout/head.php'); ?>
 <title>Offres d'emplois</title>
+ <?php head("Offres d'emplois","Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
+
 <!DOCTYPE html>
 <html lang="en"  >
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">

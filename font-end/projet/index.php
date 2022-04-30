@@ -1,5 +1,5 @@
 <?php include('font-end/layout/head.php'); ?>
-<title>Liste des projets| OCID</title>
+<?php head("Projets","Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 <!DOCTYPE html>
 <html lang="en"  >

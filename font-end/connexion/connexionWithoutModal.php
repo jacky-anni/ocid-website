@@ -1,4 +1,5 @@
 <?php include('font-end/layout/head.php'); ?>
+ <?php head("Connexion","Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
 <!DOCTYPE html>
 <html lang="en"  >
 <?php include('admin/class/Participant.php'); ?>

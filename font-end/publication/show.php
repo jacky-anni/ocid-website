@@ -6,14 +6,7 @@
 	}
 	$categorie= Query::affiche('categorie',$publication->id_categorie	,'id');
  ?>
-<head>
- <title> <?= $publication->titre ?></title>
-  <meta property="og:title" content="<?= $publication->titre ?>" />
-  <meta property="og:url" content="<?= $link_conf.$_SERVER['REQUEST_URI'] ?>" />
-  <meta property="og:description" content="<?= $categorie->nom_categorie ?>" />
-  <meta property="og:site_name" content="OCID" />
-  <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5ec2fd1d2d5f810012b13181&product=inline-share-buttons' async='async'></script>
-  </head>
+ <?php head($publication->titre,"Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
 <!DOCTYPE html>
 <html lang="en"  >
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">

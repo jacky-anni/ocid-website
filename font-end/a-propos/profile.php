@@ -7,23 +7,9 @@
 		echo "<script>window.location ='$link_menu/not-found';</script>";
 	}
 ?>
+ <?php head($user->prenom." ".$user->nom ,"Observatoire Citoyen pour l’Institutionnalisation de la Démocratie","$link_admin/dist/img/user/$user->photo"); ?>
 <!DOCTYPE html>
-<html lang="en"  >
-
-<head>
-<title><?= $user->prenom ?>  <?= $user->nom ?></title>
-<!-- You can use Open Graph tags to customize link previews.
-Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-<title>Profile</title>
-<meta property="og:url"           content="http://www.ocidhaiti.org/ocid/profil-intervenant/<?= $user->id  ?>" />
-<meta property="og:type"          content="website" />
-<meta property="og:title"         content="<?= $user->prenom; ?>" />
-<meta property="og:description"   content="<?= $intervant->titre; ?>" />
-<meta property="og:image"         content="<?= $link_admin ?>/dist/img/user/<?= $user->photo ?>" />
-</head>
-
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5ec2fd1d2d5f810012b13181&product=inline-share-buttons' async='async'></script>
-
+<html lang="en">
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
 <!-- BEGIN: HEADER -->
 <header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile" data-minimize-offset="80">

@@ -6,16 +6,8 @@
 		echo "<script>window.location ='$link_menu/not-found';</script>";
 	}
  ?>
-<head>
- <title> <?= $projet->titre ?></title>
-  <meta property="og:title" content="<?= $projet->titre ?>" />
-  <meta property="og:url" content="<?= $link_conf.$_SERVER['REQUEST_URI'] ?>" />
-  <meta property="og:image" content="<?= $link_conf.$link_admin ?>/dist/img/projet/<?= $projet->photo ?>" />
-  <meta property="og:description" content="OCID" />
-  <meta property="og:site_name" content="OCID" />
-
+ <?php head($projet->titre,"Observatoire Citoyen pour l’Institutionnalisation de la Démocratie","$link_admin/dist/img/projet/$projet->photo"); ?>
   <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5ec2fd1d2d5f810012b13181&product=inline-share-buttons' async='async'></script>
-  </head>
 <!DOCTYPE html>
 <html lang="en"  >
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
@@ -41,7 +33,7 @@
 						<div class="c-content-blog-post-1">
 							<div class="c-title c-font-bold " style="font-size:23px;">
                                 <?php if(!empty($projet->photo)): ?>
-							        <img class="c-overlay-object img-responsive" style="width:100%;" src="<?= $link_admin ?>/dist/img/projet/<?= $projet->photo ?>" alt="">
+							        <img class="c-overlay-object img-responsive" style="width:100%;" src="<?= $link_admin ?>/dist/img/projet/<?= $projet->photo ?>" onerror="this.src='' alt="">
                                 <?php endif; ?>
 								<p style="background:#2dc3ce; padding:5px; font-size:15px; color:whitbe;">
 									<?= $projet->titre ?>

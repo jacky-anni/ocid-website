@@ -1,5 +1,5 @@
 <?php include('font-end/layout/head.php'); ?>
-<title>Evènements</title>
+ <?php head("Evènements","Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
 <!DOCTYPE html>
 <?php 
 	include('admin/class/Evenement.php');
@@ -15,7 +15,7 @@
 </header>
 <div class="c-layout-page">
 <?php include('font-end/layout/banner.php');?>
-<?php banner("Activité"); ?>
+<?php banner("Evènements"); ?>
 
 <div class="container">
     <div class="c-layout-sidebar-menu c-theme ">

@@ -6,27 +6,10 @@
 		echo "<script>window.location ='$link_menu/formations';</script>";
 	}
 ?>
+<?php head($formation->titre,"Formation gratuite en ligne","$link/assets/base/img/layout/formation-template.jpg"); ?>
+
 <!DOCTYPE html>
 <html lang="en"  >
-
-<head>
-<title><?= $formation->titre; ?></title>
-<!-- You can use Open Graph tags to customize link previews.
-Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-<meta property="og:url"           content="http://www.ocidhaiti.org/ocid/formation/<?= $formation->id  ?>" />
-<meta property="og:type"          content="website" />
-<meta property="og:title"         content="<?= $formation->titre; ?>" />
-<meta property="og:description"   content="Formation gratuite" />
-<meta property="og:image"         content="<?= $link ?>/assets/base/img/layout/formation-template.jpg" />
-</head>
-
-<!-- <title><?= $formation->titre ?></title>
-<meta property="og:title" content="<?= $formation->titre; ?>">
-<meta property="og:description" content="Formation gratuite">
-<meta property="og:image" content="<?= $link ?>/assets/base/img/layout/formation-template.jpg">
-<meta property="og:url" content="http://www.ocidhaiti.org/ocid/formation/<?= $formation->id  ?>"> -->
-
-
 <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5ec2fd1d2d5f810012b13181&product=inline-share-buttons' async='async'></script>
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">

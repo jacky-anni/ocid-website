@@ -6,12 +6,7 @@
 		echo "<script>window.location ='$link_menu/not-found';</script>";
 	}
  ?>
-  <title> Offre d'emploi -  <?= $offres->titre ?></title>
-  <meta property="og:title" content="<?= $offres->titre ?>" />
-  <meta property="og:url" content="<?= $link_conf.$_SERVER['REQUEST_URI'] ?>" />
-  <meta property="og:image" content="<?= $link_conf.$link_admin ?>/dist/img/offre/icons8_New_Job_50px_2.png" />
-  <meta property="og:description" content="OCID" />
-  <meta property="og:site_name" content="OCID" />
+ <?php head($offres->titre,"Offre d'emplois",""); ?>
 
   <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5ec2fd1d2d5f810012b13181&product=inline-share-buttons' async='async'></script>
   </head>

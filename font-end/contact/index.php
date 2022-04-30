@@ -1,5 +1,5 @@
 <?php include('font-end/layout/head.php'); ?>
-<title>Contact</title>
+ <?php head("Contact","Observatoire Citoyen pour l’Institutionnalisation de la Démocratie",""); ?>
 <!DOCTYPE html>
 <html lang="en"  >
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">

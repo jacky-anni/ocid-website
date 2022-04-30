@@ -1,6 +1,5 @@
 <?php include('font-end/layout/head.php'); ?>
-<title>Liste des Activités | OCID</title>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<?php head("Activités","OCID (Observatoire Citoyen pour l’Institutionnalisation de la Démocratie)","$link_admin/dist/img/logo/$org->logo"); ?>
 <!DOCTYPE html>
 <html lang="en"  >
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
