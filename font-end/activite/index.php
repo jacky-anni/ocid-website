@@ -15,7 +15,6 @@
 <?php banner("Liste des Activités"); ?>
 
 <div class="c-content-box c-size-md c-bg-white">
-
 	<div class="c-content-box c-size-md c-bg-grsey-1">
 		<div class="col-md-12">
 			<div class="c-content-box c-size-md">
