@@ -73,6 +73,14 @@
                        <th>
                           Departement
                       </th>
+
+                        <th>
+                          email
+                      </th>
+
+                        <th>
+                          telephone
+                      </th>
                       <th>
                         Action
                       </th>
@@ -105,6 +113,14 @@
 
                       <td>
                           <?= $form->departement ?>
+                      </td>
+
+                      <td>
+                          <?= $form->email ?>
+                      </td>
+
+                      <td>
+                          <?= $form->telephone ?>
                       </td>
 
                       </td>

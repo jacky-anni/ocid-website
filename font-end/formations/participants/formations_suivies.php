@@ -8,16 +8,20 @@ $formation = Query::affiche('formation', $formations->id_formation, 'id');
 $module_total = Module::count($formation->id);
 $module_passe = Quiz::pass_module($_SESSION['id_user'], $formation->id);
 
-  
+if ($module_passe > $module_total) {
+	$module_passe = $module_total;
+}
+
 	  // verifi si le modue passe est egal a 0
 if ($module_passe > 0 and $formation->type == 1) {
 		  // pourcentage de module passe;
 	$note = number_format($module_passe / $module_total * 100);
 } elseif ($module_passe > 0 and $formation->type == 2) {
-	$note = number_format($module_passe / $module_passe * 100);
+	$note = number_format($module_passe / $module_total * 100);
 } else {
 	$note = 0;
 }
+
 ?>
   <div class="row c-bg-grey-1" style="padding: 15px;">
 

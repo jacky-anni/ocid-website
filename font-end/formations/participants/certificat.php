@@ -1,19 +1,22 @@
 <?php
 session_start();
 ob_start();
-require('font-end/assets/plugins/fpdf/fpdf.php');
-require('font-end/layout/config.php');
+require 'font-end/assets/plugins/fpdf/fpdf.php';
+require 'font-end/layout/config.php';
 require 'admin/class/Module.php';
 require 'admin/class/Formation.php';
 require 'admin/class/Quiz.php';
-require('admin/class/bdd/bdd.php');
+require 'admin/class/bdd/bdd.php';
 // ajouter les fonctions identiques
 require 'admin/class/Fonctions.php';
 // module des requettes 
 require 'admin/class/Query.php';
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
 
 class MyPdf extends FPDF
 {
+
 
     function header()
     {
@@ -21,7 +24,6 @@ class MyPdf extends FPDF
         if (isset($_GET['url'])) {
             $url = explode('/', $_GET['url']);
         }
-
 
         // rechercher la formation
         $formation = Query::affiche('formation', $url[1], 'id');
@@ -49,6 +51,12 @@ class MyPdf extends FPDF
                 $this->image('font-end/assets/base/img/dossier/certificat.jpg', 5, 4, 270);
             } else {
                 $this->image('font-end/assets/base/img/dossier/certificat.png', 5, 4, 270);
+
+                foreach (Query::liste('groupe') as $groupe) {
+                    if (trim($groupe->email) == trim($participant->email)) {
+                        $this->image('font-end/assets/base/img/dossier/mention.png', 30, 95, 7);
+                    }
+                }
             }
 
             $this->SetTextColor(249, 96, 52);

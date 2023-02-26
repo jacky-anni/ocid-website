@@ -30,6 +30,10 @@
 		$module_total = Module::count($formation->id);
 		$module_passe = Quiz::pass_module($_SESSION['id_user'], $formation->id);
 
+		if ($module_passe > $module_total) {
+			$module_passe = $module_total;
+		}
+
 				// verifi si le modue passe est egal a 0
 		if ($module_passe > 0) {
 					// pourcentage de module passe;
@@ -50,7 +54,7 @@
 			    				<div class="c-post">
 			    					<b> <i class="fa fa-certificate"></i> Certificat de réussite </b>
 			    					<div class="c-date">
-			    						<a href="<?= $link_conf ?>/<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><i class="fa fa-download"></i> Télécharger</span></a> 
+			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><i class="fa fa-download"></i> Télécharger</span></a> 
 			    					</div>
 			    				</div>
 			    			</li>

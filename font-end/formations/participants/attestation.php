@@ -11,59 +11,61 @@ require('admin/class/bdd/bdd.php');
 require 'admin/class/Fonctions.php';
 // module des requettes 
 require 'admin/class/Query.php';
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
 
 class MyPdf extends FPDF
 {
 
     function header()
     {
-        $url='';
+        $url = '';
         if (isset($_GET['url'])) {
-            $url=explode('/', $_GET['url']);
+            $url = explode('/', $_GET['url']);
         }
 
 
         // rechercher la formation
-        $formation=Query::affiche('formation',$url[1],'id');
+        $formation = Query::affiche('formation', $url[1], 'id');
         // selsctionner le participant
-        $participant=Query::affiche('participant',$url[2],'id');
+        $participant = Query::affiche('participant', $url[2], 'id');
 
         if (!$participant) {
-            $this->SetFont('times', 'B', 20); 
-            $this->Cell(0,151,''.utf8_decode("Cet étudiant n'existe pas "),0,0,'C');
-            $this->Ln(10); 
-        }else{
+            $this->SetFont('times', 'B', 20);
+            $this->Cell(0, 151, '' . utf8_decode("Cet étudiant n'existe pas "), 0, 0, 'C');
+            $this->Ln(10);
+        } else {
 
-            if($formation->id==18041){
-                $this->image('font-end/assets/base/img/dossier/attestation.jpg',10,11,198);
-            }else{
-                $this->image('font-end/assets/base/img/dossier/attestation.png',10,11,198);
+            if ($formation->id == 18041) {
+                $this->image('font-end/assets/base/img/dossier/attestation.jpg', 10, 11, 198);
+            } else {
+                $this->image('font-end/assets/base/img/dossier/attestation.png', 10, 11, 198);
             }
 
 
-             $this->SetTextColor(249,96,52);
-             $this->SetFont('times', 'B', 20); 
-             $this->Cell(0,143,''.utf8_decode(" ".$participant->prenom." ".$participant->nom),0,0,'C');
-        } 
+            $this->SetTextColor(249, 96, 52);
+            $this->SetFont('times', 'B', 20);
+            $this->Cell(0, 143, '' . utf8_decode(" " . $participant->prenom . " " . $participant->nom), 0, 0, 'C');
+        }
     }
-        
+
 
 }
 
-$url='';
+$url = '';
 if (isset($_GET['url'])) {
-    $url=explode('/', $_GET['url']);
+    $url = explode('/', $_GET['url']);
 }
 
  // $participant=Query::affiche('participant',$url[2],'id');
  // $nom=$participant->prenom." ".$participant->nom.".pdf";
 
-$pdf=new MyPdf();
+$pdf = new MyPdf();
 $pdf->AliasNbPages();
-$pdf->AddPage('P','Letter',0);
-$pdf->SetFont('Arial','B',16);
+$pdf->AddPage('P', 'Letter', 0);
+$pdf->SetFont('Arial', 'B', 16);
 // $pdf->White();
 // $pdf->viewTable();
-$pdf->Output('I',"Attestation");
+$pdf->Output('I', "Attestation");
 
 ?>
