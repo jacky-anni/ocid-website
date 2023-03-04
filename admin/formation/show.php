@@ -39,11 +39,19 @@
                 Formation::statut();
               }
 
+              // Ouvrir et fermer la formatiom
+              if (isset($_GET['formations']) AND isset($_GET['fermeture'])) {
+                require 'class/Formation.php';
+                Formation::fermeture_quiz();
+              }
+
               // Ouvrir et fermer l'inscription
-              if (isset($_GET['formations']) AND isset($_GET['inscription'])) {
+               if (isset($_GET['formations']) AND isset($_GET['inscription'])) {
                 require 'class/Formation.php';
                 Formation::inscription_test();
               }
+
+              
 
               if (isset($_GET['update'])) {
                 $formations=$_GET['formations'];
@@ -57,14 +65,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text" style="font-size: 19px; padding-top: 20px; font-weight: bold;"><?= $formations->titre ?></span>
-
-              <a href="?page=participants&formations=<?= $formations->id ?>">
                 <span class="info-box-number" style="font-size: 12px; font-weight: normal; color:yellow;"><?= $formation_= Query::count_prepare('formation_suivie',$formations->id,'id_formation') ?><?php if($formation_>1){echo " Participants";}else{echo " Participant";} ?></span>
-              </a>
-              
-          <!--     <span class="progress-description">
-                    Participants
-                  </span> -->
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -91,10 +92,6 @@
                   <span class="pull-right text-purpule"> <?= Fonctions::duree($formations->date_debut,$formations->date_fin) ?></span></a>
                 </li>
 
-        <!--          <li><a ><b>Type</b>
-                  <span class="pull-right text-purpule"> <?= Fonctions::duree($formations->date_debut,$formations->date_fin) ?></span></a>
-                </li> -->
-
               </ul>
             </div>
             <!-- /.footer -->
@@ -111,10 +108,7 @@
             <!-- /.box-body -->
             <div class="box-footer no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="?page=participants&formations=<?= $formations->id ?>"> <b>Participants Inscrits</b>
-                  <span class="pull-right text-red"> <?= $formation_= Query::count_prepare('inscription',$formations->id,'id_formation') ?></span></a>
-                </li>
-
+              
                 <li><a href="?page=participants_&formations=<?= $formations->id ?>"> <b>Participants</b>
                   <span class="pull-right text-red"> <?= Query::count_prepare('formation_suivie',$formations->id,'id_formation') ?></span></a>
                 </li>
@@ -126,8 +120,6 @@
                   <li><a href="?page=les-participants&id=<?= $formations->id ?>"><b>Ceux qui ont passé au moins un examen</b>
                     <span class="pull-right text-purpule"> <?= count(Module::user_module_pass($formations->id)) ?></span></a>
                   </li>
-
-            
 
               </ul>
             </div>

@@ -21,20 +21,14 @@ if (!$module) {
 		// Fonctions::set_flash("Cette formation n'existe pas",'warning');
 	echo "<script>window.location ='$link_menu/formations';</script>";
 }
-
-	// verfier la note
 $note = Quiz::resultat_quiz($_SESSION['id_user'], $module->id);
 
-	// chek voir le quiz 
-Fonctions::vue_element($_SESSION['id_user'], $quiz1->id, 'quiz');
-
-if ($quiz1->nom != 'Questionnaire introductif') {
-		// verifier si la note est superieur a 60
-	if ($note >= 60) {
+if ($note >= 60) {
 			// Fonctions::set_flash("Cette formation n'existe pas",'warning');
-		echo "<script>window.location ='$link_menu/resultat-quiz/$url[1]/$module->id/$quiz1->id';</script>";
-	}
+	echo "<script>window.location ='$link_menu/resultat-quiz/$url[1]/$module->id/$quiz1->id';</script>";
 }
+
+
 
 ?>
 <title>Quiz - <?= $module->titre ?></title>
@@ -60,13 +54,129 @@ if ($quiz1->nom != 'Questionnaire introductif') {
 </div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-3 -->
 </div>
 
-
-
+<?php 
+if ($formation->fermeture == 0) { ?>
+<p class='alert alert-warning' ><b>Ce quiz n'est pas disponible</b></p>
+<?php 
+} else { ?>
 <div class="c-content-box c-size-md">
 	<div class="container">
-	<h1 class='alert alert-warning'>Ce Quiz n'est pas dinsponible</h1>
+			<div class="col-md-9">
+		    	<div class="c-content-panel" style="padding: 10px;">
+					<div class="row c-boxrder-top container">
+						<form action="" method="POST" role="form">
+							<?php foreach (Query::liste_prepare_asc('questions_quiz', $url[3], 'id_quiz') as $key => $question) : ?>
+							<div class="form-group">
+							   	<label  class="col-md-12 control-label" style="font-size: 16px;"><b><?= $question->titre ?></b></label>
+							   	<div class="col-md-12">
+							   		<div class="form-group" style="font-size: 16px;">
+
+							   			<?php if (!empty($question->rep1)) : ?>
+							   			<input type="radio" value="<?= $question->rep1 ?>" name="rep<?= $key ?>"required=""> <?= $question->rep1 ?></br>
+							   			<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+							   			<?php endif; ?>
+
+							   			<?php if (empty($question->rep1)) : ?>
+							   			<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+							   			<?php endif; ?>
+
+							   			<?php if (!empty($question->rep2)) : ?>
+								   		<input type="radio" value="<?= $question->rep2 ?>" name="rep<?= $key ?>"  required=""> <?= $question->rep2 ?></br>
+								   		<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+								   		<?php endif; ?>
+
+								   		<?php if (empty($question->rep2)) : ?>
+								   		<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+								   		<?php endif; ?>
+
+								   		<?php if (!empty($question->rep3)) : ?>
+								   			<input type="radio" value="<?= $question->rep3 ?>" name="rep<?= $key ?>"  required=""> <?= $question->rep3 ?></br>
+								   			<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+								   		<?php endif; ?>
+
+								   		<?php if (empty($question->rep3)) : ?>
+								   			<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+								   		<?php endif; ?>
+
+								   		<?php if (!empty($question->rep4)) : ?>
+								   		<input type="radio" value="<?= $question->rep4 ?>" name="rep<?= $key ?>"  required=""> <?= $question->rep4 ?>
+								   		<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+								   		<?php endif; ?>
+
+								   		<?php if (empty($question->rep4)) : ?>
+								   		<input type="hidden" value="<?= $question->id ?>" name="id<?= $key ?>">
+								   		<?php endif; ?>
+							   		</div>
+							  	</div>
+							</div>
+						
+						<?php endforeach ?>
+						<?php $count = Query::count_prepare('questions_quiz', $url[3], 'id_quiz'); ?>
+						<div class="form-group">
+							<button type="submit" name="submit" class="btn btn-primary">Soumettre</button>
+						</div>
+						</form>
+
+						 <?php
+						if (isset($_POST['submit'])) {
+							$i = 0;
+							    // selectionner la question en cours
+							$req = class_bdd::connexion_bdd()->prepare("SELECT * FROM questions_quiz WHERE id_module=? ORDER BY date_post ASC");
+							$req->execute(array($module->id));
+
+							$count1 = Quiz::verif_module($module->id, $_SESSION['id_user']);
+							if ($count1 == 0) {
+									 //parcoirir le nobre de question
+								while ($i < $count and $donne = $req->fetch()) {
+								    	// verifie la bonne reponse
+									if ($_POST['rep' . $i] == $donne['bonne_reponse']) {
+										$response = 1;
+									} else {
+										$response = 0;
+									}
+								    	
+								    	//ajouter la reponse
+									Quiz::reponse_quiz($_SESSION['id_user'], $module->id, $_POST['id' . $i], $_POST['rep' . $i], $response);
+									$i++;
+								}
+							} else {
+									 
+									 // supprimer les ancienne donnes
+								$requette = class_bdd::connexion_bdd()->prepare("DELETE FROM reponse_quiz WHERE id_participant=? AND id_module=?");
+								$requette->execute(array($_SESSION['id_user'], $module->id));
+
+										//parcoirir le nobre de question
+								while ($i < $count and $donne = $req->fetch()) {
+								    	// verifie la bonne reponse
+									if ($_POST['rep' . $i] == $donne['bonne_reponse']) {
+										$response = 1;
+									} else {
+										$response = 0;
+									}
+								    	// modifier les reponses
+									Quiz::reponse_quiz($_SESSION['id_user'], $module->id, $_POST['id' . $i], $_POST['rep' . $i], $response);
+									$i++;
+								}
+							}
+
+							$redirect = "$link_menu/resultat-quiz/$url[1]/$module->id/$quiz1->id";
+							echo "<script>window.location ='$redirect';</script>";
+
+						}
+						?>
+					</div>
+				</div>
+			  
+			</div>
+			<div class="col-sm-3">
+				<h4 style="background-color:#25a8b4; padding: 10px; color: white; "><b> <i class="fa fa-file-o"></i> Modules</b></h4>
+				 <?php include('partials/modules.php'); ?>
+		    </div>
+
 	</div>
 </div>
+<?php 
+} ?>
 
 <script type="text/javascript">
 	function formSubmit(){

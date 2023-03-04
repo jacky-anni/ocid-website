@@ -4,40 +4,26 @@
 	{
 		private $nom;
 		private $prenom;
-		private $lieu_naissance;
+		private $sexe;
 		private $departement;
 		private $commune;
-		private $niveau;
-		private $universite;
-		private $domaine;
-		private $organisation;
-		private $parti;
-		private $occupation;
+		private $telephone;
+		private $telephone2;
 		private $email;
-		private $whatsapp;
-		private $numero;
-		private $condition;
 		private $password;
 		private $password_confirmation;
 
-		function __construct($nom,$prenom,$lieu_naissance,$departement,$commune,$niveau,$universite,$domaine,$organisation,$parti,$occupation,$email,$whatsapp,$numero,$condition,$password,$password_confirmation)
+		function __construct($nom,$prenom,$sexe,$departement,$commune,$telephone,$telephone2,$email,$password,$password_confirmation)
 		{
 
 			$nom=htmlspecialchars($nom);
 			$prenom=htmlspecialchars($prenom);
-			$lieu_naissance=htmlspecialchars($lieu_naissance);
+			$sexe=htmlspecialchars($sexe);
 			$departement=htmlspecialchars($departement);
 			$commune=htmlspecialchars($commune);
-			$niveau=htmlspecialchars($niveau);
-			$universite=htmlspecialchars($universite);
-			$domaine=htmlspecialchars($domaine);
-			$organisation=htmlspecialchars($organisation);
-			$parti=htmlspecialchars($parti);
-			$occupation=htmlspecialchars($occupation);
-			$email=htmlspecialchars(trim($email));
-			$whatsapp=htmlspecialchars($whatsapp);
-			$numero=htmlspecialchars($numero);
-			$condition=htmlspecialchars($condition);
+			$telephone=htmlspecialchars($telephone);
+			$telephone2=htmlspecialchars($telephone2);
+			$email=htmlspecialchars($email);
 			$password=htmlspecialchars($password);
 			$password_confirmation=htmlspecialchars($password_confirmation);
 			
@@ -45,199 +31,105 @@
 			// initialisation
 			$this->nom=$nom;
 			$this->prenom=$prenom;
-			$this->lieu_naissance=$lieu_naissance;
+			$this->sexe=$sexe;
 			$this->departement=$departement;
 			$this->commune=$commune;
-			$this->niveau=$niveau;
-			$this->universite=$universite;
-			$this->domaine=$domaine;
-			$this->organisation=$organisation;
-			$this->parti=$parti;
-			$this->occupation=$occupation;
+			$this->telephone=$telephone;
+			$this->telephone2=$telephone2;
 			$this->email=$email;
-			$this->whatsapp=$whatsapp;
-			$this->numero=$numero;
-			$this->condition=$condition;
 			$this->password=$password;
 			$this->password_confirmation=$password_confirmation;
-
 		}
 
-		public function ajouter($formation_suivie)
+		// particpant de formation
+		public static function ajouter($nom,$prenom,$departement,$commune,$sexe,$profession,$numero,$email,$telephone2,$niveau,$domaine,$membre,$structure,$etude,$password,$password_confirmation,$formation)
 		{
-			// verifier si la formation existe
-			$formation = Query::affiche('formation',$formation_suivie,'id');
+			require './font-end/layout/config.php';
+			// selectionner la fonction en question
+			$formation = Query::affiche('formation',$formation,'id');
+			if($formation) {
+				// verifier si les mots de passe sont identiques
+				if($password and $password_confirmation){
+				// verifier si cet utilisateur est est deja existe
+				$user = Query::affiche('participant_',$email,'email');
+				// if existe user
+				$user_exist = Query::count_prepare('participant',$email,'email');
+				// definir l'ID du participant de
+				$id = rand(100,999).Query::count_query('participant');
 
-			// si il existe 
-			if($formation){
-				require './font-end/layout/config.php';
-				// verifier tous les champs
-				if(!empty($this->nom) AND !empty($this->prenom) AND !empty($this->lieu_naissance) AND !empty($this->departement) AND !empty($this->commune) AND !empty($this->niveau) AND!empty($this->email) AND !empty($this->whatsapp) AND !empty($this->condition) AND !empty($this->password) AND !empty($this->password_confirmation)){
+				// definirle rand pour le token 
+				$rand = rand(100,999).rand(100,999);
+				// definir le token 
+				$token=sha1($formation->id).sha1($email).$rand;
+				// // si il existe
 
+				if($user_exist==0){
+					if(!$user){
+						// inserer le participant
+						$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,niveau,domiante_rtude,profession,qui_este_vous,nom_institution,participation_poitiques_publiques,photo,mdp,active) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+						$req->execute(array($id,$nom,$prenom,$sexe,$departement,$commune,$email,$numero,$telephone2,$niveau,$domaine,$profession,$membre,$structure,$etude,'user.png',sha1($password),0));
 
-					//valideer les choix
-					if ($this->niveau=='Universitaire') {
-						$this->universite=$this->universite;
-						$this->domaine=$this->domaine;
+						$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO token (id_user,rand_,token,action,date_post) VALUES (?,?,?,?,NOW())");
+						$req1->execute(array($id,$rand,$token,"Active"));
+
+						//self::mail($id,$formation->id,$token,$rand);
+						echo "<script>window.location ='$link_menu/activation/$id';</script>";
+						// Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
+						// $url = $_SERVER['REQUEST_URI'];
+						// echo "<script>window.location ='$url/$id/2';</script>";
+					
 					}else{
-						$this->universite='';
-						$this->domaine='';
+						// inserer le participant la table
+						$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,niveau,domiante_rtude,profession,qui_este_vous,nom_institution,participation_poitiques_publiques,photo,mdp,active) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+						$req->execute(array($user->id,$nom,$prenom,$sexe,$departement,$commune,$email,$numero,$telephone2,$niveau,$domaine,$profession,$membre,$structure,$etude,$user->photo,sha1($password),1));
+
+						// verifier s'il est deja suivie ce cours
+						$requette2=class_bdd::connexion_bdd()->prepare("SELECT * FROM formation_suivie WHERE id_participant=? AND id_formation=?");
+						$requette2->execute(array($user->id,$formation->id));
+						$data=$requette2->rowCount();
+						// sinon, inserer dans la table de formation suivie
+						if($data==0){
+							$requette1=class_bdd::connexion_bdd()->prepare("INSERT INTO formation_suivie(id_participant,id_formation) VALUES(?,?)");
+							$requette1->execute(array($user->id,$formation->id));
+						}
+						Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
+						echo "<script>window.location ='$link_menu/connexion';</script>";
 					}
-
-
-					if($this->whatsapp=='Oui'){
-						$this->numero=$this->numero;
-					}else{
-						$this->numero='';
-					}
-
-					// Valider l'email
-					  if(filter_var($this->email, FILTER_VALIDATE_EMAIL)){
-					  	// valider password
-					    	if($this->password==$this->password_confirmation){
-					    		// // verifier si l'email existe
-					    		$count = Query::count_prepare('participant',$this->email,'email');
-					    		// $id=rand(100,999).$count.rand(100,999);
-					    		if (!$count) {
-
-					    			$count_total = Query::count_query('participant');
-					    			$id = $count_total+1;
-
-					    			$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,lieu_naissance,departement,commune,niveau,universite,domaine_etude,organisation,parti,occupation,email,telephone,numero_what,signature,photo,mdp,active,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
-					    		$req->execute(array($id, $this->nom,$this->prenom,$this->lieu_naissance,$this->departement,$this->commune,$this->niveau,$this->universite,$this->domaine,$this->organisation,$this->parti,$this->occupation,$this->email,$this->whatsapp,$this->numero,$this->condition,'user.png',sha1($this->password),0));
-					    			$token=sha1($this->email).sha1($this->password);
-
-					    			$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO inscription (id_participant,id_formation,date_post) VALUES (?,?,NOW())");
-					    			$req1->execute(array($id,$formation->id));
-					    			
-					    			// envoie mail
-					    			self::mail($id,$formation->id);
-					    			echo "<script>window.location ='$link_menu/activation/$id';</script>";
-					    			// echo "<script>window.location ='$link_menu/activation/$id';</script>";
-
-					    		}else{
-					    			// Fonctions::set_flash('Ce compte existe déjà, connectez-vous','success');
-					    			echo "<p class='alert alert-danger'>Ce compte existe déjà.</p>";
-									// echo "<scrip>twindow.location ='$link_menu/connexion';</script>";
-					    		}
-
-							}else{
-								echo "<p class='alert alert-danger'>Les mots de passe ne sont pas disponibles.</p>";
-							}
-					  }else{
-					  	echo "<p class='alert alert-danger'>L'adresse e-mail n'est pas valide</p>";
-					  }
-
 				}else{
-					echo "<p class='alert alert-danger'>Seulement le champs (Etes – vous et occupation) qui doivent être vide</p>";
+				 echo "<p class='alert alert-danger'>Ce compte existe deja.</p>";
 				}
-
+				}else{
+					echo "<p class='alert alert-danger'>Les mots de passe ne sont pas identiques.</p>";
+				}
 			}else{
-				echo "<script>window.location ='$link_menu/formations';</script>";
+				echo "<p class='alert alert-danger'>Cette formation n'est pas existe </p>";
 			}
+			
 		}
 
 
-		public static function mail($id,$formation_suivie){
+		public static function mail($id,$formation_suivie,$token,$rand){
 			require 'font-end/layout/config.php';
 			// selectionner le participant
 			$user=Query::affiche('participant',$id,'id');
 			// selectionner l'organisation en question
 			$org=Query::affiche('organisation',1,'id');
-			//token pour la validation
-			$token=sha1($user->email).$user->mdp;
+
+			$formation=Query::affiche('formation',$formation_suivie,'id');
+
 			// sujet de l'email
 			$Subject = "Confirmation de compte pour la formation de l'OCID";
 			// outil de configuration
 			$headers  = 'MIME-Version: 1.0' . "\r\n";
 	        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+			$Msg = "<p style='margin: 20px; font-size:17px;'>
+				Salut <b>$user->prenom</b>,<br/>
+				Nous sommes ravis de vous voir commencer le cours <b> <i>$formation->titre</i> </b> Tout d'abord, vous devez confirmer votre compte. Appuyez simplement sur le lien ci-dessous.</br>
+				<a href='$org->site_web/activation/$token/$rand/$formation->id/$user->id' target='_blank'>Reinitialiser Confirmer votre email</a>
+				</p>";
 	        // le message
-			$Msg="
-				<head>
-					<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
-					<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'>
-					<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
-					<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-					<meta http-equiv='Content-type' content='text/html; charset=utf-8'>
-				</head>
-
-				<body style='background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;'>
-				    <table border='0' cellpadding='0' cellspacing='0' width='100%'>
-				        <!-- LOGO -->
-				        <tr>
-				            <td bgcolor='#26a8b4' align='center'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td align='center' valign='top' style='padding: 40px 10px 40px 10px;'> </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				        <tr>
-				            <td bgcolor='#26a8b4' align='center' style='padding: 0px 10px 0px 10px;'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='center' valign='top' style='padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;'>
-				                            <h1 style='font-size: 48px; font-weight: 400; margin: 2;'>Bienvenue!</h1> <img src='$org->site_web/$link_admin/dist/img/logo/$org->logo' width='125' height='120' style='display: block; border: 0px;' />
-				                        </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				        <tr>
-				            <td bgcolor='#f4f4f4' align='center' style='padding: 0px 10px 0px 10px;'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='left' style='padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 27px;'>
-				                        	
-				                        	
-				                            <p style='margin: 20px; font-size:17px; line-height:23px;'>
-				                            Salut $user->prenom,<br/>
-				                            Nous sommes ravis de vous voir commencer. Tout d'abord, vous devez confirmer votre compte. Appuyez simplement sur le bouton ci-dessous.</p>
-				                        </td>
-				                    </tr>
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='left'>
-				                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>
-				                                <tr>
-				                                    <td bgcolor='#ffffff' align='center' style='padding: 20px 30px 60px 30px;'>
-
-				                                        <table border='0' cellspacing='0' cellpadding='0'>
-				                                            <tr>
-				                                                <td align='center' style='border-radius: 3px;' bgcolor='#FFA73B'><a href='$org->site_web/$link_menu/activation/$token/$id/$formation_suivie' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; background-color: #26a8b4; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #26a8b4; display: inline-block;'>Confirmer votre compte</a>
-				                                                </td>
-				                                            </tr>
-				                                        </table>
-				                                    </td>
-				                                </tr>
-				                            </table>
-				                        </td>
-				                    </tr> <!-- COPY -->
-
-
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='left' style='padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>
-				                            <p style='margin: 20px; font-size:17px;'>L'equipe de l'OCID</p>
-				                        </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				        <tr>
-				            <td bgcolor='#f4f4f4' align='center' style='padding: 30px 10px 0px 10px;'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td bgcolor='#FFECD1' align='center' style='padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>
-				                            <h2 style='font-size: 20px; font-weight: 400; color: #111111; margin: 0;'>Pour plus d'informations</h2>
-				                            <p style='margin: 0;'><a href='#' target='_blank' style='color: #FFA73B;'>www.ocid.org</a></p>
-				                        </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				    </table>
-				</body>";
-				// envoyer email
+				//envoyer email
 				$SendMessage = mail($user->email,$Subject,$Msg,$headers);
 			    if ($SendMessage==true) {
 			    	echo "";
@@ -247,30 +139,45 @@
 			    }
 		}
 
-		public static function activation($token,$id){
+		public static function activation($id,$formation_suivie,$token,$rand){
 			// selectionner participant
 			require './font-end/layout/config.php';
 			$user=Query::affiche('participant',$id,'id');
-			if ($user) {
-				// generer le token
-				$token_recuperer=sha1($user->email).$user->mdp;
-				// si tous ce passe bien
-				if ($token_recuperer==$token) {
-					// activer le compte
-					$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET active=? WHERE id=?");
-					$requette->execute(array(1,$user->id));
-					Fonctions::set_flash('Compte validé avec suucès, connectez-vous','success');
-					echo "<script>window.location ='$link_menu/connexion';</script>";
-					// header("location:$link_menu/tableau-de-bord");
-					
+			if($user){
+				// verifier le token
+				$requette1=class_bdd::connexion_bdd()->prepare("SELECT * FROM token WHERE id_user=? AND rand_=? AND token=?");
+				$requette1->execute(array($id,$rand,$token));
+				$verif_token =$requette1->fetch(PDO::FETCH_OBJ);
+				if($verif_token){
+						$formation=Query::affiche('formation',$formation_suivie,'id');
+						if($formation){
+							// verifie si on a deja suivie cette formation 
+							$requette2=class_bdd::connexion_bdd()->prepare("SELECT * FROM formation_suivie WHERE id_participant=? AND id_formation=?");
+							$requette2->execute(array($user->id,$formation->id));
+							$data=$requette2->rowCount();
+							if($data==0){
+								$requette1=class_bdd::connexion_bdd()->prepare("INSERT INTO formation_suivie(id_participant,id_formation) VALUES(?,?)");
+								$requette1->execute(array($user->id,$formation->id));
+							}
+							$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET active=? WHERE id=?");
+							$requette->execute(array(1,$user->id));
+
+							Query::supprimer('token',$verif_token->id);
+
+							Fonctions::set_flash("Compte activé",'success');
+							echo "<script>window.location ='$link_menu/connexion';</script>";
+
+						}else{
+							Fonctions::set_flash("Cette formation n'existe pas",'warning');
+							echo "<script>window.location ='$link_menu/formations';</script>";
+						}
 				}else{
-					// sinon
-					Fonctions::set_flash('Compte validé avec suucès, connectez-vous','success');
-					echo "<script>window.location ='$link_menu/connexion';</script>";
+					Fonctions::set_flash('Lien de validation invalide','warning');
+			        echo "<script>window.location ='$link_menu/connexion';</script>";
 				}
+
 			}else{
-				Fonctions::set_flash("Ce compte n'existe pas ",'success');
-				echo "<script>window.location ='$link_menu/connexion';</script>";
+				echo "<script>window.location ='$link_menu/404';</script>";
 			}
 		}
 
@@ -326,27 +233,11 @@
 			
 		}
 
+
 		// modifier profil
-		public static function modifier_profil($nom,$prenom,$lieu_naissance,$departement,$commune,$niveau,$universite,$domaine,$organisation,$parti,$occupation,$email,$numero)
+		public static function modifier_profil($nom,$prenom,$sexe,$departement,$commune,$telephone,$telephone2,$societe,$adresse,$nom_dirigeant,$telephone_dirigeant,$email_dirigeant)
 		{
 			require './font-end/layout/config.php';
-			// modifier le profil
-
-			// valideer les choix
-			if ($niveau=='Universitaire') {
-				$universite=$universite;
-				$domaine=$domaine;
-			}else{
-				$universite='';
-				$domaine='';
-			}
-
-			if($whatsapp=='Oui'){
-				$numero=$numero;
-			}else{
-				$numero='';
-			}
-
 
 			if (isset($nom)) {
 				// modifer nom
@@ -360,10 +251,10 @@
 				$requette->execute(array($prenom,$_SESSION['id_user']));
 			}
 
-			if (isset($lieu_naissance)) {
+			if (isset($sexe)) {
 				// modifer lieu de naissance
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET lieu_naissance=? WHERE id=?");
-				$requette->execute(array($lieu_naissance,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET sexe=? WHERE id=?");
+				$requette->execute(array($sexe,$_SESSION['id_user']));
 			}
 
 			if (isset($departement)) {
@@ -378,57 +269,50 @@
 				$requette->execute(array($commune,$_SESSION['id_user']));
 			}
 
-			if (isset($niveau)) {
-				// modifer niveau
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET niveau=? WHERE id=?");
-				$requette->execute(array($niveau,$_SESSION['id_user']));
+			if (isset($telephone)) {
+				// modifer telephone
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone=? WHERE id=?");
+				$requette->execute(array($telephone,$_SESSION['id_user']));
 			}
 
-			if (isset($universite)=='Universitaire') {
+			if (isset($telephone2)) {
+				// modifer telephone
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone2=? WHERE id=?");
+				$requette->execute(array($telephone2,$_SESSION['id_user']));
+			}
+
+
+			if (isset($societe)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET universite=? WHERE id=?");
-				$requette->execute(array($universite,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom_parti=? WHERE id=?");
+				$requette->execute(array($societe,$_SESSION['id_user']));
+			}
 
+			if (isset($adresse)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET domaine_etude=? WHERE id=?");
-				$requette->execute(array($domaine,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET 	adresse=? WHERE id=?");
+				$requette->execute(array($adresse,$_SESSION['id_user']));
 			}
 
-
-			if (isset($organisation)) {
+			if (isset($nom_dirigeant)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET organisation=? WHERE id=?");
-				$requette->execute(array($organisation,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom_dirigeant=? WHERE id=?");
+				$requette->execute(array($nom_dirigeant,$_SESSION['id_user']));
 			}
 
-			if (isset($parti)) {
+			if (isset($telephone_dirigeant)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET parti=? WHERE id=?");
-				$requette->execute(array($parti,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone_dirigeant=? WHERE id=?");
+				$requette->execute(array($telephone_dirigeant,$_SESSION['id_user']));
 			}
 
-			if (isset($occupation)) {
+			if (isset($email_dirigeant)) {
 				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET occupation=? WHERE id=?");
-				$requette->execute(array($occupation,$_SESSION['id_user']));
-			}
-
-			if (isset($email)) {
-				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET email=? WHERE id=?");
-				$requette->execute(array($email,$_SESSION['id_user']));
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET email_dirigeant=? WHERE id=?");
+				$requette->execute(array($email_dirigeant,$_SESSION['id_user']));
 			}
 
 
-			if (isset($numero)) {
-				// modifer numero
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET numero_what=? WHERE id=?");
-				$requette->execute(array($numero,$_SESSION['id_user']));
-
-				// valider telephone
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET 	telephone=? WHERE id=?");
-				$requette->execute(array('Oui',$_SESSION['id_user']));
-			}
 
 			Fonctions::set_flash('Profil modifié','success');
 			echo "<script>window.location ='$link_menu/profile';</script>";
@@ -464,9 +348,8 @@
 					// mettre a jour le mot de passe
 					$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET mdp=? WHERE id=?");
 					$requette->execute(array(sha1($password),$_SESSION['id_user']));
-					$url=$_SERVER['REQUEST_URI'];
 					Fonctions::set_flash("Votre mot de passe a été modifié",'success');
-					echo "<script>window.location ='$url';</script>";
+					echo "<script>window.location ='$link_menu/deconnexion';</script>";
 				}else{
 					// si les mots de passe ne sont pas les memes
 					$url=$_SESSION['redirec_url'];
@@ -502,85 +385,12 @@
 			$headers  = 'MIME-Version: 1.0' . "\r\n";
 	        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 	        // le message
-			$Msg="
-				<head>
-					<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
-					<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'>
-					<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
-					<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-					<meta http-equiv='Content-type' content='text/html; charset=utf-8'>
-				</head>
+			$Msg = "<p style='margin: 20px; font-size:17px;'>
+					Salut <b>$user->prenom</b>,<br/>
+					si vous n'avez pas fait cette demande, ignorez simplement cet e-mail. Sinon, veuillez cliquer sur le bouton ci-dessous pour changer votre mot de passe </br>
+					<a href='$org->site_web/reset-password/$token/$email/edit' target='_blank' style='color:blue; font-weight: bold'>Reinitialiser votre mot de passe sur ce lien</a>
+					</p>";
 
-				<body style='background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;'>
-				    <table border='0' cellpadding='0' cellspacing='0' width='100%'>
-				        <!-- LOGO -->
-				        <tr>
-				            <td bgcolor='#26a8b4' align='center'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td align='center' valign='top' style='padding: 40px 10px 40px 10px;'> </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				        <tr>
-				            <td bgcolor='#26a8b4' align='center' style='padding: 0px 10px 0px 10px;'>
-				              
-				                </table>
-				            </td>
-				        </tr>
-				        <tr>
-				            <td bgcolor='#f4f4f4' align='center' style='padding: 0px 10px 0px 10px;'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='left' style='padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 27px;'>
-				                        
-				                            <p style='margin: 20px; font-size:17px; line-height:23px; margin-top:-20px;'>
-				                            Salut $user->prenom,<br/>
-				                            si vous n'avez pas fait cette demande, ignorez simplement cet e-mail. Sinon, veuillez cliquer sur le bouton ci-dessous pour changer votre mot de passe</p>
-				                        </td>
-				                    </tr>
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='left'>
-				                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>
-				                                <tr>
-				                                    <td bgcolor='#ffffff' align='center' style='padding: 20px 30px 60px 30px;'>
-
-				                                        <table border='0' cellspacing='0' cellpadding='0'>
-				                                            <tr>
-				                                                <td align='center' style='border-radius: 3px;' bgcolor='#FFA73B'><a href='$org->site_web/reset-password/$token/$email/edit' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; background-color: #26a8b4; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #26a8b4; display: inline-block;'>Reinitialiser</a></td>
-				                                            </tr>
-				                                        </table>
-
-				                                    </td>
-				                                </tr>
-				                            </table>
-				                        </td>
-				                    </tr> <!-- COPY -->
-
-
-				                    <tr>
-				                        <td bgcolor='#ffffff' align='left' style='padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>
-				                            <p style='margin: 20px; font-size:17px;'>L'equipe de l'OCID</p>
-				                        </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				        <tr>
-				            <td bgcolor='#f4f4f4' align='center' style='padding: 30px 10px 0px 10px;'>
-				                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>
-				                    <tr>
-				                        <td bgcolor='#FFECD1' align='center' style='padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>
-				                            <h2 style='font-size: 20px; font-weight: 400; color: #111111; margin: 0;'>Pour plus d'informations</h2>
-				                            <p style='margin: 0;'><a href='#' target='_blank' style='color: #FFA73B;'>www.ocid.org</a></p>
-				                        </td>
-				                    </tr>
-				                </table>
-				            </td>
-				        </tr>
-				    </table>
-				</body>";
 				// envoyer email
 				$SendMessage = mail($user->email,$Subject,$Msg,$headers);
 			    if ($SendMessage==true) {
@@ -598,6 +408,7 @@
 		{
 			// include config
 			require './font-end/layout/config.php';
+
 			$user=Query::affiche('participant',$email,'email');
 			if (!$user) {
 				// echo "<p class='alert alert-danger'>Cette email n'existe pas.</p>";
@@ -673,28 +484,36 @@
 						<body>
 							<div style='margin: 15px;'
 								<br>
-								<h4 syle='margin-top:40px;' >Salut $participant->prenom , </h4>
-									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cours de <b>$formation->titre</b> à été validée avec succès </p> <br>
-									<a href='http://www.ocidhaiti.org/tableau-de-bord'
+								if($statut==1){
+									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
+									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le plaisir pour vous anoncer que votre inscription au cour de <b>$formation->titre</b> à été validée avec succès </p> <br>
+									<a href='www.ocidhaiti.org/connexion''
 										<button class='btn btn-primary btn-xs'> Commencer à apprendre </button>
-								</a>
+									</a>
+								}else{
+									<h6 syle='margin-top:40px;' >Salut $participant->prenom , </h6>
+									<p>Observatoire Citoyen pour l'Institutionnalisation (OCID) a le regret pour vous anoncer que votre inscription au cour de <b>$formation->titre</b> à été réfusée </p> <br>
+								}
 								
 								 </br><br>
 								<i>Equipe de l'OCID</i>
 							</div>
 						</body>
 						</html>";
-						Fonctions::set_flash("$participant->prenom "." a été validé avec succès",'success');
+					if($statut==1){
+						Fonctions::set_flash("$participant->prenom"." a été validé avec succès",'success');
+					}else{
+						Fonctions::set_flash("$participant->prenom"." a été réfusé avec succès",'success');
+					}
 					//==========================================================================================
 					// envoyer l'email 
 					// sujet de l'email
 					$Subject = "Validation de compte";
 					// outil de configuration
 					$headers  = 'MIME-Version: 1.0' . "\r\n";
-					$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-					
+			        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 			        // le message
-					//envoyer email
+					// envoyer email
 					$SendMessage = mail($participant->email,$Subject,$Msg,$headers);
 				    if ($SendMessage==true) {
 				    	$url=$_SERVER['REQUEST_URI'];

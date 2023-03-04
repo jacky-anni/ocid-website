@@ -1,6 +1,5 @@
 <?php include('font-end/layout/head.php'); ?>
 <?php include('admin/class/Participant.php'); ?>
-<?php include('admin/class/Participant_Pol.php'); ?>
 <?php include('admin/class/Utilisateur.php'); ?>
 <?php Fonctions::redirect(); ?>
 <!DOCTYPE html>
@@ -42,11 +41,11 @@
 
 					<div class="col-md-12">
 						<div class="c-content-ver-nav" style="text-align: left;">
-									<ul class="c-menu c-arrow-dot1 c-theme">
-										<li><a href="#"><i class="fa fa-graduation-cap"></i> Mes formations</a></li>
-										<li><a href="#"><i class="fa fa-bell"></i> Notifications (0)</a></li>
-										<li><a href="<?= $link_menu ?>/deconnexion"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
-									</ul>
+							<ul class="c-menu c-arrow-dot1 c-theme">
+								<li><a href="#"><i class="fa fa-graduation-cap"></i> Mes formations</a></li>
+								<li><a href="#"><i class="fa fa-bell"></i> Notifications (0)</a></li>
+								<li><a href="<?= $link_menu ?>/deconnexion"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
+							</ul>
 						</div>
 					</div>
 					
@@ -163,48 +162,7 @@
 									</div>
 									</br><hr>
 
-									<?php if ($user->statut == "Cadre d’un parti politique ou d’une organisation") : ?>
-										<div class="row">
-											<h5 style=""><b>B- RÉFÉRENCE DU PARTI POLITIQUE OU DE L’ORGANISATION DE LA SOCIETE CIVILE</b> </h5><hr/>
-											<div class="col-md-12">
-												<div class="row">
-													<div class="form-group col-md-6">
-														<label class="control-label">Indiquez le nom du parti politique ou de l’organisation de la société civile qui vous recommande </label>
-														<input type="text" name="societe" value="<?= $user->nom_parti ?>" class="form-control" data-parsley-maxlength="250" placeholder="Réseau Civisme et de la personne (RECIDP)" required="">
-													</div>
-													<div class="col-md-6">
-														<label class="control-label">Indiquez l’adresse du parti politique ou de l’organisation de la société civile qui vous recommande </label>
-														<input type="text" name="adresse" value="<?= $user->adresse ?>" data-parsley-maxlength="250" class="form-control" placeholder="#15, Ruelle la paix, Fondation Vincent, Cap-Haitien" required="">
-													</div>
-												</div>
-
-												<div class="row">
-													<div class="form-group col-md-12">
-														<label class="control-label">Nom et Prénom du dirigeant ou de la dirigeante du parti politique ou de l’organisation de la société civile qui vous recommande  </label>
-														<input type="text" name="nom_dirigeant" value="<?= $user->nom_dirigeant ?>" class="form-control" data-parsley-maxlength="250" placeholder="Eddy Roméus" required="">
-													</div>
-												</div>
-
-												<div class="row">
-													<div class="form-group col-md-6">
-														<label class="control-label">Téléphone du dirigeant ou de la dirigeante </label>
-														<input type="text" name="telephone_dirigeant" value="<?= $user->telephone_dirigeant ?>" class="form-control" data-parsley-maxlength="250" placeholder="+5094973 9494" required="">
-													</div>
-													<div class="col-md-6">
-														<label class="control-label">Courriel du dirigeant ou de la dirigeante  </label>
-														<input type="email" name="email_dirigeant" value="<?= $user->email_dirigeant ?>" data-parsley-maxlength="250" class="form-control" placeholder="anizairejacky@gmail.com" required="">
-													</div>
-												</div>
-
-
-
-											</div>
-										</div><hr/>
-									<?php endif ?>
-
-
-
-
+								
 
 								<div class="row">
 									<div class="col-md-12">
@@ -212,7 +170,6 @@
 									</div>
 								</div>
 							</form>
-
 						</div>
 						<div class="tab-pane" id="tab_1_2_content">
 							<form action="" method="POST" role="form" data-parsley-validate action="">
@@ -251,7 +208,7 @@
 			extract($_POST);
 
 
-			$participant = Participant_Pol::modifier_profil($nom, $prenom, $sexe, $departement, $commune, $telephone, $telephone2, $societe, $adresse, $nom_dirigeant, $telephone_dirigeant, $email_dirigeant);
+			$participant = Participant::modifier_profil($nom, $prenom, $sexe, $departement, $commune, $telephone, $telephone2, $societe, $adresse, $nom_dirigeant, $telephone_dirigeant, $email_dirigeant);
 
 
 					// Participant::modifier_profil($nom,$prenom,$lieu_naissance,$departement,$commune,$niveau,$universite,$domaine,$organisation,$parti,$occupation,$email,$numero);

@@ -6,16 +6,15 @@
 		private $date_debut;
 		private $date_fin;
 		private $presentation;
-		private $type;
 		private $certificat;
 
-		function __construct($titre,$description,$date_debut,$date_fin,$presentation,$type,$certificat)
+		function __construct($titre,$description,$date_debut,$date_fin,$presentation,$certificat)
 		{
 			$titre=htmlspecialchars($titre);
 			$description=htmlspecialchars($description);
 			$date_debut=htmlspecialchars($date_debut);
 			$date_fin=htmlspecialchars($date_fin);
-			$type=htmlspecialchars($type);
+	
 			$certificat=htmlspecialchars($certificat);
 
 			$this->titre=$titre;
@@ -23,7 +22,6 @@
 			$this->date_debut=$date_debut;
 			$this->date_fin=$date_fin;
 			$this->presentation=$presentation;
-			$this->type=$type;
 			$this->certificat=$certificat;
 
 		}
@@ -32,7 +30,7 @@
 		public function ajouter()
 		{
 
-			if (!empty($this->titre) AND !empty($this->date_debut)  AND !empty($this->description) AND !empty($this->date_fin) AND !empty($this->presentation) AND !empty($this->type)) {
+			if (!empty($this->titre) AND !empty($this->date_debut)  AND !empty($this->description) AND !empty($this->date_fin) AND !empty($this->presentation)) {
 				// verifier l'existence
 				$formation=Query::affiche('formation',$this->titre,'titre');
 				if (!$formation) {
@@ -41,8 +39,8 @@
 						 $id1=$count+1;
 						 $id=rand(1000,1999).$id1;
 
-						$req=class_bdd::connexion_bdd()->prepare('INSERT INTO formation(id,titre,description,date_debut,date_fin,presentation,type,certificat,posteur,etat,date_post) VALUES(?,?,?,?,?,?,?,?,?,?,NOW())');
-						$req->execute(array($id,$this->titre,$this->description,$this->date_debut,$this->date_fin,$this->presentation,$this->type,$this->certificat,$_SESSION['id'],'Hors ligne'));
+						$req=class_bdd::connexion_bdd()->prepare('INSERT INTO formation(id,titre,description,date_debut,date_fin,presentation,certificat,posteur,etat,date_post) VALUES(?,?,?,?,?,?,?,?,?,NOW())');
+						$req->execute(array($id,$this->titre,$this->description,$this->date_debut,$this->date_fin,$this->presentation,$this->certificat,$_SESSION['id'],'Hors ligne'));
 
 						Fonctions::set_flash('Formation enregistrée','success');
 						echo "<script>window.location ='?page=ajouter-formation'</script>";
@@ -124,11 +122,6 @@
 				$requette->execute(array($this->presentation,$_GET['formations']));
 			}
 
-			if (isset($this->type)) {
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET type=? WHERE id=?");
-				$requette->execute(array($this->type,$_GET['formations']));
-			}
-
 			if (isset($this->certificat)) {
 				$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET certificat=? WHERE id=?");
 				$requette->execute(array($this->certificat,$_GET['formations']));
@@ -179,6 +172,27 @@
 			return $reponse_vrai=$req->rowCount();
 				
 
+		}
+
+			public static function fermeture_quiz()
+		{
+			$formations=$_GET['formations'];
+			$formations=Query::affiche('formation',$formations,'id');
+			if($formations){
+				$requette=class_bdd::connexion_bdd()->prepare("UPDATE formation SET fermeture=? WHERE id=?");
+				$requette->execute(array($_GET['fermeture'],$_GET['formations']));
+				// selctionner la formation
+				if($formation->fermeture==1){
+					Fonctions::set_flash("La formation est ouverte ouverte",'success');
+					header("Location:?page=formation&formations=$formations->id");
+				}else{
+					Fonctions::set_flash("la formation est fermée",'success');
+					header("Location:?page=formation&formations=$formations->id");
+				}
+			}else{
+				Fonctions::set_flash("Cette formation n'existe pas ",'danger');
+				header("Location:?page=formations");
+			}
 		}
 
 	}

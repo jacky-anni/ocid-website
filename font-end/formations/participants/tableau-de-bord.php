@@ -21,36 +21,14 @@
 
 	<div class="container">
 		<div class="c-layout-sidebar-content ">
-		<!-- BEGIN: PAGE CONTENT -->
-		<!-- BEGIN: CONTENT/SHOPS/SHOP-ORDER-HISTORY -->
-
-		<div class="c-content-feature-10">
-			<!-- End-->
-			<ul class="c-list">
-				<li>
-					<div class="c-card c-font-right wow animate fadeInLeft">
-						<i class="fa fa-file c-font-27 c-theme-font c-float-right c-border c-border-opacity"></i>
-						<div class="c-content c-content-right">
-							<h3 class="c-font-uppercase c-font-bold">Formations</h3>
-							<p>
-								Liste de mes formations
-							</p>
-						</div>
-					</div>	
-					<div class="c-border-bottom c-bg-opacity-2"></div>
-				</li>
-				<div class="c-border-middle c-bg-opacity-2"></div>
-			</ul>
-	
-		</div>
-
 		<?php include('admin/includes/flash.php'); ?>
-		<?php include('font-end/formations/participants/formations_suivies.php') ?>
-		
+			<h2><b>MES FORMATIONS</b></h2> <hr>
+			<?php include('font-end/formations/participants/formations_suivies.php') ?>
 		</div>
 	</div>
 
 
+</div>
 </div>
 
 

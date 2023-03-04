@@ -34,7 +34,7 @@
             {
               $certificat='Non';
             }
-            $formation= new Formation($titre,$description,$date_debut,$date_fin,$presentation,$type,$certificat);
+            $formation= new Formation($titre,$description,$date_debut,$date_fin,$presentation,$certificat);
             $formation->ajouter();
 
           }
@@ -83,15 +83,6 @@
                         </div>
 
                        <div class="col-md-12"></br>
-                         <div class="form-group">
-                            <label>Type de formation</label>
-                            <select name="type" required="" class="form-control">
-                              <option value="" style="color: silver;">Ajouter un type</option>
-                              <option value="1" <?php if(isset($_POST['type']) AND $_POST['type']==1){echo "selected";} ?>>public</option>
-                              <option value="2" <?php if(isset($_POST['type']) AND $_POST['type']==2){echo "selected";} ?>>Public & validé par le staff</option>
-                              <!-- <option value="Intervenant">Intervenant</option> -->
-                            </select>
-                          </div>
 
                         <div class="col-md-12">
                           <div class="checkbox">

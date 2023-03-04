@@ -71,8 +71,8 @@
                   <th>Département</th>
                   <th>Téléphone</th>
                   <th>Email</th>
+                  <th>Niveau</th>
                   <th>Statut</th>
-                  <th>Nom parti</th>
                 </tr>
               </thead>
               <tbody>
@@ -103,19 +103,16 @@
                 <td><?php if (!empty($participant->email)) {
                       echo $participant->email;
                     } ?></td>
+
+                     <td><?php if (!empty($participant->niveau)) {
+                      echo $participant->niveau;
+                    } ?></td>
+
+                       <td><?php if (!empty($participant->qui_este_vous)) {
+                      echo $participant->qui_este_vous;
+                    } ?></td>
                     
 
-               <?php if (!empty($participant->statut) and $participant->statut == "Cadre d’un parti politique ou d’une organisation") : ?>
-                <td><span class="btn btn-primary btn-xs" style="cursor:none;"> <i class="fa fa-user"></i> Cadre</span></td>
-                <?php endif ?>
-
-                <?php if (!empty($participant->statut) and $participant->statut == "Certifié-e du programme de formation en Socialisation politique") : ?>
-                  <td><span class="btn btn-success btn-xs" style="cursor:none;"> <i class="fa fa-certificate"></i> Certifié-e</span></td>
-                <?php endif ?>
-
-                <td><?php if (!empty($participant->nom_parti)) {
-                      echo $participant->nom_parti;
-                    } ?></td>
               </tr>
             <?php endforeach; ?>
 

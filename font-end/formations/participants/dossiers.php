@@ -5,7 +5,7 @@
 <?php Fonctions::redirect(); ?>
 <!DOCTYPE html>
 <html lang="en"  >
-<title>Formations | <?= $org->sigle ?></title>
+<title>Mes dossiers | <?= $org->sigle ?></title>
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
 <!-- BEGIN: HEADER -->
@@ -38,6 +38,8 @@
 		if ($module_passe > 0) {
 					// pourcentage de module passe;
 			$note = number_format($module_passe / $module_total * 100);
+		}else{
+			$note = 0;
 		}
 		?>
 
@@ -47,50 +49,32 @@
 						<h3 class="c-font-bold "><?= $formation->titre ?></h3>
 						<div class="c-line-left c-theme-bg"></div>
 					</div>
+
+					<?php if($formation->fermeture == 0 and $formation->certificat_livre==1){  ?>
+					
 					<div class="tab-pane" id="blog_popular_posts">
 			    		<ul class="c-content-recent-posts-1">
-			    		 <?php if ($module_passe == $module_total) : ?>
+			    		 <?php if ($module_passe == $module_total && $module_total >=1) : ?>
 			    			<li>
 			    				<div class="c-post">
 			    					<b> <i class="fa fa-certificate"></i> Certificat de réussite </b>
 			    					<div class="c-date">
-			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><i class="fa fa-download"></i> Télécharger</span></a> 
+			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><b><i class="fa fa-download"></i> Télécharger</b></span></a> 
 			    					</div>
 			    				</div>
 			    			</li>
 			    		<?php endif ?> 
 
 			    			<li>
-			    				<div class="c-post">
-			    					<b> <i class="fa fa-file"></i>  Atestation de participation </b>
-			    					<div class="c-date"> 
-			    						<span style="margin-right: 7px;"><a href="<?= $link_menu ?>/attestation/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><i class="fa fa-download"></i> Télécharger</a></span>
-			    					</div>
-			    				</div>
-			    			</li> 
-
-			    			<li>
-			    				<div class="c-post">
-			    					<b> <i class="fa fa-file"></i>  Rélevé de notes </b>
-			    					<div class="c-date"> 
-			    						<span style="margin-right: 7px;"><a href="<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><i class="fa fa-download"></i> Télécharger</a></span>
-			    						<!-- <span><a href="#" data-toggle="modal" data-target="#releve"><i class="fa fa-download"></i> Copier le lien</a></span> -->
-			    					</div>
-			    				</div>
-			    			</li>
-
-			    			<li>
 			    				<h4 style="color: red; font-weight: bold; margin-top: -2px;"><?= $note; ?>% de réussite</h4>
 			    			</li>
 
 			    			<div >
-
 			    				<div class="progress">
 								  	<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?= $note ?>%; background-color: #00a65a;">
 								    	<?= $note ?>%
 								  	</div>
 								</div> 
-			    				
 			    			</div>
 
 			    			 <small>
@@ -102,11 +86,11 @@
 									<p class="alert alert-success" style=" padding: 3px; color: red; text-align: center;"><b> <i class="fa fa-check"></i> Cours terminé</b></p>
 								<?php endif ?>
 							</small>
-			    		
-
-
 			    		</ul>
 			    	</div>
+					<?php }else{ ?>
+						<p class="alert alert-danger">Contenu indisponible</p>
+					<?php } ?>
 				
 				</div>
 		</div>

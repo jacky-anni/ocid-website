@@ -32,7 +32,7 @@
 		<div class="c-content-bar-1 c-opt-1">
 			<h3 class="c-font-uppercase c-font-bold"><?= $formation->titre ?></h3>
 			<p class="alert alert-danger" style="font-weight: bold;">
-				L'inscription est terminée
+				L'inscription n'est pas disponible pour l'instant
 			</p>
 			<a href="<?= $link_menu ?>/cours/<?= $formation->id ?>" class="btn btn-md c-btn-square c-theme-btn c-btn-uppercase c-btn-bold">Suivre le cours</a>
 		</div>
