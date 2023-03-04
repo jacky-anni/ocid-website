@@ -68,12 +68,11 @@
                   <th>Email</th>
                   <th>Numero</th>
                   <th>Statut</th>
-                  <th width="15%"></th>
+                  <th width="15%">Action</th>
                 </tr>
               </thead>
               <tbody>
-              <?php foreach (Query::liste_prepare ('inscription',$_GET['formations'],'id_formation') as $formation): ?>
-                <?php  $participant =Query::affiche('participant',$formation->id_participant,'id'); ?>
+              <?php foreach (Query::liste_prepare ('participant',0,'active') as $participant): ?>
               <tr>
                 <td><?php if (!empty($participant->nom)) {echo $participant->nom;} ?></td>
                 <td><?php if (!empty($participant->prenom)) {echo $participant->prenom;} ?></td>
@@ -82,7 +81,7 @@
                 <td><?php if (!empty($participant->commune)) {echo $participant->commune;} ?></td>
                 <td><?php if (!empty($participant->niveau)) {echo $participant->niveau;} ?></td>
                 <td><?php if (!empty($participant->email)) {echo $participant->email;} ?></td>
-                <td><?php if (!empty($participant->numero_what)) {echo $participant->numero_what;} ?></td>
+                <td><?php if (!empty($participant->telephone)) {echo $participant->telephone;} ?></td>
                 
                 <?php if($participant->active==1): ?>
                   <td><span class="btn btn-success btn-xs" style="cursor:none;">Activé</span></td>
