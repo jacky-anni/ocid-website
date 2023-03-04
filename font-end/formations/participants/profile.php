@@ -32,23 +32,11 @@
 				<img src="<?= $link_admin ?>/dist/img/user/participant/<?= Fonctions::user()->photo ?>" onerror="this.src='https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=170667a&w=0&h=NPyJe8rXdOnLZDSSCdLvLWOtIeC9HjbWFIx8wg5nIks='" class="img-responsive img-thumbnail col-md-12" style="margin: 10px;" >
 				<h4 class="c-font-uppercase c-font-bold"><?= Fonctions::user()->prenom ?>  <?= Fonctions::user()->nom ?></h4><hr/>
 	
-				<!-- 	The following addresses will be used on the checkout page by default. -->
 					<p class="list-groupj-item" >
 						<span style="font-size: 15px;">Ajouter une photo</span>
 							<input type="file" name="upload_image" accept="image/*" id="upload_image" class=" btn-block col-md-12 list-group-item" style="width: 100%" />  
 					<div id="uploaded_image"></div>
-					</p>      
-
-					<div class="col-md-12">
-						<div class="c-content-ver-nav" style="text-align: left;">
-							<ul class="c-menu c-arrow-dot1 c-theme">
-								<li><a href="#"><i class="fa fa-graduation-cap"></i> Mes formations</a></li>
-								<li><a href="#"><i class="fa fa-bell"></i> Notifications (0)</a></li>
-								<li><a href="<?= $link_menu ?>/deconnexion"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
-							</ul>
-						</div>
-					</div>
-					
+					</p>      	
 			</div>
 			<div class="col-md-8">
 				<div class="c-content-tab-1 c-theme c-margin-t-30">
@@ -60,13 +48,24 @@
 					</div>
 					<div class="tab-content c-bordered c-padding-lg">
 						<div class="tab-pane active" id="tab_1_1_content">
-						<h5 style=""><b>A- RENSEIGNEMENTS PERSONNELS</b> </h5><hr/>
 							<form action="" method="post" role="form" data-parsley-validate action="">
 			
-
 								<div class="row">
 									<div class="col-md-12">
 										<div class="row">
+											<div class="col-md-12">
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label class="">Nom</label>
+														<input type="text" name="nom" value="<?= $user->nom ?>" class="form-control"  placeholder="Ex : Anizaire" required="">
+													</div>
+													<div class="col-md-6">
+														<label class="">Prénom</label>
+														<input type="text" name="prenom"  value="<?= $user->prenom ?>" class="form-control" placeholder="Ex : Jacky" required="">
+													</div>
+												</div>
+											</div>
+
 											<div class="form-group col-md-6">
 												<label class="">Sexe </label>
 												<select name="sexe" class="form-control"  required="">
@@ -131,14 +130,12 @@
 										<div class="col-md-12">
 											<div class="row">
 												<div class="form-group col-md-6">
-													<label class="">Commune </label>
+													<label class="">Commune de résidence </label>
 													<select name="commune" class="form-control"  required="">
 														<option value="">Choisir votre commune</option>
-																<?php foreach (Query::liste('commune') as $commune) : ?>
-																<option value="<?= $commune->commune ?>" <?php if ($user->commune == $commune->commune) {
-																																																									echo "selected";
-																																																								} ?> ><?= $commune->commune ?></option>
-																<?php endforeach ?>
+															<?php foreach (Query::liste('commune') as $commune) : ?>
+															<option value="<?= $commune->commune ?>" <?php if ($user->commune == $commune->commune) {echo "selected";																																				} ?> ><?= $commune->commune ?></option>
+															<?php endforeach ?>
 													</select>
 												</div>
 												<div class="col-md-6">
@@ -152,10 +149,20 @@
 										<div class="row">
 										<div class="col-md-12">
 											<div class="row">
+												<div class="col-md-6">
+													<label class="">Niveau d'étude</label>
+													<select name="niveau"  class="form-control" required="">
+														<option value="">Choisir le niveau</option>
+														<option value="primaire" <?php if($user->niveau=='primaire'){echo "selected";} ?>>Primaire</option>
+														<option value="secondaire" <?php if($user->niveau=='secondaire'){echo "selected";} ?>>Secondaire</option>
+														<option value="professionnel ou technique" <?php if($user->niveau=='professionnel ou technique'){echo "selected";} ?>>Secondaire</option>
+														<option value="universitaire" <?php if($user->niveau=='universitaire'){echo "selected";} ?>>Universitaire</option>
+													</select>
+												</div>
 			
-												<div class="col-md-12">
+												<div class="col-md-6">
 													<label class="">Téléphone alternatif</label>
-													<input type="text" name="telephone2" value="<?= $user->telephone2 ?>" class="form-control" placeholder="+5093349-90" required="">
+													<input type="text" name="telephone2" value="<?= $user->telephone2 ?>" class="form-control" placeholder="+5093349-90">
 												</div>
 											</div>
 										</div>

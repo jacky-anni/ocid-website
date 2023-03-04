@@ -32,6 +32,9 @@ if ($formation and $formation->inscription == 0) {
 		<div class="container">
 		<?php include('admin/includes/flash.php'); ?>
 		<div class="row">
+			<div class="col-md-12" style="margin:20px; background-color:#25a8b4; padding:5px";>
+				<h1 style="font-weight:bold; color:white;">Formulaire inscription</h1>
+			</div>
 			<?php include('inscription/info-personnelles.php') ?>
 		</div>
 	</div>

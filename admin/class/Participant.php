@@ -77,7 +77,6 @@
 						// Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
 						// $url = $_SERVER['REQUEST_URI'];
 						// echo "<script>window.location ='$url/$id/2';</script>";
-					
 					}else{
 						// inserer le participant la table
 						$req=class_bdd::connexion_bdd()->prepare("INSERT INTO participant(id,nom,prenom,sexe,departement,commune,email,telephone,telephone2,niveau,domiante_rtude,profession,qui_este_vous,nom_institution,participation_poitiques_publiques,photo,mdp,active) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -280,39 +279,6 @@
 				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone2=? WHERE id=?");
 				$requette->execute(array($telephone2,$_SESSION['id_user']));
 			}
-
-
-			if (isset($societe)) {
-				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom_parti=? WHERE id=?");
-				$requette->execute(array($societe,$_SESSION['id_user']));
-			}
-
-			if (isset($adresse)) {
-				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET 	adresse=? WHERE id=?");
-				$requette->execute(array($adresse,$_SESSION['id_user']));
-			}
-
-			if (isset($nom_dirigeant)) {
-				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET nom_dirigeant=? WHERE id=?");
-				$requette->execute(array($nom_dirigeant,$_SESSION['id_user']));
-			}
-
-			if (isset($telephone_dirigeant)) {
-				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET telephone_dirigeant=? WHERE id=?");
-				$requette->execute(array($telephone_dirigeant,$_SESSION['id_user']));
-			}
-
-			if (isset($email_dirigeant)) {
-				// modifer email
-				$requette=class_bdd::connexion_bdd()->prepare("UPDATE participant SET email_dirigeant=? WHERE id=?");
-				$requette->execute(array($email_dirigeant,$_SESSION['id_user']));
-			}
-
-
 
 			Fonctions::set_flash('Profil modifié','success');
 			echo "<script>window.location ='$link_menu/profile';</script>";

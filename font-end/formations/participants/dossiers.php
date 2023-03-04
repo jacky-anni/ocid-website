@@ -42,7 +42,6 @@
 			$note = 0;
 		}
 		?>
-
 			<div class="col-md-6">
 				<div class="c-layout-sidebar-content ">
 					<div class="c-content-title-1 c-theme c-title-md c-margin-t-40">
