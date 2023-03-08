@@ -72,7 +72,7 @@
 						$req1 = class_bdd::connexion_bdd()->prepare("INSERT INTO token (id_user,rand_,token,action,date_post) VALUES (?,?,?,?,NOW())");
 						$req1->execute(array($id,$rand,$token,"Active"));
 
-						//self::mail($id,$formation->id,$token,$rand);
+						self::mail($id,$formation->id,$token,$rand);
 						echo "<script>window.location ='$link_menu/activation/$id';</script>";
 						// Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
 						// $url = $_SERVER['REQUEST_URI'];
