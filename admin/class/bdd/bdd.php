@@ -9,7 +9,7 @@
 			try
 			{
 					if (self::$pdo===null) {
-						$pdo = new PDO('mysql:host=localhost;dbname=ocid;charset=utf8', 'root', 'jjcommunication');
+						$pdo = new PDO('mysql:host=localhost11111;dbname=ocid;charset=utf8', 'root', 'jjcommunication');
 						// $pdo=new PDO('mysql:host=localhost;dbname=ocid_app','root','jjcommunication');
 						$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 						self::$pdo=$pdo;
