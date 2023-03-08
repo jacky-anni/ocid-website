@@ -1,5 +1,5 @@
 <div class="c-cart-menu">
-<?php if(Fonctions::user()->id): ?>
+<?php if(Fonctions::user()): ?>
 	<div>
 		<ul class="c-content-recent-posts-1">
 		<li>
