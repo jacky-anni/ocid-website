@@ -91,7 +91,7 @@
 							$requette1=class_bdd::connexion_bdd()->prepare("INSERT INTO formation_suivie(id_participant,id_formation) VALUES(?,?)");
 							$requette1->execute(array($user->id,$formation->id));
 						}
-						Fonctions::set_flash('Formation_suivie, connectez vous pour continuer','success');
+						Fonctions::set_flash('Inscription effectué avec succès, connectez vous pour integrer notre communauté','success');
 						echo "<script>window.location ='$link_menu/connexion';</script>";
 					}
 				}else{
@@ -206,6 +206,8 @@
 						$_SESSION['prenom']=$user->prenom;
 						// // selectionner email
 						$_SESSION['email']=$user->email;
+						// departement
+						$_SESSION['departement']=$user->departement;
 
 						if ($_SESSION['redirec_url']) {
 							$url=$_SESSION['redirec_url'];
@@ -354,7 +356,7 @@
 			$Msg = "<p style='margin: 20px; font-size:17px;'>
 					Salut <b>$user->prenom</b>,<br/>
 					si vous n'avez pas fait cette demande, ignorez simplement cet e-mail. Sinon, veuillez cliquer sur le bouton ci-dessous pour changer votre mot de passe </br>
-					<a href='$org->site_web/reset-password/$token/$email/edit' target='_blank' style='color:blue; font-weight: bold'>Reinitialiser votre mot de passe sur ce lien</a>
+					<a href='$org->site_web/reset-password/$token/$email/edit' target='_blank' style='color:blue; font-weight: bold'>Confirmer mon compte</a>
 					</p>";
 
 				// envoyer email

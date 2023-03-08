@@ -32,24 +32,24 @@
 					</a>
 
 					<?php
-					if(isset($_SESSION['id_user'])){
-						$check = Formation::formation_suivie_verif($formations->id,$_SESSION['id_user']);
+					if(isset(Fonctions::user()->id)){
+						$check = Formation::formation_suivie_verif($formations->id,Fonctions::user()->id);
 					}
 					?>
 
-					<?php if(!isset($_SESSION['id_user'])): ?>
+					<?php if(!isset(Fonctions::user()->id)): ?>
 						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
 							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
 						</a>
 					<?php endif ?>
 
-					<!-- <?php if(isset($_SESSION['id_user']) AND $check==1):?>
+					<!-- <?php if(isset(Fonctions::user()->id) AND $check==1):?>
 						<a href="<?= $link_menu ?>/cours/<?= $formations->id ?>">
 							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> Suivre le cours</button>
 						</a>
 					<?php endif ?> -->
 
-					<?php if(isset($_SESSION['id_user']) AND $check==0):?>
+					<?php if(isset(Fonctions::user()->id) AND $check==0):?>
 						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
 							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
 						</a>

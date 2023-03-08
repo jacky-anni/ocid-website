@@ -10,7 +10,7 @@
 <title>Formation | <?= $org->sigle ?></title>
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
-	<?php $user = Query::affiche('participant', $_SESSION['id_user'], 'id'); ?>
+	<?php $user = Query::affiche('participant', Fonctions::user()->id, 'id'); ?>
 <!-- BEGIN: HEADER -->
 <header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile" data-minimize-offset="80">
     <?php include('font-end/layout/header.php'); ?>

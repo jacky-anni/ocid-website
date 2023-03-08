@@ -21,14 +21,14 @@
 
 	<div class="container">
 	<div class="row">
-		<?php foreach (Query::liste_prepare_asc('formation_suivie', $_SESSION['id_user'], 'id_participant') as $dossier) : ?>
+		<?php foreach (Query::liste_prepare_asc('formation_suivie', Fonctions::user()->id, 'id_participant') as $dossier) : ?>
 			<?php 
 		$formation = Query::affiche('formation', $dossier->id_formation, 'id');
 		$module_total = Query::count_prepare('module_formation', $formation->id, 'id_formation');
 
 			    // verifier la quantite de quiz passe
 		$module_total = Module::count($formation->id);
-		$module_passe = Quiz::pass_module($_SESSION['id_user'], $formation->id);
+		$module_passe = Quiz::pass_module(Fonctions::user()->id, $formation->id);
 
 		if ($module_passe > $module_total) {
 			$module_passe = $module_total;
@@ -58,7 +58,7 @@
 			    				<div class="c-post">
 			    					<b> <i class="fa fa-certificate"></i> Certificat de réussite </b>
 			    					<div class="c-date">
-			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><b><i class="fa fa-download"></i> Télécharger</b></span></a> 
+			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= Fonctions::user()->id ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><b><i class="fa fa-download"></i> Télécharger</b></span></a> 
 			    					</div>
 			    				</div>
 			    			</li>
@@ -127,7 +127,7 @@
 							<h2> <i class="fa fa-file"></i> Attestation de participation </h2>
 							<p>
 									<p>Copier le lien</p>
-									<span style="background-color: gray; color: white; font-family: initial; padding: 5px;"><?= $link_menu ?>/attestation/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?></span>
+									<span style="background-color: gray; color: white; font-family: initial; padding: 5px;"><?= $link_menu ?>/attestation/<?= $formation->id ?>/<?= Fonctions::user()->id ?></span>
 							</p>
 						</div>
 						</center>
@@ -153,7 +153,7 @@
 							<p>
 								
 									<p>Copier le lien</p>
-									<span style="background-color: gray; color: white; font-family: initial; padding: 5px;">/<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?></span>
+									<span style="background-color: gray; color: white; font-family: initial; padding: 5px;">/<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= Fonctions::user()->id ?></span>
 							</p>
 						</div>
 						</center>

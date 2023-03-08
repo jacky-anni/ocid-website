@@ -57,7 +57,7 @@
 		</div>
 	</div>
 
- <?php if(!isset($_SESSION['id_user']) AND $url[0]!='inscription'){ ?>
+ <?php if(!isset(Fonctions::user()->id) AND $url[0]!='inscription'){ ?>
 	<div class="col-md-12">
 		<div class="c-content-feature-2 c-option-2 c-theme-bg-parent-hover">
 			<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>" target="_blank">

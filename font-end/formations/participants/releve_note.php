@@ -59,7 +59,7 @@
 								// recher les quiz
 									$quiz_test= Query::affiche('quiz',$module->id,'id_module');
 									// calcu;e des notes
-									$note= Quiz::resultat_quiz($_SESSION['id_user'],$module->id);
+									$note= Quiz::resultat_quiz(Fonctions::user()->id,$module->id);
 								 ?>
 								<tr>
 									<td style="max-width: 200px;">
@@ -88,11 +88,11 @@
 
 							</tbody>
 						</table>
-						<!-- <a target="_blank" href="<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>">
+						<!-- <a target="_blank" href="<?= $link_menu ?>/releve-de-note/<?= $formation->id ?>/<?= Fonctions::user()->id ?>">
 							<button class="pull-right btn btn-success" style="margin: 20px;"> <i class="fa fa-print"></i> imprimer</button>
 						</a> -->
 
-					<!-- 	<a target="_blank" href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>">
+					<!-- 	<a target="_blank" href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= Fonctions::user()->id ?>">
 							<button class="pull-right btn btn-success" style="margin: 20px;"> <i class="fa fa-print"></i> Certificat</button>
 						</a> -->
 						<div style="padding: 10px;"></br>

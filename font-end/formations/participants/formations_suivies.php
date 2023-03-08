@@ -1,5 +1,5 @@
 
-<?php foreach (Query::liste_prepare('formation_suivie',$_SESSION['id_user'],'id_participant') as $formations): ?>
+<?php foreach (Query::liste_prepare('formation_suivie',Fonctions::user()->id,'id_participant') as $formations): ?>
 	
   <?php 
 	$formation=Query::affiche('formation',$formations->id_formation,'id');
@@ -7,7 +7,7 @@
 
     // verifier la quantite de quiz passe
 	$module_total = Module::count($formation->id);
-	$module_passe= Quiz::pass_module($_SESSION['id_user'],$formation->id);
+	$module_passe= Quiz::pass_module(Fonctions::user()->id,$formation->id);
 	if($module_passe > $module_total){
 		$module_passe = $module_total;
 	}
@@ -23,6 +23,8 @@
 		}
 	}
  ?>
+
+
 <div class="row">
 <div class="col-md-4">
 	<div class="item">
@@ -58,11 +60,11 @@
 						<li><a href="<?= $link_menu ?>/releve-note/<?= $formation->id ?>" target="_blank" style="color: black; font-weight: bold;">Notes</a></li>
 
 						<?php if($module_passe!=$module_total and $formation->fermeture == 0 and $formation->certificat_livre==1): ?>
-							<li><a href="<?= $link_menu ?>/attestation/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" style="color: black; font-weight: bold; " target="_blank"> <i class="fa fa-file"></i> Attestation</a></li>
+							<li><a href="<?= $link_menu ?>/attestation/<?= $formation->id ?>/<?= Fonctions::user()->id ?>" style="color: black; font-weight: bold; " target="_blank"> <i class="fa fa-file"></i> Attestation</a></li>
 						<?php endif ?>
 
 						<?php if($module_passe==$module_total and $formation->fermeture == 0 and $formation->certificat_livre==1): ?>
-							<li><a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= $_SESSION['id_user'] ?>" style="color: black; font-weight: bold;" target="_blank"> <i class="fa fa-certificate"></i> Certificat</a></li>
+							<li><a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= Fonctions::user()->id ?>" style="color: black; font-weight: bold;" target="_blank"> <i class="fa fa-certificate"></i> Certificat</a></li>
 						<?php endif ?>
 					</ul>							
 				</div>
