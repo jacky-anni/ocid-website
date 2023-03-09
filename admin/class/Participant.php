@@ -125,7 +125,7 @@
 			$Msg = "<p style='margin: 20px; font-size:17px;'>
 				Salut <b>$user->prenom</b>,<br/>
 				Nous sommes ravis de vous voir commencer le cours <b> <i>$formation->titre</i> </b> Tout d'abord, vous devez confirmer votre compte. Appuyez simplement sur le lien ci-dessous.</br>
-				<a href='$org->site_web/activation/$token/$rand/$formation->id/$user->id' target='_blank'>Reinitialiser Confirmer votre email</a>
+				<a href='$org->site_web/activation/$token/$rand/$formation->id/$user->id' target='_blank'>Confirmer votre email</a>
 				</p>";
 	        // le message
 				//envoyer email
