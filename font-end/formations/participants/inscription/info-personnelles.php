@@ -87,8 +87,8 @@
 
             <div class="form-group  col-md-6">
                 <label >Numero WhatsApp</label>
-                <input type="text" name="numero" value="<?php if (isset($_POST['numero'])) {echo $_POST['numero'];
-                } ?>" data-parsley-maxlength="250" class="form-control" placeholder="Entrer votre numero whatsapp" required="">
+                <input type="number" name="numero" value="<?php if (isset($_POST['numero'])) {echo $_POST['numero'];
+                } ?>" data-parsley-maxlength="250" class="form-control" placeholder="50933301524" required="">
             </div>
 
             <div class="form-group  col-md-6">
@@ -99,8 +99,8 @@
 
             <div class="form-group  col-md-12">
                 <label>Téléphone Alternatif</label>
-                <input type="text" name="telephone2" value="<?php if (isset($_POST['telephone2'])) {echo $_POST['telephone2'];
-                } ?>" data-parsley-maxlength="250" class="form-control" placeholder="Téléphone Alternatif">
+                <input type="number" name="telephone2" value="<?php if (isset($_POST['telephone2'])) {echo $_POST['telephone2'];
+                } ?>" data-parsley-maxlength="250" class="form-control" placeholder="50933301524">
             </div>
 
             <div class="form-group col-md-12">
