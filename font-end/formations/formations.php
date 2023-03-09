@@ -1,6 +1,6 @@
 
 <?php include('admin/class/Formation.php'); ?>
-<?php foreach (Query::liste_prepare('formation','En ligne','etat') as $formations): ?>
+<?php foreach (Query::liste_prepare('formation','En ligne','etat','','DESC') as $formations): ?>
 <div class="c-content-blog-post-card-1 c-option-2 c-bordered" style="padding: 5px;">
 	<div class="row c-margin-b-40">
 		<div class="c-content-product-2">

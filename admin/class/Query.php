@@ -34,11 +34,11 @@ class Query
 			}
 
 			if (empty($limit)) {
-				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY id $order");
+				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY date_post $order");
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}else{
-				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY id $order LIMIT $limit");
+				$req=class_bdd::connexion_bdd()->query("SELECT * FROM $table ORDER BY date_post $order LIMIT $limit");
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}
