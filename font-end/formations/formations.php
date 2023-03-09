@@ -37,23 +37,21 @@
 					}
 					?>
 
-					<?php if(!isset(Fonctions::user()->id)): ?>
+					<?php if(!isset(Fonctions::user()->id) and $formations->inscription==1): ?>
 						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
 							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
 						</a>
 					<?php endif ?>
 
-					<!-- <?php if(isset(Fonctions::user()->id) AND $check==1):?>
-						<a href="<?= $link_menu ?>/cours/<?= $formations->id ?>">
-							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> Suivre le cours</button>
-						</a>
-					<?php endif ?> -->
 
 					<?php if(isset(Fonctions::user()->id) AND $check==0):?>
+						<?php if($formations->inscription==1): ?>
 						<a href="<?= $link_menu ?>/inscription/<?= $formations->id ?>">
 							<button class="btn btn-primary btn-sm c-btn-bold"> <i class="fa fa-sign-in"></i> S'inscrire</button>
 						</a>
+						<?php endif ?>
 					<?php endif ?>
+					
 
 					
 					</p>

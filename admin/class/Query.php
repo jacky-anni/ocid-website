@@ -42,7 +42,6 @@ class Query
 				$data=$req->fetchAll(PDO::FETCH_OBJ);
 				return $data;
 			}
-			
 		}
 		public static function liste_not_egale (){
 			$req=class_bdd::connexion_bdd()->prepare("SELECT  * FROM utilisateur INNER JOIN cv ON utilisateur.id=cv.id_user  WHERE cv.equipe=? OR utilisateur.droit = ? OR utilisateur.droit = ?  ORDER BY utilisateur.date_post DESC");
@@ -137,6 +136,14 @@ class Query
 		return $data;
 	}
 
+
+	// lister commune
+		public static function liste_commune ()
+		{
+			$req=class_bdd::connexion_bdd()->query("SELECT * FROM commune ORDER BY commune ASC");
+			$data=$req->fetchAll(PDO::FETCH_OBJ);
+			return $data;
+		}
 		
 		
 

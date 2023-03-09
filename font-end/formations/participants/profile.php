@@ -133,7 +133,7 @@
 													<label class="">Commune de résidence </label>
 													<select name="commune" class="form-control"  required="">
 														<option value="">Choisir votre commune</option>
-															<?php foreach (Query::liste('commune') as $commune) : ?>
+															<?php foreach (Query::liste_commune() as $commune) : ?>
 															<option value="<?= $commune->commune ?>" <?php if ($user->commune == $commune->commune) {echo "selected";																																				} ?> ><?= $commune->commune ?></option>
 															<?php endforeach ?>
 													</select>

@@ -65,7 +65,7 @@
                 <label>Commune de résidence</label>
                 <select name="commune" class="form-control"  required="">
                     <option value="">Commune de résidence</option>
-                    <?php foreach (Query::liste('commune') as $commune) : ?>
+                    <?php foreach (Query::liste_commune() as $commune) : ?>
                     <option  value="<?= $commune->commune ?>" <?php if (isset($_POST['commune']) and $_POST['commune'] == $commune->commune) {echo "selected";																																				} ?> ><?= $commune->commune ?></option>
                     <?php endforeach ?>
                 </select>
@@ -154,7 +154,7 @@
 
             <div class="form-group col-md-12">
                 <div id="structure_group" style="display:<?php if (isset($_POST['membre']) and $_POST['membre']!=='Membre d’aucune structure') {echo 'block';}else{echo 'none';} ?>">
-                    <label for="structure">Précisez le nom de l'intitution</label>
+                    <label for="structure">Précisez le nom de l'institution</label>
                     <input type="text" class="form-control" id="structure" name="structure" placeholder="Entrer le nom de l'organisation, du partie politique ou le nom de la radio" value="<?php if (isset($_POST['membre']) and $_POST['membre']!=='Membre d’aucune structure') {echo $_POST['structure'];}else{echo '';} ?>" >
                 </div>
             </div>
@@ -190,10 +190,11 @@
             <hr>
         
             <div class="form-group col-md-12"></br>
-                <p class="help-block"><b>En vous inscrivant à cette formation, vous vous engagez à :</b> </br>
-                    - Compléter toute la formation. </br>
-                    - participer à la séance de regroupement en fin de formation dans la ville la plus proche de votre commune (Cap-Haitien ; Cayes ; Port-au-Prince ; Gonaïves). </br>
-                    - réaliser les travaux pratiques en équipe
+                <p class="help-block">
+                    <b>En vous inscrivant à cette formation, vous vous engagez à :</b> </br>
+                    - Compléter l’intégralité de la formation : réaliser les exercices individuels et /ou en groupe correspondant à chaque thème abordé ; </br>
+                    - Participer aux interactions sur le forum de discussions WhatsApp et consulter les ressources disponibles sur la plateforme ; </br>
+                    - Compléter avec succès les deux Quiz proposés pour les deux modules de formation;
                 </p>
 
                 <div class="c-checkbox">

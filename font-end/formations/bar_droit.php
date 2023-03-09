@@ -59,11 +59,13 @@
 
  <?php if(!isset(Fonctions::user()->id) AND $url[0]!='inscription'){ ?>
 	<div class="col-md-12">
+		<?php if($formation->inscription==1): ?>
 		<div class="c-content-feature-2 c-option-2 c-theme-bg-parent-hover">
 			<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>" target="_blank">
 				<a href="<?= $link_menu ?>/inscription/<?= $formation->id?>"><button class="btn btn-success btn-block">S'inscrire</button></a>
 			</a>
 		</div>
+		<?php endif ?>
 	</div>
 	<?php  } ?></hr>
 
