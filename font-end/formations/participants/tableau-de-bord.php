@@ -40,7 +40,6 @@
 							$link_group = "https://chat.whatsapp.com/FctqJJILdoVKNi3g2nnt9E";
 						} 
 					?>
-					
 					<ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
 						<li><a href="<?= $link_group ?>" target="_blank" style="color:blue; font-weight:bold;"> <i class="fa fa-whatsapp"></i> Interegrez le groupe de la formation</a></li>  
 					</ul>

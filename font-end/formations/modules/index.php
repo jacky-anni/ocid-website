@@ -44,9 +44,27 @@
 <div class="c-content-box c-size-md">
 	<div class="container">
 		<div class="row c-page-faq-2">
+			<div class="c-page-title c-pull-left">
+					<h5 class="c-font-uppercase c-font-bold">Bienvenue <?= Fonctions::user()->prenom ?></h5>
+					<?php  
+						$group = Fonctions::user()->departement;
+						$link_group;
+						if($group=='Nord' or $group=='Nord-Est'){
+							$link_group = "https://chat.whatsapp.com/LLi7SauTlamJOhAwNU1MZ9";
+						}elseif ($group=='Artibonite' or $group=='Nord-Ouest' or $group=='Centre'){
+							$link_group = "https://chat.whatsapp.com/Gm3bxxRxbYIFQbQtMMt2ze";
+						}elseif($group=='Ouest' or $group=='Sud-Est' or $group=='Nippes'){
+							$link_group = "https://chat.whatsapp.com/Ft4s6gp3RyTIf0JnXZCNAu";
+						}else{
+							$link_group = "https://chat.whatsapp.com/FctqJJILdoVKNi3g2nnt9E";
+						} 
+					?>
+					<ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+						<li><a href="<?= $link_group ?>" target="_blank" style="color:blue; font-weight:bold;"> <i class="fa fa-whatsapp"></i> Interegrez le groupe de la formation</a></li>  
+					</ul>
+				</div>
 		    <div class="col-sm-12">
 				<?php $today = date("Y-m-d"); ?>
-				
 				<?php if($formation->date_debut <= $today){ ?>
 			    <?php include('partials/modules.php'); ?>
 			    <div class="alert alert-success alert-sm alert-dismissible" role="alert">
