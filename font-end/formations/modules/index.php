@@ -45,11 +45,20 @@
 	<div class="container">
 		<div class="row c-page-faq-2">
 		    <div class="col-sm-12">
+				<?php $today = date("Y-m-d"); ?>
+				
+				<?php if($formation->date_debut <= $today){ ?>
 			    <?php include('partials/modules.php'); ?>
 			    <div class="alert alert-success alert-sm alert-dismissible" role="alert">
 					 <a class="c-font-slim" href="<?= $link_menu ?>/releve-note/<?= $formation->id ?>">Voir les résultats ? </a>.
 					<!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
 				</div>
+				<?php }else{ ?>
+
+					<p class="alert alert-success alert-sm "><b>Date début : </b> <?= Fonctions::format_date($formation->date_debut) ?> </p>
+
+
+					<?php } ?>
 			</div>
 		</div>
 	</div>
