@@ -45,7 +45,6 @@
 	<div class="container">
 		<div class="row c-page-faq-2">
 			<div class="c-page-title c-pull-left">
-					<h5 class="c-font-uppercase c-font-bold">Bienvenue <?= Fonctions::user()->prenom ?></h5>
 					<?php  
 						$group = Fonctions::user()->departement;
 						$link_group;
