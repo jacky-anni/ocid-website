@@ -356,7 +356,7 @@
 			$Msg = "<p style='margin: 20px; font-size:17px;'>
 					Salut <b>$user->prenom</b>,<br/>
 					si vous n'avez pas fait cette demande, ignorez simplement cet e-mail. Sinon, veuillez cliquer sur le bouton ci-dessous pour changer votre mot de passe </br>
-					<a href='$org->site_web/reset-password/$token/$email/edit' target='_blank' style='color:blue; font-weight: bold'>Confirmer mon compte</a>
+					<a href='$org->site_web/reset-password/$token/$email/edit' target='_blank' style='color:blue; font-weight: bold'>Modifier votre mot de passe</a>
 					</p>";
 
 				// envoyer email
