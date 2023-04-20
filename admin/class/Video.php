@@ -29,16 +29,14 @@
 
 		public function ajouter()
 		{
-			if(strlen($this->nom<255)){
+			
 				$count= Query::count_query('video');
 				 $id=rand(1000,1999).$count;
 				$requette=$this->bdd->prepare("INSERT INTO video(nom,reference,posteur,lien,date_post)VALUES (?,?,?,?,NOW())");
 				$requette->execute(array($this->nom,$this->reference,$this->posteur,$this->lien));
 				$url=$_SERVER['REQUEST_URI'];
       			echo "<script>window.location ='$url';</script>";
-			}else{
-				echo "<p class='alert alert-danger'>Le champ (Titre) ne doit pas depasser 254 caractère.</p>";
-			}
+			
 		}
 
 		public function modifier($id)
