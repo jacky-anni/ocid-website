@@ -143,11 +143,20 @@ if (!$count1) {
 							<?php endforeach ?>
 							<?php $count = Query::count_prepare('questions_quiz', $url[3], 'id_quiz'); ?>
 						</form>
+									<?php if($note<60){ ?>
+
+						<a href="<?= $link_menu ?>/quiz/<?= $url[1] ?>/<?= $module->id ?>/<?= $url[3] ?>">
+							<div class="form-group">
+								<button type="submit" name="submit" class="btn btn-primary">  <i class="fa fa-long-arrow-left"></i> Reprendre le test</button>
+							</div>
+						</a>
+						<?php }else{?>
 							<a href="<?= $link_menu ?>/cours/<?= $url[1] ?>">
 								<div class="form-group">
 									<button class="btn btn-primary"> Continuer la formation <i class="fa fa-long-arrow-right"></i> </button>
 								</div>
 							</a>
+						<?php } ?> 
 					
 					</div>
 				</div>
