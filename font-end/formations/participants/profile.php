@@ -53,7 +53,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="row">
-											<div class="col-md-12">
+											<!-- <div class="col-md-12">
 												<div class="row">
 													<div class="form-group col-md-6">
 														<label class="">Nom</label>
@@ -64,7 +64,7 @@
 														<input type="text" name="prenom"  value="<?= $user->prenom ?>" class="form-control" placeholder="Ex : Jacky" required="">
 													</div>
 												</div>
-											</div>
+											</div> -->
 
 											<div class="form-group col-md-6">
 												<label class="">Sexe </label>

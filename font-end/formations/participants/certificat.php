@@ -49,14 +49,16 @@ class MyPdf extends FPDF
 
             if ($formation->id == 18041) {
                 $this->image('font-end/assets/base/img/dossier/certificat.jpg', 5, 4, 270);
-            } else {
-                $this->image('font-end/assets/base/img/dossier/certificat.png', 5, 4, 270);
-
+            } elseif($formation->id == 12723) {
+                $this->image('admin/dist/dossier/certificat_3.jpg', 5, 4, 270);
+            }else{
+                 $this->image('font-end/assets/base/img/dossier/certificat.png', 5, 4, 270);
                 foreach (Query::liste('groupe') as $groupe) {
                     if (trim($groupe->email) == trim($participant->email)) {
                         $this->image('font-end/assets/base/img/dossier/mention.png', 30, 95, 7);
                     }
                 }
+
             }
 
             $this->SetTextColor(249, 96, 52);

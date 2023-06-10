@@ -21,7 +21,7 @@
 
 	<div class="container">
 	<div class="row">
-		<?php foreach (Query::liste_prepare_asc('formation_suivie', Fonctions::user()->id, 'id_participant') as $dossier) : ?>
+		<?php foreach (Query::liste_prepare('formation_suivie', Fonctions::user()->id, 'id_participant') as $dossier) : ?>
 			<?php 
 		$formation = Query::affiche('formation', $dossier->id_formation, 'id');
 		$module_total = Query::count_prepare('module_formation', $formation->id, 'id_formation');
@@ -49,7 +49,7 @@
 						<div class="c-line-left c-theme-bg"></div>
 					</div>
 
-					<?php if($formation->fermeture == 0 and $formation->certificat_livre==1){  ?>
+					<?php if($formation->fermeture == 1 and $formation->certificat_livre==1){  ?>
 					
 					<div class="tab-pane" id="blog_popular_posts">
 			    		<ul class="c-content-recent-posts-1">
