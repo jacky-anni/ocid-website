@@ -8,6 +8,8 @@ require('../admin/class/bdd/bdd.php');
 require '../admin/class/Fonctions.php';
 // module des requettes 
 require '../admin/class/Query.php';
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
 
 
 class MyPdf extends FPDF
