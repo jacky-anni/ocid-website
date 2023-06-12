@@ -1,8 +1,8 @@
 <?php session_start(); ?>
 <?php
  // afficher les erreurs
-    // ini_set('display_errors', 'on');
-    // error_reporting(E_ALL);
+    ini_set('display_errors', 'on');
+    error_reporting(E_ALL);
     ob_start();
 ?>
 <head>
