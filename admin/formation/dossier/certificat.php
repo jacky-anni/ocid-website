@@ -10,7 +10,7 @@ require '../admin/class/Fonctions.php';
 require '../admin/class/Query.php';
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
-ob_start();
+
 
 
 class MyPdf extends FPDF
@@ -20,6 +20,10 @@ class MyPdf extends FPDF
     {
         $formation = Query::affiche('formation', $_GET['id'], 'id');
         $participant = Query::affiche('participant', $_GET['participant'], 'id');
+
+        if($participant) {
+            
+        }
 
         if ($formation->id == 18041) {
             $this->image('../admin/dist/dossier/certificat.jpg', 5, 4, 270);
@@ -40,16 +44,13 @@ class MyPdf extends FPDF
         $this->Cell(0, 145, '' . utf8_decode(" " . $participant->prenom . " " . $participant->nom), 0, 0, 'C');
         $this->Ln(10);
 
-
-
     }
+    
 
 
 
 }
 
-$participant = Query::affiche('participant', $_GET['participant'], 'id');
-$nom = $participant->prenom . " " . $participant->nom . ".pdf";
 
 
 $pdf = new MyPdf();
@@ -58,7 +59,6 @@ $pdf->AddPage('L', 'Letter', 0);
 $pdf->SetFont('Arial', 'B', 16);
 // $pdf->White();
 // $pdf->viewTable();
-//$pdf->Output('I', $nom);
- ob_end_flush(); 
-
+$pdf->Output('I', 'certificat');
+ 
 ?>
