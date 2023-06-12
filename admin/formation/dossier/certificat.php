@@ -58,7 +58,7 @@ $pdf->AddPage('L', 'Letter', 0);
 $pdf->SetFont('Arial', 'B', 16);
 // $pdf->White();
 // $pdf->viewTable();
-$pdf->Output('I', $nom);
+//$pdf->Output('I', $nom);
  ob_end_flush(); 
 
 ?>
