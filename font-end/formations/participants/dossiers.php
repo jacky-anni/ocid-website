@@ -58,7 +58,7 @@
 			    				<div class="c-post">
 			    					<b> <i class="fa fa-certificate"></i> Certificat de réussite </b>
 			    					<div class="c-date">
-			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= Fonctions::user()->id ?>" target="_blank"><span style="margin-right: 7px;" target="_blank"><b><i class="fa fa-download"></i> Télécharger</b></span></a> 
+			    						<a href="<?= $link_menu ?>/certificat/<?= $formation->id ?>/<?= Fonctions::user()->id ?> " target="_blank"> download <span style="margin-right: 7px;" target="_blank"><b><i class="fa fa-download"></i> Télécharger</b></span></a> 
 			    					</div>
 			    				</div>
 			    			</li>
