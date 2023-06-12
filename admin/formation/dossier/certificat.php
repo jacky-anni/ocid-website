@@ -10,7 +10,7 @@ require '../admin/class/Fonctions.php';
 require '../admin/class/Query.php';
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
-
+ob_start();
 
 
 class MyPdf extends FPDF
@@ -51,7 +51,7 @@ class MyPdf extends FPDF
 $participant = Query::affiche('participant', $_GET['participant'], 'id');
 $nom = $participant->prenom . " " . $participant->nom . ".pdf";
 
-ob_start();
+
 $pdf = new MyPdf();
 $pdf->AliasNbPages();
 $pdf->AddPage('L', 'Letter', 0);
