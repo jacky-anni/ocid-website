@@ -21,10 +21,7 @@ class MyPdf extends FPDF
         $formation = Query::affiche('formation', $_GET['id'], 'id');
         $participant = Query::affiche('participant', $_GET['participant'], 'id');
 
-        if($participant) {
-            
-        }
-
+      
         if ($formation->id == 18041) {
             $this->image('../admin/dist/dossier/certificat.jpg', 5, 4, 270);
         } elseif($formation->id == 12723) { 
@@ -45,12 +42,13 @@ class MyPdf extends FPDF
         $this->Ln(10);
 
     }
-    
 
 
 
 }
 
+$participant = Query::affiche('participant', $_GET['participant'], 'id');
+$nom = $participant->prenom . " " . $participant->nom . ".pdf";
 
 
 $pdf = new MyPdf();
@@ -59,6 +57,6 @@ $pdf->AddPage('L', 'Letter', 0);
 $pdf->SetFont('Arial', 'B', 16);
 // $pdf->White();
 // $pdf->viewTable();
-$pdf->Output('I', 'certificat');
+$pdf->Output('I', $nom);
  
 ?>
