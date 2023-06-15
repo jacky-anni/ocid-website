@@ -49,7 +49,7 @@
 						<div class="c-line-left c-theme-bg"></div>
 					</div>
 
-					<?php if($formation->fermeture == 1 and $formation->certificat_livre==1){  ?>
+					<?php if($formation->fermeture == 0 and $formation->certificat_livre==1){  ?>
 					
 					<div class="tab-pane" id="blog_popular_posts">
 			    		<ul class="c-content-recent-posts-1">

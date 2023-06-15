@@ -55,7 +55,7 @@ if ($note >= 60) {
 </div>
 
 <?php 
-if ($formation->fermeture == 1) { ?>
+if ($formation->fermeture == 0) { ?>
 <p class='alert alert-warning' ><b>Ce quiz n'est pas disponible</b></p>
 <?php 
 } else { ?>
